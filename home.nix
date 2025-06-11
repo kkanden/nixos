@@ -9,9 +9,9 @@ let
   fish-pkg = pkgs.stable.fish;
 in
 {
-  # imports = [
-  # 	./modules/hyprland.nix
-  # ];
+  imports = [
+    ./modules/hyprland.nix
+  ];
   home.username = "oliwia";
   home.homeDirectory = "/home/oliwia";
 
@@ -26,6 +26,8 @@ in
 
   home.packages = builtins.attrValues {
     inherit (pkgs)
+      # linux utils
+      alacritty
       # basic tools
       neovim
       gcc
@@ -81,11 +83,6 @@ in
       stylua
       tex-fmt
       air-formatter
-      #fonts
-      liberation_ttf
-      open-sans
-      roboto
-      lato
       ;
 
     inherit (pkgs.rPackages)
