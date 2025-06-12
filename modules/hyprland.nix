@@ -8,6 +8,10 @@
   environment.systemPackages = with pkgs; [
     hyprpolkitagent
     hyprpicker
+    hyprshot
+    grim
+    slurp
+    libnotify
     kitty
   ];
 

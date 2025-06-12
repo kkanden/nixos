@@ -9,11 +9,13 @@
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       wl-clipboard
-      fuzzel
+      libqalculate
       cliphist
       firefox
       discord-ptb
       spotify
+
+      thunderbird-latest-unwrapped
       ;
     zen = self.inputs.zen-browser.packages.${pkgs.system}.default;
   };

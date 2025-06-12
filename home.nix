@@ -14,6 +14,8 @@ in
     ./modules-hm/r.nix
     ./modules-hm/python.nix
     ./modules-hm/alacritty.nix
+    ./modules-hm/sioyek.nix
+    ./modules-hm/rofi.nix
   ];
   home.username = "oliwia";
   home.homeDirectory = "/home/oliwia";
