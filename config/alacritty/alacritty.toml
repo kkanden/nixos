@@ -19,8 +19,5 @@ size = 12
 style = { shape = "Beam", blinking = "Off" }
 thickness = 0.25
 
-[terminal]
-shell = { program = "wsl", args = ["~"] }
-
 [keyboard]
-bindings = [ { key = "Space", mods = "Control", chars = "\u0000" } ]
+bindings = [ { key = "Space", mods = "Control", chars = "\\u0000" } ]

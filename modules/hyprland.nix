@@ -5,9 +5,17 @@
   ...
 }:
 {
-  programs.kitty.enable = true;
-  wayland.windowManager.hyprland = {
+  environment.systemPackages = with pkgs; [
+    hyprpolkitagent
+    hyprpicker
+    kitty
+  ];
+
+  programs.hyprland = {
     enable = true;
-    extraConfig = builtins.readFile ../config/hypr/hyprland.conf;
+    # required for screen sharing to work
+    xwayland.enable = true;
+    withUWSM = true;
   };
+
 }

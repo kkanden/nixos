@@ -10,7 +10,10 @@ let
 in
 {
   imports = [
-    ./modules/hyprland.nix
+    ./modules-hm/hyprland.nix
+    ./modules-hm/r.nix
+    ./modules-hm/python.nix
+    ./modules-hm/alacritty.nix
   ];
   home.username = "oliwia";
   home.homeDirectory = "/home/oliwia";
@@ -26,8 +29,6 @@ in
 
   home.packages = builtins.attrValues {
     inherit (pkgs)
-      # linux utils
-      alacritty
       # basic tools
       neovim
       gcc
@@ -77,6 +78,7 @@ in
       texlab
       yaml-language-server
       taplo
+      hyprls
       # formatters
       alejandra
       nixfmt-rfc-style
@@ -142,15 +144,15 @@ in
       tree = "tree -C";
     };
     functions = {
-      home = {
+      nixos = {
         body =
           # fish
           ''
             if test (count $argv) -eq 0
               set argv[1] "switch"
             end
-              pushd ~/dotfiles
-              home-manager --flake . $argv[1]
+              pushd /etc/nixos
+              sudo nixos-rebuild --flake . $argv[1]
               popd
           '';
       };
