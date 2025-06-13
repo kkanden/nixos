@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+# Rofi PipeWire Audio Output Selector - Fixed Name/Description Mapping
+
+# Function to get available sinks with both name and description
+get_sinks() {
+    pactl -f json list sinks | jq -r '.[] | [.name, .description] | join("|")'
+}
+
+# Function to change audio sink
+change_sink() {
+    local sink_name="$1"
+    
+    # Set default sink
+    if ! pactl set-default-sink "$sink_name"; then
+        echo "ERROR: Failed to set default sink" >&2
+        return 1
+    fi
+
+    # Move all existing inputs to new sink
+    pactl list short sink-inputs | awk '{print $1}' | while read -r index; do
+        if ! pactl move-sink-input "$index" "$sink_name"; then
+            echo "WARNING: Failed to move sink input $index" >&2
+        fi
+    done
+    
+    return 0
+}
+
+# Main function
+main() {
+    # Check dependencies
+    if ! command -v pactl >/dev/null || ! command -v jq >/dev/null || ! command -v rofi >/dev/null; then
+        echo "ERROR: Missing required tools (pactl, jq, rofi)" >&2
+        exit 1
+    fi
+
+    current_sink=$(pactl get-default-sink 2>/dev/null)
+
+    # Create an associative array to map descriptions to names
+    declare -A sink_map
+    while IFS='|' read -r name description; do
+        clean_desc=$(echo "$description" | sed -E 's/^[^a-zA-Z0-9]*//; s/^[ \t]*//;s/[ \t]*$//')
+        sink_map["$clean_desc"]=$name
+    done < <(get_sinks)
+
+    # Generate Rofi menu options
+    choices=()
+    while IFS='|' read -r name description; do
+        if [ "$name" = "$current_sink" ]; then
+            prefix="✓"
+        else
+            prefix=" "
+        fi
+        clean_desc=$(echo "$description" | sed -E 's/^[^a-zA-Z0-9]*//; s/^[ \t]*//;s/[ \t]*$//')
+        choices+=("$prefix $clean_desc")
+    done < <(get_sinks)
+
+    # Show Rofi menu
+    chosen=$(printf '%s\n' "${choices[@]}" | rofi -dmenu -i -p "Select Audio Output" )
+
+    [ -z "$chosen" ] && exit 0  # User cancelled
+
+        clean_desc=$(echo "$chosen" | sed -E 's/^[^a-zA-Z0-9]*//; s/^[ \t]*//;s/[ \t]*$//')
+
+    # Look up the sink name from our map
+    sink_name="${sink_map[$clean_desc]}"
+
+    if [ -z "$sink_name" ]; then
+        echo "ERROR: Could not find sink name for '$clean_desc'" >&2
+        exit 1
+    fi
+
+    # Change the sink
+    if change_sink "$sink_name"; then
+        # Notification
+        if command -v notify-send >/dev/null; then
+            notify-send "Audio Output Changed" "Switched to $clean_desc" -t 2000
+        fi
+        exit 0
+    else
+        echo "ERROR: Failed to change audio output to '$clean_desc' ($sink_name)" >&2
+        exit 1
+    fi
+}
+
+main "$@"

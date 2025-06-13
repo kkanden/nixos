@@ -48,6 +48,18 @@
     };
   };
 
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      preload = [ "~/wallpapers/idk.png" ];
+      wallpaper = [
+        "DP-2,~/wallpapers/idk.png"
+        "HDMI-A-1,~/wallpapers/idk.png"
+      ];
+    };
+
+  };
+
   home.file."scripts/focus-or-launch.sh" = {
     source = ../scripts/focus-or-launch.sh;
     executable = true;

@@ -1,6 +1,7 @@
 { inputs, pkgs, ... }:
 
 {
+  home.packages = [ pkgs.rofi-power-menu ];
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
@@ -14,5 +15,10 @@
       "calc"
     ];
     terminal = "alacritty";
+  };
+
+  home.file."scripts/rofi-audio" = {
+    source = ../scripts/rofi-audio;
+    executable = true;
   };
 }
