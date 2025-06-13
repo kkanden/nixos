@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Rofi PipeWire Audio Output Selector - Fixed Name/Description Mapping
+# Simplified Rofi PipeWire Audio Output Selector
 
-# Function to get available sinks with both name and description
+# Function to get available sinks
 get_sinks() {
     pactl -f json list sinks | jq -r '.[] | [.name, .description] | join("|")'
 }
@@ -10,76 +10,47 @@ get_sinks() {
 # Function to change audio sink
 change_sink() {
     local sink_name="$1"
-    
-    # Set default sink
-    if ! pactl set-default-sink "$sink_name"; then
-        echo "ERROR: Failed to set default sink" >&2
-        return 1
-    fi
-
-    # Move all existing inputs to new sink
-    pactl list short sink-inputs | awk '{print $1}' | while read -r index; do
-        if ! pactl move-sink-input "$index" "$sink_name"; then
-            echo "WARNING: Failed to move sink input $index" >&2
-        fi
-    done
-    
-    return 0
+    pactl set-default-sink "$sink_name" || return 1
+    pactl list short sink-inputs | awk '{print $1}' | xargs -r -I{} pactl move-sink-input {} "$sink_name"
 }
 
-# Main function
+# Function to clean and shorten description
+clean_desc() {
+    echo "$1" | sed -E 's/^[^a-zA-Z0-9]*//; s/^[ \t]*//; s/[ \t]*$//' | cut -d' ' -f1-3
+}
+
 main() {
-    # Check dependencies
-    if ! command -v pactl >/dev/null || ! command -v jq >/dev/null || ! command -v rofi >/dev/null; then
-        echo "ERROR: Missing required tools (pactl, jq, rofi)" >&2
-        exit 1
-    fi
+    ! command -v pactl >/dev/null || ! command -v jq >/dev/null || ! command -v rofi >/dev/null && \
+        { echo "ERROR: Missing required tools" >&2; exit 1; }
 
     current_sink=$(pactl get-default-sink 2>/dev/null)
-
-    # Create an associative array to map descriptions to names
     declare -A sink_map
-    while IFS='|' read -r name description; do
-        clean_desc=$(echo "$description" | sed -E 's/^[^a-zA-Z0-9]*//; s/^[ \t]*//;s/[ \t]*$//')
-        sink_map["$clean_desc"]=$name
-    done < <(get_sinks)
-
-    # Generate Rofi menu options
     choices=()
+
     while IFS='|' read -r name description; do
-        if [ "$name" = "$current_sink" ]; then
-            prefix="✓"
-        else
-            prefix=" "
-        fi
-        clean_desc=$(echo "$description" | sed -E 's/^[^a-zA-Z0-9]*//; s/^[ \t]*//;s/[ \t]*$//')
-        choices+=("$prefix $clean_desc")
+        short_desc=$(clean_desc "$description")
+        sink_map["$short_desc"]=$name
+        prefix=$([ "$name" = "$current_sink" ] && echo "✓" || echo " ")
+        choices+=("$prefix $short_desc")
     done < <(get_sinks)
 
-    # Show Rofi menu
-    chosen=$(printf '%s\n' "${choices[@]}" | rofi -dmenu -i -p "Select Audio Output" )
+    chosen=$(printf '%s\n' "${choices[@]}" | rofi -dmenu -i -p "" \
+        -theme-str '
+            window {
+                width: 20%;
+                height: 20%;
+            }
+        ')
 
-    [ -z "$chosen" ] && exit 0  # User cancelled
+    [ -z "$chosen" ] && exit 0
 
-        clean_desc=$(echo "$chosen" | sed -E 's/^[^a-zA-Z0-9]*//; s/^[ \t]*//;s/[ \t]*$//')
+    sink_name="${sink_map[$(clean_desc "$chosen")]}"
+    [ -z "$sink_name" ] && { echo "ERROR: Invalid selection" >&2; exit 1; }
 
-    # Look up the sink name from our map
-    sink_name="${sink_map[$clean_desc]}"
-
-    if [ -z "$sink_name" ]; then
-        echo "ERROR: Could not find sink name for '$clean_desc'" >&2
-        exit 1
-    fi
-
-    # Change the sink
     if change_sink "$sink_name"; then
-        # Notification
-        if command -v notify-send >/dev/null; then
-            notify-send "Audio Output Changed" "Switched to $clean_desc" -t 2000
-        fi
-        exit 0
+        notify-send "Audio Changed" "Now using $(clean_desc "$chosen")" -t 2000 2>/dev/null
     else
-        echo "ERROR: Failed to change audio output to '$clean_desc' ($sink_name)" >&2
+        echo "ERROR: Failed to change audio" >&2
         exit 1
     fi
 }
