@@ -21,4 +21,9 @@
     source = ../scripts/rofi-audio;
     executable = true;
   };
+
+  home.file."scripts/rofi-search" = {
+    source = ../scripts/rofi-search;
+    executable = true;
+  };
 }
