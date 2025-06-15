@@ -47,7 +47,7 @@ in
       nix-prefetch-git
       tree-sitter
       pandoc
-      # texliveFull
+      texliveFull
       dust
       yarn
       # cosmetic
@@ -144,12 +144,13 @@ in
         body =
           # fish
           ''
+            trap popd EXIT
+
             if test (count $argv) -eq 0
               set argv[1] "switch"
             end
               pushd /etc/nixos
               sudo nixos-rebuild --flake . $argv[1]
-              popd
           '';
       };
     };
@@ -166,6 +167,12 @@ in
         source ${./config/fish/vague.fish}
         fortune | cowsay
       '';
+  };
+
+  programs.nix-index = {
+    enable = true;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
   };
 
   programs.tmux = {
