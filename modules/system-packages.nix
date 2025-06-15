@@ -24,6 +24,8 @@
       qpwgraph
       libratbag
       piper
+
+      papirus-icon-theme
       ;
 
     inherit (pkgs.kdePackages)

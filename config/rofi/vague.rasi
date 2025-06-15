@@ -1,0 +1,150 @@
+/**
+ * Rofi theme based on Flow Launcher XAML theme
+ */
+
+* {
+    bg-col:    #141415;
+    bg-col-light: #252530;
+    border-col: #252530;
+    selected-col: #252530;
+    blue:      #AEAED1;
+    fg-col:    #D7D7D7;
+    fg-col2:   #BEBEDA;
+    grey:      #606079;
+    highlight: #D8647E;
+
+    width: 500;
+    height: 500;
+    padding: 0;
+    margin: 0;
+    spacing: 0;
+    border-radius: 1px;
+    border: 3px;
+    background-color: @bg-col;
+    font: "JetBrainsMono Nerd Font 10";
+}
+
+window {
+    background-color: @bg-col;
+    border-color: @border-col;
+    border: 3px;
+}
+
+inputbar {
+    children: [prompt, entry];
+    padding: 15px 15px;
+    margin: 0;
+}
+
+prompt {
+    background-color: transparent;
+    text-color: @bg-col-light;
+    padding: 0 5px;
+    margin: 0;
+}
+
+entry {
+    background-color: transparent;
+    text-color: @fg-col;
+    placeholder-color: @grey;
+    cursor: #FFFFFF;
+    padding: 0;
+    margin: 0;
+}
+
+listview {
+    background-color: transparent;
+    scrollbar: true;
+    padding: 8px;
+    margin: 0;
+    spacing: 0;
+    dynamic: false;
+}
+
+scrollbar {
+    handle-width: 3px;
+    handle-color: @bg-col-light;
+    handle-rounder-corners: true;
+}
+
+element {
+    background-color: transparent;
+    text-color: @fg-col;
+    padding: 12px;
+    margin: 0 12px 0 0;
+}
+
+element selected {
+    background-color: @selected-col;
+    text-color: @fg-col2;
+    border: 0;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    highlight: @highlight;
+    margin: 0;
+}
+
+element-icon {
+    background-color: transparent;
+    size: 25;
+    margin: 0;
+}
+
+element selected element-text {
+    text-color: @fg-col2;
+}
+
+element selected element-icon {
+    text-color: @fg-col;
+}
+
+element normal.urgent, element alternate.urgent {
+    background-color: @selected-col;
+    text-color: @highlight;
+}
+
+element normal.active, element alternate.active {
+    background-color: @bg-col-light;
+}
+
+element selected.urgent {
+    background-color: @selected-col;
+    text-color: @highlight;
+}
+
+element selected.active {
+    background-color: @selected-col;
+    text-color: @fg-col2;
+}
+
+mode-switcher {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+message {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textbox {
+    text-color: @fg-col;
+    background-color: transparent;
+    placeholder-color: @grey;
+    cursor: #FFFFFF;
+    padding: 15px 15px;
+    margin: 0;
+}
+
+error-message {
+    text-color: @highlight;
+    background-color: @bg-col;
+    border: 0;
+    padding: 15px;
+    margin: 0;
+}
