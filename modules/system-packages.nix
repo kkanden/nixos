@@ -21,6 +21,9 @@
       playerctl
       pulseaudio
       libnotify
+      qpwgraph
+      libratbag
+      piper
       ;
 
     inherit (pkgs.kdePackages)
@@ -29,5 +32,8 @@
       ;
 
     zen = inputs.zen-browser.packages.${pkgs.system}.default;
+  };
+  services.ratbagd = {
+    enable = true;
   };
 }
