@@ -13,6 +13,7 @@
     ./modules/system-packages.nix
     ./modules/steam.nix
     ./modules/hyprland.nix
+    ./modules/keyd.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -66,6 +67,7 @@
       "video"
       "input"
       "wireshark"
+      "keyd"
     ];
   };
 

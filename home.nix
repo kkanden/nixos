@@ -18,6 +18,7 @@ in
     ./modules-hm/rofi.nix
     ./modules-hm/hyprpanel.nix
     ./modules-hm/kdeconnect.nix
+    ./modules-hm/keyd-app.nix
   ];
 
   home.username = "oliwia";
