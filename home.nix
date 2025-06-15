@@ -17,6 +17,7 @@ in
     ./modules-hm/sioyek.nix
     ./modules-hm/rofi.nix
     ./modules-hm/hyprpanel.nix
+    ./modules-hm/kdeconnect.nix
   ];
 
   home.username = "oliwia";
