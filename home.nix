@@ -9,6 +9,7 @@ let
 in
 {
   imports = [
+    ./modules-hm/neovim.nix
     ./modules-hm/hyprland.nix
     ./modules-hm/r.nix
     ./modules-hm/python.nix
@@ -26,7 +27,6 @@ in
   home.packages = builtins.attrValues {
     inherit (pkgs)
       # basic tools
-      neovim
       gcc
       diffutils
       which
