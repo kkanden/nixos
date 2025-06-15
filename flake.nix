@@ -12,6 +12,7 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
   };
 
   outputs =
@@ -20,7 +21,7 @@
       nixpkgs,
       nixpkgs-stable,
       home-manager,
-      zen-browser,
+      ...
     }@inputs:
     let
       system = "x86_64-linux";
@@ -28,7 +29,10 @@
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = system;
-        specialArgs = inputs;
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+        };
         modules = [
           ./configuration.nix
           ./hardware-configuration.nix
@@ -42,8 +46,10 @@
           {
             nixpkgs.overlays = [
               (final: prev: { stable = import nixpkgs-stable { inherit (prev) system; }; })
+              inputs.hyprpanel.overlay
             ];
           }
+
         ];
       };
     };

@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -14,20 +13,15 @@ in
     ./modules-hm/r.nix
     ./modules-hm/python.nix
     ./modules-hm/alacritty.nix
-    ./modules-hm/sioyek.nix
+    # ./modules-hm/sioyek.nix
     ./modules-hm/rofi.nix
+    ./modules-hm/hyprpanel.nix
   ];
+
   home.username = "oliwia";
   home.homeDirectory = "/home/oliwia";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "25.05"; # Please read the comment before changing.
 
   home.packages = builtins.attrValues {
     inherit (pkgs)
@@ -124,7 +118,7 @@ in
     enable = true;
     # enable fish shell as per https://nixos.wiki/wiki/Fish
     initExtra = ''
-      source ~/dotfiles/config/ls_colors
+      source ${./config/ls_colors}
       if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
       then
         shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
