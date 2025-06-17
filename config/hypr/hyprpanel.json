@@ -1,7 +1,5 @@
 {
-  "bar.customModules.storage.paths": [
-    "/"
-  ],
+  "bar.customModules.storage.paths": ["/"],
   "theme.font.size": "10pt",
   "menus.transition": "crossfade",
   "theme.bar.menus.enableShadow": false,
@@ -17,21 +15,9 @@
       "right": []
     },
     "1": {
-      "left": [
-        "weather",
-        "workspaces",
-        "windowtitle"
-      ],
-      "middle": [
-        "clock"
-      ],
-      "right": [
-        "cava",
-        "media",
-        "kbinput",
-        "volume",
-        "notifications"
-      ]
+      "left": ["weather", "workspaces", "windowtitle"],
+      "middle": ["clock"],
+      "right": ["cava", "media", "kbinput", "volume", "notifications"]
     }
   },
   "theme.bar.floating": true,
@@ -50,6 +36,10 @@
   "bar.media.truncation": true,
   "bar.media.show_label": true,
   "bar.media.format": "{title: - }{artist}",
+  "bar.media.scrollUp": "playerctl volume 0.1+ -p spotify",
+  "bar.media.scrollDown": "playerctl volume 0.1- -p spotify",
+  "bar.media.rightClick": "playerctl play-pause -p spotify",
+  "bar.media.middleClick": "playerctl next -p spotify",
   "menus.media.hideAuthor": false,
   "menus.media.displayTimeTooltip": true,
   "menus.media.noMediaText": "",
