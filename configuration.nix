@@ -8,7 +8,9 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./modules/wayland.nix
     ./modules/nvidia.nix
+    ./modules/ssd.nix
     ./modules/fonts.nix
     ./modules/system-packages.nix
     ./modules/steam.nix
@@ -69,10 +71,6 @@
       "wireshark"
       "keyd"
     ];
-  };
-
-  environment.variables = {
-    NIXOS_OZONE_WL = "1";
   };
 
   # Enable automatic login for the user.
