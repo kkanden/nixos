@@ -26,6 +26,8 @@
       piper
 
       papirus-icon-theme
+
+      libreoffice-qt6-fresh
       ;
 
     inherit (pkgs.kdePackages)
