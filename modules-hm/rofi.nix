@@ -23,7 +23,8 @@
       dpi = 120;
 
       display-drun = "";
-      drun-display-format = "{icon} {name}";
+      drun-display-format = "{name} <span weight='light' size='small' foreground='#606079'><i>{generic}</i></span>";
+      drun-match-fields = "name,generic";
 
       close-on-delete = false;
       matching = "fuzzy";
