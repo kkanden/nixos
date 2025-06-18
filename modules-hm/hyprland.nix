@@ -72,6 +72,8 @@
     source = ../scripts/focus-or-launch;
     executable = true;
   };
+  home.file."scripts/killactive-steamsafe" = {
+    source = ../scripts/killactive-steamsafe;
     executable = true;
   };
 }

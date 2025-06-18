@@ -8,27 +8,26 @@
 {
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
-      xdg-utils
-      killall
-      inotify-tools
-      wl-clipboard
-      libqalculate
-      cliphist
-      firefox
-      discord-ptb
-      spotify
-      thunderbird-latest-unwrapped
       cava
+      cliphist
+      discord-ptb
+      firefox
+      inotify-tools
+      killall
+      libnotify
+      libqalculate
+      libratbag
+      libreoffice-qt6-fresh
+      papirus-icon-theme
+      piper
       playerctl
       pulseaudio
-      libnotify
       qpwgraph
-      libratbag
-      piper
-
-      papirus-icon-theme
-
-      libreoffice-qt6-fresh
+      spotify
+      thunderbird-latest-unwrapped
+      wl-clipboard
+      xdg-utils
+      xdotool
       ;
 
     inherit (pkgs.kdePackages)
