@@ -8,17 +8,18 @@ let
   fish-pkg = pkgs.stable.fish;
 in
 {
-  imports = [
-    ./modules-hm/neovim.nix
-    ./modules-hm/hyprland.nix
-    ./modules-hm/r.nix
-    ./modules-hm/python.nix
-    ./modules-hm/alacritty.nix
-    ./modules-hm/sioyek.nix
-    ./modules-hm/rofi.nix
-    ./modules-hm/hyprpanel.nix
-    ./modules-hm/kdeconnect.nix
-    ./modules-hm/keyd-app.nix
+  imports = map (m: ./modules-hm + "/${m}.nix") [
+    "xdg"
+    "neovim"
+    "hyprland"
+    "r"
+    "python"
+    "alacritty"
+    "sioyek"
+    "rofi"
+    "hyprpanel"
+    "kdeconnect"
+    "keyd-app"
   ];
 
   home.username = "oliwia";

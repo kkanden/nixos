@@ -6,17 +6,18 @@
 }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./modules/wayland.nix
-    ./modules/nvidia.nix
-    ./modules/ssd.nix
-    ./modules/fonts.nix
-    ./modules/system-packages.nix
-    ./modules/steam.nix
-    ./modules/hyprland.nix
-    ./modules/keyd.nix
-  ];
+  imports =
+    [ ./hardware-configuration.nix ]
+    ++ map (m: ./modules + "/${m}.nix") [
+      "wayland"
+      "nvidia"
+      "ssd"
+      "fonts"
+      "system-packages"
+      "steam"
+      "hyprland"
+      "keyd"
+    ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
