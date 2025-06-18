@@ -7,8 +7,16 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    package = null; # both nulls are required to avoid conflict with the nixos module
+    portalPackage = null;
     extraConfig = builtins.readFile ../config/hypr/hyprland.conf;
-    systemd.enable = false;
+    systemd = {
+      enable = false;
+      variables = [ "--all" ];
+    };
+    plugins = with pkgs.hyprlandPlugins; [
+      csgo-vulkan-fix
+    ];
   };
 
   programs.hyprlock = {
