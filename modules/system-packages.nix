@@ -8,6 +8,7 @@
 {
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
+      xdg-utils
       killall
       inotify-tools
       wl-clipboard

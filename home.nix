@@ -38,7 +38,6 @@ in
       fontconfig
       wget
       unzip
-      xdg-utils
       # additional tools
       fzf
       fd
