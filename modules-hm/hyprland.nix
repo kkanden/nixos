@@ -68,8 +68,10 @@
 
   };
 
-  home.file."scripts/focus-or-launch.sh" = {
-    source = ../scripts/focus-or-launch.sh;
+  home.file."scripts/focus-or-launch" = {
+    source = ../scripts/focus-or-launch;
+    executable = true;
+  };
     executable = true;
   };
 }
