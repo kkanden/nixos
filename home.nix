@@ -132,6 +132,12 @@ in
   programs.fish = {
     enable = true;
     package = fish-pkg;
+    plugins = [
+      {
+        name = "fzf";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
+    ];
     shellAliases = {
       r = "R";
       gs = "git status";
