@@ -9,6 +9,7 @@
   imports =
     [ ./hardware-configuration.nix ]
     ++ map (m: ./modules + "/${m}.nix") [
+      "uwsm"
       "wayland"
       "nvidia"
       "ssd"
