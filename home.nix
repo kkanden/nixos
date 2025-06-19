@@ -142,7 +142,7 @@ in
       r = "R";
       gs = "git status";
       la = "ls -la";
-      nixh = "nvim ~/dotfiles/home.nix";
+      nho = "nh os switch";
     };
     shellAbbrs = {
       tree = "tree -C";
@@ -157,8 +157,9 @@ in
             if test (count $argv) -eq 0
               set argv[1] "switch"
             end
-              pushd /etc/nixos
-              sudo nixos-rebuild --flake . $argv[1]
+            pushd /etc/nixos
+            sudo nixos-rebuild --flake . $argv[1]
+            popd
           '';
       };
     };
@@ -185,6 +186,7 @@ in
 
   programs.tmux = {
     enable = true;
+    shell = "${fish-pkg}/bin/fish";
     extraConfig = builtins.readFile ./config/tmux/tmux.conf;
     plugins = builtins.attrValues {
       inherit (pkgs.tmuxPlugins)

@@ -18,6 +18,7 @@
       "steam"
       "hyprland"
       "keyd"
+      "nh"
     ];
 
   boot.loader.systemd-boot.enable = true;
