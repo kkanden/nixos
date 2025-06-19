@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib', pkgs, ... }:
 
 {
   home.packages = [ pkgs.rofi-power-menu ];
@@ -16,7 +16,7 @@
     terminal = "alacritty";
     font = "JetBrainsMono Nerd Font 16";
 
-    theme = ../config/rofi/vague.rasi;
+    theme = lib'.mkConfig "rofi/vague.rasi";
     extraConfig = {
       show-icons = true;
       icon-theme = "Papirus";

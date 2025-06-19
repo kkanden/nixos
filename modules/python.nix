@@ -13,7 +13,7 @@ let
     ];
 in
 {
-  home.packages = [
+  environment.systemPackages = [
     (pkgs.python313.withPackages py-packages)
   ];
 }

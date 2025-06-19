@@ -1,7 +1,7 @@
-{ ... }:
+{ lib', ... }:
 {
   programs.alacritty = {
     enable = true;
-    settings = builtins.fromTOML (builtins.readFile ../config/alacritty/alacritty.toml);
+    settings = builtins.fromTOML (lib'.readConfig "alacritty/alacritty.toml");
   };
 }

@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ lib', pkgs, ... }:
 {
   wayland.windowManager.hyprland = {
     enable = true;
     package = null; # both nulls are required to avoid conflict with the nixos module
     portalPackage = null;
-    extraConfig = builtins.readFile ../config/hypr/hyprland.conf;
+    extraConfig = lib'.readConfig "hypr/hyprland.conf";
     systemd = {
       enable = false;
       variables = [ "--all" ];

@@ -9,16 +9,21 @@
   imports =
     [ ./hardware-configuration.nix ]
     ++ map (m: ./modules + "/${m}.nix") [
-      "uwsm"
-      "wayland"
-      "nvidia"
-      "ssd"
+      "bash"
       "fonts"
-      "system-packages"
-      "steam"
       "hyprland"
       "keyd"
       "nh"
+      "nix-index"
+      "nvidia"
+      "python"
+      "r"
+      "ssd"
+      "steam"
+      "system-packages"
+      "uwsm"
+      "wayland"
+      "zoxide"
     ];
 
   boot.loader.systemd-boot.enable = true;
