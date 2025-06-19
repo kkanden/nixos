@@ -17,12 +17,6 @@
         ];
       };
     };
-    mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "text/plain" = [ "nvim-alacritty.desktop" ];
-      };
-    };
   };
 
 }
