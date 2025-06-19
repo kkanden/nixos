@@ -3,14 +3,16 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/code ~/school ~/.config ~/dotfiles -mindepth 0 -maxdepth 2 -type d | \
-        sed "s|^$HOME/||" | \
-        fzf
+    selected=$(
+        {
+            find ~/projects ~/school ~/.config -mindepth 0 -maxdepth 2 -type d 2>/dev/null 
+            echo "/etc/nixos"
+        } | sed "s|^$HOME/||" | sort | fzf
     )
-    if [[ -n $selected ]]; then
+    if [[ -n $selected ]] && [[ "${selected:0:1}" != / ]]; then
         selected="$HOME/$selected"
     fi
-        
+
 fi
 
 if [[ -z $selected ]]; then
