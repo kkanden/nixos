@@ -25,22 +25,29 @@
     }@inputs:
     let
       system = "x86_64-linux";
+      lib' = import ./lib {
+        inherit (nixpkgs) lib;
+        configPath = ./config;
+      };
+      specialArgs = {
+        inherit inputs system lib';
+        configPath = ./config;
+      };
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = {
-          inherit inputs;
-          inherit system;
-        };
+        inherit system specialArgs;
         modules = [
           ./configuration.nix
           ./hardware-configuration.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.oliwia = ./home.nix;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.oliwia = ./home.nix;
+              extraSpecialArgs = specialArgs;
+            };
           }
 
           {

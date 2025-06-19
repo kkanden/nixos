@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib', pkgs, ... }:
 {
   programs.sioyek = {
     enable = true;
@@ -12,6 +12,6 @@
       '';
     };
   };
-  xdg.configFile."sioyek/keys_user.config".source = ../config/sioyek/keys.config;
-  xdg.configFile."sioyek/prefs_user.config".source = ../config/sioyek/prefs.config;
+  xdg.configFile."sioyek/keys_user.config".source = lib'.mkConfig "sioyek/keys.config";
+  xdg.configFile."sioyek/prefs_user.config".source = lib'.mkConfig "sioyek/prefs.config";
 }
