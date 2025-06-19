@@ -83,6 +83,7 @@ in
       stylua
       tex-fmt
       air-formatter
+      shfmt
       ;
 
     inherit (pkgs.rPackages)

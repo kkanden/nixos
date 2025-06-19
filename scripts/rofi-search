@@ -4,41 +4,41 @@
 
 # Available search engines - first word is key, rest is URL pattern
 declare -A SEARCH_ENGINES=(
-    ["google"]="https://www.google.com/search?q="
-    ["gh"]="https://github.com/?q="
-    ["nix"]="https://search.nixos.org/packages?channel=unstable&query="
-    ["diki"]="https://www.diki.pl/slownik-angielskiego?q="
+	["google"]="https://www.google.com/search?q="
+	["gh"]="https://github.com/?q="
+	["nix"]="https://search.nixos.org/packages?channel=unstable&query="
+	["diki"]="https://www.diki.pl/slownik-angielskiego?q="
 )
 
 # Default search engine
 DEFAULT_ENGINE="google"
 
 main() {
-    # Get input via rofi
-    input=$(rofi -dmenu -p "Search" \
-        -theme-str '
+	# Get input via rofi
+	input=$(rofi -dmenu -p "Search" \
+		-theme-str '
             window {
                 width: 40%;
                 height: 10%;
             }
         ')
 
-    [ -z "$input" ] && exit 0  # Exit if empty
+	[ -z "$input" ] && exit 0 # Exit if empty
 
-    # Split into engine and query
-    read -r engine query <<< "$input"
-    
-    # Use default if no engine specified
-    if [[ -z $query ]]; then
-        query="$engine"
-        engine="$DEFAULT_ENGINE"
-    fi
+	# Split into engine and query
+	read -r engine query <<<"$input"
 
-    # Get URL pattern or default to Google
-    url_pattern="${SEARCH_ENGINES[$engine]:-${SEARCH_ENGINES[$DEFAULT_ENGINE]}}"
-    
-    # Open in default browser
-    xdg-open "${url_pattern}${query}" 2>/dev/null
+	# Use default if no engine specified
+	if [[ -z $query ]]; then
+		query="$engine"
+		engine="$DEFAULT_ENGINE"
+	fi
+
+	# Get URL pattern or default to Google
+	url_pattern="${SEARCH_ENGINES[$engine]:-${SEARCH_ENGINES[$DEFAULT_ENGINE]}}"
+
+	# Open in default browser
+	xdg-open "${url_pattern}${query}" 2>/dev/null
 }
 
 main "$@"
