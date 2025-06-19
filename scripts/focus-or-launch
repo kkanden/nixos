@@ -3,10 +3,10 @@
 execCommand=$1
 className=$2
 
-running=$(hyprctl -j clients | jq -r ".[] | select(.class == \"${className}\")")
+running=$(hyprctl -j clients | jq -r ".[] | select(.class == \"$className\")")
 
-if [[ $running != "" ]]; then
+if [ "$running" ]; then
 	hyprctl dispatch focuswindow "class:$className"    
 else 
-	hyprctl dispatch "${execCommand}" & 
+	hyprctl dispatch exec "$execCommand"
 fi
