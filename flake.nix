@@ -41,6 +41,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.oliwia = ./home.nix;
+            home-manager.backupFileExtension = "hm-backup";
           }
 
           {
