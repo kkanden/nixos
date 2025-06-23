@@ -103,8 +103,8 @@ in
   # plain files is through 'home.file'.
   home.file = {
     ".Rprofile".source = ./config/.Rprofile;
-    "scripts/tmux-sessionizer.sh" = {
-      source = ./scripts/tmux-sessionizer.sh;
+    "scripts/tmux-sessionizer" = {
+      source = ./scripts/tmux-sessionizer;
       executable = true;
     };
     ".latexmkrc".source = ./config/latexmkrc;
@@ -171,7 +171,7 @@ in
         bind \t accept-autosuggestion
         bind \cn complete-and-search
 
-        bind \cf 'tmux-sessionizer.sh'
+        bind \cf 'tmux-sessionizer'
 
         source ${./config/fish/vague.fish}
         fortune | cowsay
