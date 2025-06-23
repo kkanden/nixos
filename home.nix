@@ -121,7 +121,6 @@ in
     enable = true;
     # enable fish shell as per https://nixos.wiki/wiki/Fish
     initExtra = ''
-      source ${./config/ls_colors}
       if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
       then
         shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""

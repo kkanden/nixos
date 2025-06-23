@@ -28,6 +28,8 @@
       wl-clipboard
       xdg-utils
       xdotool
+      qimgv
+      vlc
       ;
 
     inherit (pkgs.kdePackages)

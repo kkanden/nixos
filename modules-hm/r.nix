@@ -9,6 +9,10 @@ let
       ggtext
       ggh4x
       ggsci
+      ggstats
+      extrafont
+      showtext
+      labelled
       stringi
       DBI
       DT

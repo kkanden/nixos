@@ -1,14 +1,10 @@
-{
-  self,
-  config,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   imports =
     [ ./hardware-configuration.nix ]
     ++ map (m: ./modules + "/${m}.nix") [
+      "bash"
       "uwsm"
       "wayland"
       "nvidia"
@@ -19,6 +15,8 @@
       "hyprland"
       "keyd"
       "nh"
+      "obs-studio"
+      "gvfs"
     ];
 
   boot.loader.systemd-boot.enable = true;
