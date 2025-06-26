@@ -39,7 +39,4 @@
 
     zen = inputs.zen-browser.packages.${pkgs.system}.default;
   };
-  services.ratbagd = {
-    enable = true;
-  };
 }

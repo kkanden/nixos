@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+MOUSE_NAME="G703"
+GAME_CLASSES=(
+    "cs2"
+    "steam_app_2357570" # overwatch
+)
+
+get_active_window() {
+    hyprctl activewindow -j | jq -r '.class'
+}
+
+is_game() {
+    local class
+    class=$(echo "$1" | awk '{print tolower($0)}')
+    for game_class in "${GAME_CLASSES[@]}"; do
+        game_class=$(echo "$game_class" | awk '{print tolower($0)}')
+        if [[ "$class" == "$game_class" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+get_current_profile() {
+    ratbagctl "$MOUSE_NAME" profile active get
+}
+
+set_profile() {
+    ratbagctl "$MOUSE_NAME" profile active set "$1"
+}
+
+default_profile=0
+game_profile=1
+current_profile=$(get_current_profile)
+
+previous_class=""
+
+while true; do
+    current_class=$(get_active_window)
+    if [[ "$current_class" != "$previous_class" ]]; then
+
+        if is_game "$current_class"; then
+            if [[ "$current_profile" != "$game_profile" ]]; then
+                set_profile $game_profile
+                current_profile=$game_profile
+            fi
+        else
+            if [[ "$current_profile" != "$default_profile" ]]; then
+                set_profile $default_profile
+                current_profile=$default_profile
+            fi
+        fi
+    fi
+done

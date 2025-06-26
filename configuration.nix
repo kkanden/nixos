@@ -17,6 +17,7 @@
       "nh"
       "obs-studio"
       "gvfs"
+      "ratbag"
     ];
 
   boot.loader.systemd-boot.enable = true;
