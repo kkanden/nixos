@@ -8,7 +8,7 @@ else
             find ~/projects ~/school ~/.config -mindepth 0 -maxdepth 2 -type d 2>/dev/null
             echo "/etc/nixos"
             tmux list-sessions -F "#{session_name} (session)" 2>/dev/null
-        } | sed "s|^$HOME/||" | fzf --tac --tmux
+        } | sed "s|^$HOME/||" | fzf --tac
     )
     if [[ -n $selected ]]; then
         if [[ $selected == *" (session)" ]]; then
