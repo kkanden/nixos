@@ -1,7 +1,5 @@
 {
   inputs,
-  config,
-  lib,
   pkgs,
   ...
 }:
@@ -26,15 +24,16 @@
       spotify
       thunderbird-latest-unwrapped
       wl-clipboard
+      wtype
       xdg-utils
       xdotool
       qimgv
       vlc
+      gimp3-with-plugins
       ;
 
     inherit (pkgs.kdePackages)
       dolphin
-      gwenview
       ;
 
     zen = inputs.zen-browser.packages.${pkgs.system}.default;
