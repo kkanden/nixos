@@ -6,12 +6,72 @@
 {
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
+      # basic tools
+      bat
+      diffutils
+      dust
+      fd
+      ffmpeg
+      fontconfig
+      fzf
+      gcc
+      gh
+      gnumake
+      jq
+      killall
+      nix-prefetch-git
+      pandoc
+      postgresql_17
+      texliveFull
+      tree
+      tree-sitter
+      unzip
+      wget
+      which
+      yarn
+
+      # cosmetic
       cava
+      cowsay
+      fortune
+      lolcat
+
+      # langs
+      jdk
+      nodejs_24
+      perl
+      php
+      powershell
+      rustup
+
+      # lsp
+      basedpyright
+      bash-language-server
+      fish-lsp
+      hyprls
+      ltex-ls
+      lua-language-server
+      marksman
+      nixd
+      taplo
+      texlab
+      vscode-langservers-extracted
+      yaml-language-server
+
+      # formatters
+      air-formatter
+      alejandra
+      nixfmt-rfc-style
+      shfmt
+      stylua
+      tex-fmt
+
+      # desktop
       cliphist
       discord-ptb
       firefox
+      gimp3-with-plugins
       inotify-tools
-      killall
       libnotify
       libqalculate
       libratbag
@@ -20,20 +80,23 @@
       piper
       playerctl
       pulseaudio
+      qimgv
       qpwgraph
       spotify
       thunderbird-latest-unwrapped
+      vlc
       wl-clipboard
       wtype
       xdg-utils
       xdotool
-      qimgv
-      vlc
-      gimp3-with-plugins
       ;
 
     inherit (pkgs.kdePackages)
       dolphin
+      ;
+
+    inherit (pkgs.stable.nodePackages)
+      prettier
       ;
 
     zen = inputs.zen-browser.packages.${pkgs.system}.default;
