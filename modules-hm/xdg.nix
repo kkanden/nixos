@@ -1,6 +1,5 @@
 { ... }:
 {
-
   xdg = {
     enable = true;
     desktopEntries = {

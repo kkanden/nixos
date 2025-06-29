@@ -1,34 +1,29 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  fish-pkg = pkgs.stable.fish;
-in
+{ ... }:
 {
   imports = map (m: ./modules-hm + "/${m}.nix") [
-    "xdg"
-    "neovim"
-    "hyprland"
-    "r"
-    "python"
     "alacritty"
-    "sioyek"
-    "rofi"
+    "fastfetch"
+    "fish"
+    "git"
+    "hyprland"
     "hyprpanel"
     "kdeconnect"
     "keyd-app"
+    "neovim"
+    "oh-my-posh"
+    "ripgrep"
+    "rofi"
+    "sioyek"
+    "tmux"
+    "xdg"
+    "zoxide"
   ];
 
   home.username = "oliwia";
   home.homeDirectory = "/home/oliwia";
 
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "25.05";
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
     ".Rprofile".source = ./config/.Rprofile;
     "scripts/tmux-sessionizer" = {
@@ -44,174 +39,6 @@ in
   };
 
   home.sessionPath = [ "$HOME/scripts" ];
-
-  programs.bash = {
-    enable = true;
-    # enable fish shell as per https://nixos.wiki/wiki/Fish
-    initExtra = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-      then
-        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${fish-pkg}/bin/fish $LOGIN_OPTION
-      fi
-    '';
-  };
-
-  programs.fish = {
-    enable = true;
-    package = fish-pkg;
-    plugins = [
-      {
-        name = "fzf";
-        src = pkgs.fishPlugins.fzf-fish.src;
-      }
-    ];
-    shellAliases = {
-      r = "R";
-      gs = "git status";
-      la = "ls -la";
-      nho = "nh os switch";
-    };
-    shellAbbrs = {
-      tree = "tree -C";
-    };
-    functions = {
-      nixos = {
-        body =
-          # fish
-          ''
-            trap popd EXIT
-
-            if test (count $argv) -eq 0
-              set argv[1] "switch"
-            end
-            pushd /etc/nixos
-            sudo nixos-rebuild --flake . $argv[1]
-            popd
-          '';
-      };
-    };
-    interactiveShellInit =
-      # fish
-      ''
-        set fish_greeting
-
-        bind \t accept-autosuggestion
-        bind \cn complete-and-search
-
-        bind \cf 'tmux-sessionizer'
-
-        source ${./config/fish/vague.fish}
-        fortune | cowsay
-      '';
-  };
-
-  programs.nix-index = {
-    enable = true;
-    enableBashIntegration = true;
-    enableFishIntegration = true;
-  };
-
-  programs.tmux = {
-    enable = true;
-    shell = "${fish-pkg}/bin/fish";
-    extraConfig = builtins.readFile ./config/tmux/tmux.conf;
-    plugins = builtins.attrValues {
-      inherit (pkgs.tmuxPlugins)
-        yank
-        resurrect
-        continuum
-        ;
-    };
-  };
-
-  programs.oh-my-posh = {
-    enable = true;
-    enableBashIntegration = false;
-    enableFishIntegration = true;
-    settings = builtins.fromJSON (
-      builtins.unsafeDiscardStringContext (
-        builtins.readFile ./config/oh-my-posh/omp-vague.json # path relative to home.nix
-
-      )
-    );
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableBashIntegration = false;
-    enableFishIntegration = true;
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "oliwia";
-    userEmail = "24637207+kkanden@users.noreply.github.com";
-    aliases = {
-      lg = "log --oneline --graph --all --decorate --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(yellow)%h%Creset - %C(blue)%an <%ae>%Creset - %C(green)%ad%Creset -%C(red)%d%Creset %s'";
-      lgu = "log --oneline --graph origin..HEAD";
-    };
-    extraConfig = {
-      init.defaultbranch = "main";
-      core = {
-        editor = "nvim";
-        autocrlf = false;
-      };
-      status = {
-        branch = true;
-        short = true;
-        showStash = true;
-      };
-      diff = {
-        context = 3;
-        renames = "copies";
-        interHunkContext = 10;
-      };
-      push = {
-        autoSetupRemote = true;
-        default = "current";
-      };
-      pull = {
-        rebase = true;
-        default = "current";
-      };
-      rebase = {
-        autoStash = true;
-      };
-      url = {
-        "https://github.com/" = {
-          insteadOf = "gh:";
-        };
-      };
-      colors = {
-        diff = {
-          meta = "black bold";
-          frag = "magenta";
-          context = "white";
-          whitespace = "yellow reverse";
-        };
-      };
-    };
-  };
-
-  programs.ssh = {
-    enable = true;
-    package = pkgs.openssh;
-  };
-
-  programs.ripgrep = {
-    enable = true;
-    arguments = [
-      "--smart-case"
-    ];
-  };
-
-  programs.fastfetch = {
-    enable = true;
-    settings = builtins.fromJSON (
-      builtins.unsafeDiscardStringContext (builtins.readFile ./config/fastfetch/config.jsonc)
-    );
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

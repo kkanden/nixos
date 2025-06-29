@@ -37,7 +37,7 @@ let
     ++ [ pkgs.rPackages.config ]; # have to separate to avoid conflict with variable;
 in
 {
-  home.packages = [
+  environment.systemPackages = [
     (pkgs.rWrapper.override { packages = r-packages; }) # R
   ];
 }

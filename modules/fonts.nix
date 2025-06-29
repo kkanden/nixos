@@ -1,11 +1,5 @@
+{ pkgs, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
-
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [

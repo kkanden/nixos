@@ -5,19 +5,23 @@
     [ ./hardware-configuration.nix ]
     ++ map (m: ./modules + "/${m}.nix") [
       "bash"
-      "uwsm"
-      "wayland"
-      "nvidia"
-      "ssd"
       "fonts"
-      "system-packages"
-      "steam"
+      "gvfs"
       "hyprland"
       "keyd"
       "nh"
+      "nix-index"
+      "nvidia"
       "obs-studio"
-      "gvfs"
+      "python"
+      "r"
       "ratbag"
+      "ssd"
+      "ssh"
+      "steam"
+      "system-packages"
+      "uwsm"
+      "wayland"
     ];
 
   boot.loader.systemd-boot.enable = true;
