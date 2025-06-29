@@ -1,7 +1,7 @@
-{ ... }:
+{ lib', ... }:
 {
   programs.fastfetch = {
     enable = true;
-    settings = builtins.fromJSON (builtins.readFile ../config/fastfetch/config.jsonc);
+    settings = builtins.fromJSON (lib'.readConfig "fastfetch/config.jsonc");
   };
 }

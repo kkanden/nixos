@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib', ... }:
 {
   wayland.windowManager.hyprland = {
     enable = true;
     package = null; # both nulls are required to avoid conflict with the nixos module
     portalPackage = null;
-    extraConfig = builtins.readFile ../config/hypr/hyprland.conf;
+    extraConfig = lib'.readConfig "hypr/hyprland.conf";
     systemd = {
       enable = false;
       variables = [ "--all" ];
@@ -109,11 +109,11 @@
   };
 
   home.file."scripts/focus-or-launch" = {
-    source = ../scripts/focus-or-launch;
+    source = lib'.mkScript "focus-or-launch";
     executable = true;
   };
   home.file."scripts/killactive-steamsafe" = {
-    source = ../scripts/killactive-steamsafe;
+    source = lib'.mkScript "killactive-steamsafe";
     executable = true;
   };
 }

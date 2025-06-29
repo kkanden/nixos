@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib', ... }:
 {
   services.ratbagd.enable = true;
 
@@ -13,7 +13,7 @@
       gawk
       libratbag
     ];
-    script = "bash ${../scripts/ratbagd-profile-switcher}";
+    script = "bash ${lib'.mkScript "ratbagd-profile-switcher"}";
     serviceConfig = {
       Restart = "always";
       RestartSec = 0;

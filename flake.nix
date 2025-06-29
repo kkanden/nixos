@@ -17,7 +17,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       nixpkgs-stable,
       home-manager,
@@ -25,23 +24,30 @@
     }@inputs:
     let
       system = "x86_64-linux";
+      libExtra = {
+        configPath = ./config;
+        scriptsPath = ./scripts;
+      };
+      lib' = import ./lib ({ inherit (nixpkgs) lib; } // libExtra);
+      specialArgs = {
+        inherit inputs system lib';
+      } // libExtra;
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = {
-          inherit inputs;
-          inherit system;
-        };
+        inherit system specialArgs;
         modules = [
           ./configuration.nix
           ./hardware-configuration.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.oliwia = ./home.nix;
-            home-manager.backupFileExtension = "hm-backup";
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.oliwia = ./home.nix;
+              backupFileExtension = "hm-backup";
+              extraSpecialArgs = specialArgs;
+            };
           }
 
           {

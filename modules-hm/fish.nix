@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib', ... }:
 {
   programs.fish = {
     enable = true;
@@ -44,7 +44,7 @@
 
         bind \cf 'tmux-sessionizer'
 
-        source ${../config/fish/vague.fish}
+        source ${lib'.mkConfig "fish/vague.fish"}
         fortune | cowsay
       '';
   };

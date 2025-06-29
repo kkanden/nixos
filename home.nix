@@ -1,4 +1,4 @@
-{ ... }:
+{ lib', ... }:
 {
   imports = map (m: ./modules-hm + "/${m}.nix") [
     "alacritty"
@@ -25,12 +25,12 @@
   home.stateVersion = "25.05";
 
   home.file = {
-    ".Rprofile".source = ./config/.Rprofile;
+    ".Rprofile".source = lib'.mkConfig ".Rprofile";
     "scripts/tmux-sessionizer" = {
-      source = ./scripts/tmux-sessionizer;
+      source = lib'.mkScript "tmux-sessionizer";
       executable = true;
     };
-    ".latexmkrc".source = ./config/latexmkrc;
+    ".latexmkrc".source = lib'.mkConfig "latexmkrc";
   };
 
   home.sessionVariables = {
