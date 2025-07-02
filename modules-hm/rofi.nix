@@ -1,5 +1,9 @@
-{ pkgs, lib', ... }:
-
+{
+  pkgs,
+  lib,
+  lib',
+  ...
+}:
 {
   home.packages = [ pkgs.rofi-power-menu ];
   programs.rofi = {
@@ -12,9 +16,13 @@
       "drun"
       "window"
       "calc"
+      {
+        name = "power_menu";
+        path = lib.getExe pkgs.rofi-power-menu;
+      }
+
     ];
     terminal = "alacritty";
-    font = "JetBrainsMono Nerd Font 16";
 
     theme = lib'.mkConfig "rofi/vague.rasi";
     extraConfig = {
@@ -22,9 +30,9 @@
       icon-theme = "Papirus";
       dpi = 120;
 
-      display-drun = "";
-      drun-display-format = "{name} <span weight='light' size='small' foreground='#606079'><i>{generic}</i></span>";
-      drun-match-fields = "name,generic";
+      drun-display-format = "{name}";
+      drun-match-fields = "name";
+      combi-hide-mode-prefix = true;
 
       close-on-delete = false;
       matching = "fuzzy";

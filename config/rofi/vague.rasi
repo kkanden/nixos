@@ -81,6 +81,7 @@ element selected {
 }
 
 element-text {
+    font: "JetBrainsMono Nerd Font 8";
     background-color: transparent;
     text-color: inherit;
     highlight: @highlight;
