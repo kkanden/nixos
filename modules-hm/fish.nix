@@ -44,6 +44,8 @@
 
         bind \cf 'tmux-sessionizer'
 
+        fzf_configure_bindings --variable=
+
         source ${lib'.mkConfig "fish/vague.fish"}
         fortune | cowsay
       '';
