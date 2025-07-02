@@ -12,7 +12,6 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
   };
 
   outputs =
@@ -53,7 +52,6 @@
           {
             nixpkgs.overlays = [
               (final: prev: { stable = import nixpkgs-stable { inherit (prev) system; }; })
-              inputs.hyprpanel.overlay
             ];
           }
 
