@@ -9,12 +9,12 @@
   "theme.notification.scaling": 100,
   "theme.bar.menus.menu.dashboard.scaling": 80,
   "bar.layouts": {
-    "0": {
+    "1": {
       "left": [],
       "middle": [],
       "right": []
     },
-    "1": {
+    "0": {
       "left": ["weather", "workspaces", "windowtitle"],
       "middle": ["clock"],
       "right": ["cava", "media", "kbinput", "volume", "notifications"]
@@ -118,6 +118,7 @@
   "theme.bar.buttons.notifications.icon": "#cdcdcd",
   "theme.notification.background": "#141415",
   "theme.notification.actions.background": "#252530",
+  "theme.notification.actions.text": "#cdcdcd",
   "theme.notification.label": "#cdcdcd",
   "theme.notification.border": "#252530",
   "theme.notification.time": "#cdcdcd",

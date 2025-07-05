@@ -96,17 +96,21 @@
     };
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      preload = [ "~/wallpapers/idk.png" ];
-      wallpaper = [
-        "DP-2,~/wallpapers/idk.png"
-        "HDMI-A-1,~/wallpapers/idk.png"
-      ];
-    };
+  services.hyprpaper =
+    let
+      wallpaper_path = "~/wallpapers/minsky.png";
+    in
+    {
+      enable = true;
+      settings = {
+        preload = [ wallpaper_path ];
+        wallpaper = [
+          "DP-2,${wallpaper_path}"
+          "HDMI-A-1,${wallpaper_path}"
+        ];
+      };
 
-  };
+    };
 
   home.file."scripts/focus-or-launch" = {
     source = lib'.mkScript "focus-or-launch";
