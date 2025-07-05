@@ -6,12 +6,12 @@
     ++ map (m: ./modules + "/${m}.nix") [
       "bash"
       "fonts"
+      "gpu"
       "gvfs"
       "hyprland"
       "keyd"
       "nh"
       "nix-index"
-      "nvidia"
       "obs-studio"
       "python"
       "r"
@@ -26,6 +26,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
 
