@@ -5,19 +5,16 @@
   # automatic profile switcher
   systemd.user.services.ratbagd-profile-switcher = {
     description = "Automatic mouse profile switcher for games";
-    wantedBy = [ "default.target" ];
+    wantedBy = [ "graphical-session.target" ];
     path = with pkgs; [
-      hyprland
       bash
+      hyprland
       jq
       gawk
       libratbag
+      coreutils
     ];
     script = "bash ${lib'.mkScript "ratbagd-profile-switcher"}";
-    serviceConfig = {
-      Restart = "always";
-      RestartSec = 0;
-    };
   };
 
   hardware.logitech.wireless.enable = true;

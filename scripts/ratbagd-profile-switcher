@@ -3,11 +3,33 @@
 MOUSE_NAME="G703"
 GAME_CLASSES=(
     "cs2"
-    "steam_app_2357570" # overwatch
+    "steam_app"
 )
 
+# Enable strict error handling
+set -eo pipefail
+
+# Log errors to journalctl and exit
+handle_error() {
+    local lineno="$1"
+    local msg="$2"
+    echo "Error on line $lineno: $msg" | systemd-cat -t ratbagd-profile-switcher -p err
+    exit 1
+}
+
+log_warning() {
+    echo "$1" | systemd-cat -t ratbagd-profile-switcher -p warning
+}
+
+trap 'handle_error ${LINENO} "$BASH_COMMAND"' ERR
+
 get_active_window() {
-    hyprctl activewindow -j | jq -r '.class'
+    local json
+    if ! json=$(hyprctl activewindow -j 2>&1); then
+        echo "hyprctl failed to fetch window: $json" | systemd-cat -t ratbagd-profile-switcher -p err
+        exit 1
+    fi
+    echo "$json" | jq -r ".class"
 }
 
 is_game() {
@@ -15,7 +37,7 @@ is_game() {
     class=$(echo "$1" | awk '{print tolower($0)}')
     for game_class in "${GAME_CLASSES[@]}"; do
         game_class=$(echo "$game_class" | awk '{print tolower($0)}')
-        if [[ "$class" == "$game_class" ]]; then
+        if [[ "$class" == $game_class* ]]; then
             return 0
         fi
     done
@@ -30,26 +52,28 @@ set_profile() {
     ratbagctl "$MOUSE_NAME" profile active set "$1"
 }
 
-default_profile=0
-game_profile=1
-current_profile=$(get_current_profile)
+main() {
+    local default_profile=0
+    local game_profile=1
+    local current_profile=$(get_current_profile)
+    local previous_class=""
 
-previous_class=""
-
-while true; do
-    current_class=$(get_active_window)
-    if [[ "$current_class" != "$previous_class" ]]; then
-
-        if is_game "$current_class"; then
-            if [[ "$current_profile" != "$game_profile" ]]; then
-                set_profile $game_profile
-                current_profile=$game_profile
-            fi
-        else
-            if [[ "$current_profile" != "$default_profile" ]]; then
-                set_profile $default_profile
-                current_profile=$default_profile
+    while true; do
+        current_class=$(get_active_window)
+        if [[ "$current_class" != "$previous_class" ]]; then
+            if is_game "$current_class"; then
+                if [[ "$current_profile" != "$game_profile" ]]; then
+                    set_profile $game_profile
+                    current_profile=$game_profile
+                fi
+            else
+                if [[ "$current_profile" != "$default_profile" ]]; then
+                    set_profile $default_profile
+                    current_profile=$default_profile
+                fi
             fi
         fi
-    fi
-done
+    done
+    sleep 0.1
+}
+main
