@@ -101,4 +101,5 @@
 
     zen = inputs.zen-browser.packages.${pkgs.system}.default;
   };
+  programs.thunderbird.enable = true;
 }
