@@ -15,6 +15,13 @@
           "TextEditor"
         ];
       };
+      nautilus = {
+        name = "Nautilus";
+        genericName = "File explorer";
+        exec = "nautilus";
+        icon = "nautilus";
+        mimeType = [ "text/plain" ];
+      };
     };
   };
 

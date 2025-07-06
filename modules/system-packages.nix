@@ -67,6 +67,7 @@
       tex-fmt
 
       # desktop
+      pavucontrol
       cliphist
       discord-ptb
       firefox
@@ -89,6 +90,7 @@
       wtype
       xdg-utils
       xdotool
+      nautilus
       ;
 
     inherit (pkgs.kdePackages)
