@@ -10,15 +10,17 @@ GAME_CLASSES=(
 set -eo pipefail
 
 # Log errors to journalctl and exit
+log() {
+    local message=$1
+    local level="${2:-warning}"
+    echo "$message" | systemd-cat -t ratbagd-profile-switcher -p "$level"
+}
+
 handle_error() {
     local lineno="$1"
     local msg="$2"
-    echo "Error on line $lineno: $msg" | systemd-cat -t ratbagd-profile-switcher -p err
+    log "Error on line $lineno: $msg" err
     exit 1
-}
-
-log_warning() {
-    echo "$1" | systemd-cat -t ratbagd-profile-switcher -p warning
 }
 
 trap 'handle_error ${LINENO} "$BASH_COMMAND"' ERR
@@ -26,7 +28,7 @@ trap 'handle_error ${LINENO} "$BASH_COMMAND"' ERR
 get_active_window() {
     local json
     if ! json=$(hyprctl activewindow -j 2>&1); then
-        echo "hyprctl failed to fetch window: $json" | systemd-cat -t ratbagd-profile-switcher -p err
+        log "hyprctl failed to fetch window: $json" err
         exit 1
     fi
     echo "$json" | jq -r ".class"
