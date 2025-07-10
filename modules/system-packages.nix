@@ -91,6 +91,10 @@
       xdg-utils
       xdotool
       nautilus
+      hardinfo2
+
+      #other
+      rustlings
       ;
 
     inherit (pkgs.kdePackages)
