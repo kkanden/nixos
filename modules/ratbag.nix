@@ -4,7 +4,7 @@
 
   # automatic profile switcher
   systemd.user.services.ratbagd-profile-switcher = {
-    description = "Automatic mouse profile switcher for games";
+    description = "ratbagd-profile-switcher";
     wantedBy = [ "graphical-session.target" ];
     path = with pkgs; [
       bash
