@@ -70,7 +70,7 @@
   "notifications.showActionsOnHover": true,
   "theme.bar.menus.opacity": 100,
   "notifications.position": "bottom right",
-  "notifications.monitor": 1,
+  "notifications.monitor": 0,
   "theme.bar.buttons.modules.weather.enableBorder": false,
   "theme.bar.buttons.monochrome": false,
   "theme.bar.border.location": "none",
