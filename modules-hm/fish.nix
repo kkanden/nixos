@@ -18,22 +18,6 @@
     shellAbbrs = {
       tree = "tree -C";
     };
-    functions = {
-      nixos = {
-        body =
-          # fish
-          ''
-            trap popd EXIT
-
-            if test (count $argv) -eq 0
-              set argv[1] "switch"
-            end
-            pushd /etc/nixos
-            sudo nixos-rebuild --flake . $argv[1]
-            popd
-          '';
-      };
-    };
     interactiveShellInit =
       # fish
       ''
