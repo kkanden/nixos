@@ -11,8 +11,8 @@
     ];
     fontconfig = {
       defaultFonts = {
-        serif = [ "Liberation Serif" ];
-        sansSerif = [ "Open Sans" ];
+        serif = [ "Open Serif" ];
+        sansSerif = [ "Lato" ];
         monospace = [ "JetBrainsMono Nerd Font" ];
       };
     };
