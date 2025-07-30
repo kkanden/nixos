@@ -92,6 +92,8 @@
       xdotool
       nautilus
       hardinfo2
+      easyeffects
+      cheese
 
       #other
       rustlings
