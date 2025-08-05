@@ -1,28 +1,28 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [ ./hardware-configuration.nix ]
-    ++ map (m: ./modules + "/${m}.nix") [
-      "bash"
-      "fonts"
-      "gpu"
-      "gvfs"
-      "hyprland"
-      "keyd"
-      "nh"
-      "nix-index"
-      "obs-studio"
-      "python"
-      "r"
-      "ratbag"
-      "ssd"
-      "ssh"
-      "steam"
-      "system-packages"
-      "uwsm"
-      "wayland"
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ]
+  ++ map (m: ./modules + "/${m}.nix") [
+    "bash"
+    "fonts"
+    "gpu"
+    "gvfs"
+    "hyprland"
+    "nh"
+    "nix-index"
+    "obs-studio"
+    "python"
+    "r"
+    "ratbag"
+    "ssd"
+    "ssh"
+    "steam"
+    "system-packages"
+    "uwsm"
+    "wayland"
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -76,7 +76,6 @@
       "video"
       "input"
       "wireshark"
-      "keyd"
     ];
   };
 
