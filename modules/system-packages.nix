@@ -43,6 +43,7 @@
       php
       powershell
       rustup
+      typst
 
       # lsp
       basedpyright
@@ -55,6 +56,7 @@
       nixd
       taplo
       texlab
+      tinymist
       vscode-langservers-extracted
       yaml-language-server
 
@@ -65,6 +67,7 @@
       shfmt
       stylua
       tex-fmt
+      typstyle
 
       # desktop
       pavucontrol
@@ -110,4 +113,5 @@
     zen = inputs.zen-browser.packages.${pkgs.system}.default;
   };
   programs.thunderbird.enable = true;
+  programs.kdeconnect.enable = true;
 }

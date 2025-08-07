@@ -7,7 +7,6 @@
     "git"
     "hyprland"
     "hyprpanel"
-    "kdeconnect"
     "keyd-app"
     "neovim"
     "oh-my-posh"
