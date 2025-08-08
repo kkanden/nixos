@@ -13,8 +13,7 @@
     grey:      #606079;
     highlight: #D8647E;
 
-    width: 500;
-    height: 500;
+    width: 420;
     padding: 0;
     margin: 0;
     spacing: 0;
@@ -58,7 +57,7 @@ listview {
     padding: 8px;
     margin: 0;
     spacing: 0;
-    dynamic: false;
+    lines: 6;
 }
 
 scrollbar {
@@ -81,11 +80,12 @@ element selected {
 }
 
 element-text {
-    font: "JetBrainsMono Nerd Font 8";
+    font: "JetBrainsMono Nerd Font 9";
     background-color: transparent;
     text-color: inherit;
     highlight: @highlight;
     margin: 0;
+    vertical-align: 0.5;
 }
 
 element-icon {
