@@ -97,6 +97,7 @@
       hardinfo2
       easyeffects
       cheese
+      sioyek
 
       #other
       rustlings
