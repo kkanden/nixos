@@ -4,10 +4,7 @@
   qt = {
     enable = true;
     platformTheme.name = "adwaita";
-    style = {
-      package = pkgs.gnome-themes-extra;
-      name = "Adwaita";
-    };
+    style.name = "adwaita-dark";
   };
 
   gtk = {
