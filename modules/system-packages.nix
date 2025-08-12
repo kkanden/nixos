@@ -26,6 +26,7 @@
       tree
       tree-sitter
       unzip
+      unrar
       wget
       which
       yarn
@@ -70,41 +71,36 @@
       typstyle
 
       # desktop
-      pavucontrol
+      cheese
       cliphist
       discord-ptb
+      easyeffects
       firefox
       gimp3-with-plugins
+      hardinfo2
       inotify-tools
       libnotify
       libqalculate
       libratbag
       libreoffice-qt6-fresh
+      nautilus
       papirus-icon-theme
+      pavucontrol
       piper
       playerctl
       pulseaudio
       qimgv
       qpwgraph
+      sioyek
       spotify
-      thunderbird-latest-unwrapped
       vlc
       wl-clipboard
       wtype
       xdg-utils
       xdotool
-      nautilus
-      hardinfo2
-      easyeffects
-      cheese
-      sioyek
 
       #other
       rustlings
-      ;
-
-    inherit (pkgs.kdePackages)
-      dolphin
       ;
 
     inherit (pkgs.stable.nodePackages)
