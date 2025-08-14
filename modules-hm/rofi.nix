@@ -18,7 +18,7 @@
       "calc"
       {
         name = "power_menu";
-        path = "${lib.getExe pkgs.rofi-power-menu} --confirm=";
+        path = "${lib.getExe pkgs.rofi-power-menu} --choices shutdown/reboot/suspend/lockscreen --confirm=";
       }
 
     ];
