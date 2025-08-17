@@ -52,4 +52,9 @@
     source = lib'.mkScript "rofi-search";
     executable = true;
   };
+
+  home.file."scripts/rofi-open-filetype" = {
+    source = lib'.mkScript "rofi-open-filetype";
+    executable = true;
+  };
 }
