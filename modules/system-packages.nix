@@ -93,6 +93,7 @@
       qpwgraph
       sioyek
       spotify
+      uxplay
       vlc
       wl-clipboard
       wtype

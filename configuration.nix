@@ -29,6 +29,29 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      7100
+      7000
+      7001
+    ];
+    allowedUDPPorts = [
+      7011
+      6000
+      6001
+    ];
+  };
+
+  services.avahi = {
+    enable = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+      userServices = true;
+    };
+  };
 
   networking.networkmanager.enable = true;
 
