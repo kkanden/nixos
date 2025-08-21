@@ -7,6 +7,7 @@
       open-sans
       roboto
       lato
+      newcomputermodern
       nerd-fonts.jetbrains-mono
     ];
     fontconfig = {
