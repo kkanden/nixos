@@ -98,7 +98,7 @@
 
   services.hyprpaper =
     let
-      wallpaper_path = "~/wallpapers/minsky.png";
+      wallpaper_path = "~/wallpapers/zizek-toronto.png";
     in
     {
       enable = true;
