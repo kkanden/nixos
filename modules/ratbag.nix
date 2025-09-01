@@ -4,6 +4,7 @@
 
   # automatic profile switcher
   systemd.user.services.ratbagd-profile-switcher = {
+    enable = false;
     description = "ratbagd-profile-switcher";
     wantedBy = [ "graphical-session.target" ];
     path = with pkgs; [
