@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+PROMPT_TR=" translate"
+PROMPT_COPY="󰆏 Copy to clipboard"
+result=""
+
+rofi_cmd() {
+    rofi -dmenu -theme-str "window {width: 50%;}" -p "$PROMPT_TR" "$@"
+}
+
+return_result() {
+    input="$(echo "$PROMPT_COPY" | rofi_cmd -l 1 -mesg "$result" -filter "$input")"
+
+    if [[ $input = "$PROMPT_COPY" ]]; then
+        wl-copy "$result_copy"
+        notify-send "󰆏 Translation copied" "Translation copied to clipboard."
+        exit 0
+    fi
+}
+
+translate() {
+    local input="$1"
+    local playback=false
+
+    if echo "$input" | rg "\-p" 1>/dev/null; then
+        playback=true
+        input=${input/-p/}
+    fi
+
+    if $playback; then
+        trans -p $input 1>/dev/null &
+    fi
+
+    result=$(trans -no-ansi $input 2>/dev/null &)
+    result_copy=$(trans -b $input 2>/dev/null &)
+
+}
+
+input="$(rofi_cmd -l 0)"
+
+while [ -n "$input" ]; do
+    translate "$input"
+    return_result
+done

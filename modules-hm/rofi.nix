@@ -57,4 +57,9 @@
     source = lib'.mkScript "rofi-open-filetype";
     executable = true;
   };
+
+  home.file."scripts/rofi-tr" = {
+    source = lib'.mkScript "rofi-tr";
+    executable = true;
+  };
 }

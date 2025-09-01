@@ -99,6 +99,8 @@
       wtype
       xdg-utils
       xdotool
+      translate-shell
+      mpv
 
       #other
       rustlings
