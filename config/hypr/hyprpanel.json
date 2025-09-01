@@ -71,6 +71,7 @@
   "theme.bar.menus.opacity": 100,
   "notifications.position": "bottom right",
   "notifications.monitor": 0,
+  "notifications.timeout": 5000,
   "theme.bar.buttons.modules.weather.enableBorder": false,
   "theme.bar.buttons.monochrome": false,
   "theme.bar.border.location": "none",
