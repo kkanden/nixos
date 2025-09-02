@@ -25,6 +25,7 @@
 
         bind \t accept-autosuggestion
         bind \cn complete-and-search
+        bind \cp down-or-search
 
         bind \cf 'tmux-sessionizer'
 
