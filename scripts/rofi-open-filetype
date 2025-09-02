@@ -3,17 +3,19 @@ filetype=$1
 program=${2:-xdg-open}
 
 declare -A files_dict
-files=$(fd -t f -0 "$filetype\$" ~ | xargs -0 ls -lt | sed "s|^[^/]*||")
+files=$(while read -r file; do
+    echo "/${file#*/}"
+done <<<"$(fd -t f -0 "$filetype\$" ~ | xargs -0 ls -lt)")
 
-OIFS="$IFS"
-IFS=$'\n'
-for file in $files; do
-    files_dict[$(basename "$file")]=$file
-done
-files=$(for file in $files; do
-    basename "$file"
-done)
-IFS="$OIFS"
+while read -r file; do
+    basename=${file##*/}
+    files_dict[$basename]=$file
+done <<<"$files"
+files=$(
+    while read -r file; do
+        echo "${file##*/}"
+    done <<<"$files"
+)
 
 selection=$(echo "$files" | rofi -dmenu -p "$program") || exit 0
 
