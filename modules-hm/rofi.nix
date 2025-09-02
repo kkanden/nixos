@@ -26,6 +26,7 @@
 
     theme = lib'.mkConfig "rofi/vague.rasi";
     extraConfig = {
+      monitor = "DP-2";
       show-icons = true;
       icon-theme = "Papirus";
       dpi = 120;
