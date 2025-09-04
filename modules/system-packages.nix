@@ -19,17 +19,19 @@
       gnumake
       jq
       killall
+      man-pages
       nix-prefetch-git
       pandoc
       postgresql_17
       texliveFull
       tree
       tree-sitter
-      unzip
       unrar
+      unzip
       wget
       which
       yarn
+      zip
 
       # cosmetic
       cava
@@ -77,12 +79,15 @@
       easyeffects
       firefox
       gimp3-with-plugins
+      groff
       hardinfo2
       inotify-tools
       libnotify
       libqalculate
       libratbag
       libreoffice-qt6-fresh
+      lm_sensors
+      mpv
       nautilus
       papirus-icon-theme
       pavucontrol
@@ -93,14 +98,13 @@
       qpwgraph
       sioyek
       spotify
+      translate-shell
       uxplay
       vlc
       wl-clipboard
       wtype
       xdg-utils
       xdotool
-      translate-shell
-      mpv
 
       #other
       rustlings
