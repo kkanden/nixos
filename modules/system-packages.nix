@@ -24,6 +24,7 @@
       pandoc
       postgresql_17
       texliveFull
+      tmux
       tree
       tree-sitter
       unrar
@@ -81,6 +82,7 @@
       gimp3-with-plugins
       groff
       hardinfo2
+      hyprpanel
       inotify-tools
       libnotify
       libqalculate

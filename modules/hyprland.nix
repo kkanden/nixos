@@ -1,12 +1,23 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+with lib;
+let
+  hypr-plugin-dir = pkgs.symlinkJoin {
+    name = "hyrpland-plugins";
+    paths = with pkgs.hyprlandPlugins; [
+      csgo-vulkan-fix
+    ];
+  };
+in
 {
+  environment.sessionVariables = {
+    HYPR_PLUGIN_DIR = hypr-plugin-dir;
+  };
   environment.systemPackages = with pkgs; [
     hyprpolkitagent
     hyprpicker
     hyprshot
     hyprnotify
     hyprpaper
-    hypridle
     hyprsysteminfo
     hyprland-qt-support
     hyprland-qtutils
@@ -25,4 +36,6 @@
     withUWSM = true;
   };
 
+  programs.hyprlock.enable = true;
+  services.hypridle.enable = true;
 }

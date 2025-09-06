@@ -6,18 +6,16 @@
     "fish"
     "git"
     "hyprland"
-    "hyprpanel"
     "keyd-app"
     "neovim"
     "oh-my-posh"
-    "qimgv"
     "ripgrep"
     "rofi"
-    "sioyek"
     "theme-qt-gtk"
-    "tmux"
     "xdg"
     "zoxide"
+    "options"
+    "config"
   ];
 
   home.username = "oliwia";
@@ -26,12 +24,12 @@
   home.stateVersion = "25.05";
 
   home.file = {
-    ".Rprofile".source = lib'.mkConfig ".Rprofile";
+    ".Rprofile".source = lib'.mkConfigPath ".Rprofile";
     "scripts/tmux-sessionizer" = {
       source = lib'.mkScript "tmux-sessionizer";
       executable = true;
     };
-    ".latexmkrc".source = lib'.mkConfig "latexmkrc";
+    ".latexmkrc".source = lib'.mkConfigPath "latexmkrc";
   };
 
   home.sessionVariables = {

@@ -1,7 +1,7 @@
 { pkgs, lib', ... }:
 {
   programs.bash = {
-    lsColorsFile = lib'.mkConfig "ls_colors";
+    lsColorsFile = lib'.mkConfigPath "ls_colors";
     interactiveShellInit = ''
       if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
       then

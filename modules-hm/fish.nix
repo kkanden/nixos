@@ -31,7 +31,7 @@
 
         fzf_configure_bindings --variable=
 
-        source ${lib'.mkConfig "fish/vague.fish"}
+        source ${lib'.mkConfigPath "fish/vague.fish"}
         fortune | cowsay
       '';
   };

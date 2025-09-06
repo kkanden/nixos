@@ -24,7 +24,7 @@
     ];
     terminal = "alacritty";
 
-    theme = lib'.mkConfig "rofi/vague.rasi";
+    theme = lib'.mkConfigPath "rofi/vague.rasi";
     extraConfig = {
       monitor = "DP-2";
       show-icons = true;

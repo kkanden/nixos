@@ -6,13 +6,13 @@
 }:
 let
   self = {
-    mkConfig =
+    mkConfigPath =
       path:
       assert lib.assertMsg (builtins.isString path)
         "Path to config must be a string: ${builtins.toString path}";
       configPath + "/${path}";
 
-    readConfig = path: builtins.readFile (self.mkConfig path);
+    readConfig = path: builtins.readFile (self.mkConfigPath path);
 
     mkScript =
       path:
