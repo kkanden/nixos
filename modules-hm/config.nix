@@ -1,10 +1,19 @@
 { ... }:
 {
-  oliwia.configSymlink = {
-    "hyprpanel" = "hyprpanel";
-    "qimgv" = "qimgv";
-    "sioyek" = "sioyek";
-    "hypr" = "hypr";
-    "tmux" = "tmux";
+  oliwia.home = {
+    configSymlink = {
+      "alacritty" = "alacritty";
+      "fastfetch" = "fastfetch";
+      "git" = "git";
+      "hypr" = "hypr";
+      "hyprpanel" = "hyprpanel";
+      "oh-my-posh/config.json" = "oh-my-posh/omp-vague.json";
+      "qimgv" = "qimgv";
+      "ripgrep" = "ripgrep";
+      "sioyek" = "sioyek";
+      "tmux" = "tmux";
+    };
+    scriptSymlink.enable = true;
   };
+  home.sessionVariables."RIPGREP_CONFIG_PATH" = "~/.config/ripgrep/ripgreprc";
 }

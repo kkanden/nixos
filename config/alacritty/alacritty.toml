@@ -1,5 +1,5 @@
 [general]
-import = ["../config/alacritty/themes/vague.toml"]
+import = ["themes/vague.toml"]
 live_config_reload = true
 
 [window]

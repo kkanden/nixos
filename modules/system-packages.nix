@@ -4,18 +4,21 @@
   ...
 }:
 {
-  environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
+  environment.systemPackages =
+    with pkgs;
+    [
       # basic tools
       bat
       diffutils
       dust
+      fastfetch
       fd
       ffmpeg
       fontconfig
       fzf
       gcc
       gh
+      git
       gnumake
       jq
       killall
@@ -23,6 +26,7 @@
       nix-prefetch-git
       pandoc
       postgresql_17
+      ripgrep
       texliveFull
       tmux
       tree
@@ -39,6 +43,7 @@
       cowsay
       fortune
       lolcat
+      stable.oh-my-posh
 
       # langs
       jdk
@@ -57,7 +62,7 @@
       ltex-ls
       lua-language-server
       marksman
-      nixd
+      nil
       taplo
       texlab
       tinymist
@@ -74,6 +79,7 @@
       typstyle
 
       # desktop
+      alacritty
       cheese
       cliphist
       discord-ptb
@@ -110,14 +116,12 @@
 
       #other
       rustlings
-      ;
 
-    inherit (pkgs.stable.nodePackages)
-      prettier
-      ;
-
-    zen = inputs.zen-browser.packages.${pkgs.system}.default;
-  };
+      stable.nodePackages.prettier
+    ]
+    ++ [
+      inputs.zen-browser.packages.${pkgs.system}.default
+    ];
   programs.thunderbird.enable = true;
   programs.kdeconnect.enable = true;
 }

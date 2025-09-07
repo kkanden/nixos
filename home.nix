@@ -1,23 +1,6 @@
-{ lib', ... }:
+{ lib, lib', ... }:
 {
-  imports = map (m: ./modules-hm + "/${m}.nix") [
-    "alacritty"
-    "fastfetch"
-    "fish"
-    "git"
-    "hyprland"
-    "keyd-app"
-    "neovim"
-    "oh-my-posh"
-    "ripgrep"
-    "rofi"
-    "theme-qt-gtk"
-    "xdg"
-    "zoxide"
-    "options"
-    "config"
-  ];
-
+  imports = lib.filesystem.listFilesRecursive ./modules-hm;
   home.username = "oliwia";
   home.homeDirectory = "/home/oliwia";
 
@@ -25,10 +8,6 @@
 
   home.file = {
     ".Rprofile".source = lib'.mkConfigPath ".Rprofile";
-    "scripts/tmux-sessionizer" = {
-      source = lib'.mkScript "tmux-sessionizer";
-      executable = true;
-    };
     ".latexmkrc".source = lib'.mkConfigPath "latexmkrc";
   };
 

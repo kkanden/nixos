@@ -48,19 +48,4 @@
       kb-move-char-back = "Left";
     };
   };
-
-  home.file."scripts/rofi-search" = {
-    source = lib'.mkScript "rofi-search";
-    executable = true;
-  };
-
-  home.file."scripts/rofi-open-filetype" = {
-    source = lib'.mkScript "rofi-open-filetype";
-    executable = true;
-  };
-
-  home.file."scripts/rofi-tr" = {
-    source = lib'.mkScript "rofi-tr";
-    executable = true;
-  };
 }
