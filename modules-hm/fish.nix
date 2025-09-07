@@ -1,8 +1,11 @@
 { pkgs, lib', ... }:
+let
+  fish-pkg = pkgs.stable.fish;
+in
 {
   programs.fish = {
     enable = true;
-    package = pkgs.stable.fish;
+    package = fish-pkg;
     plugins = [
       {
         name = "fzf";
@@ -22,7 +25,6 @@
       # fish
       ''
         oh-my-posh init fish --config ~/.config/oh-my-posh/config.json | source
-        zoxide init fish | source
         set fish_greeting
 
         bind \t accept-autosuggestion
@@ -37,4 +39,6 @@
         fortune | cowsay
       '';
   };
+
+  home.sessionVariables."SHELL" = "${fish-pkg}/bin/fish";
 }
