@@ -2,6 +2,7 @@
 
 PROMPT_TR=" translate"
 PROMPT_COPY="󰆏 Copy to clipboard"
+PROMPT_SPEAK=" Play last translation"
 result=""
 
 rofi_cmd() {
@@ -9,36 +10,55 @@ rofi_cmd() {
 }
 
 return_result() {
-    input="$(echo "$PROMPT_COPY" | rofi_cmd -l 1 -mesg "$result" -filter "$input")"
+    input="$(echo -e "$PROMPT_COPY\n$PROMPT_SPEAK" | rofi_cmd -l 2 -mesg "$result")"
 
-    if [[ $input = "$PROMPT_COPY" ]]; then
+    case $input in
+    "$PROMPT_COPY")
         wl-copy "$result_copy"
         notify-send "󰆏 Translation copied" "Translation copied to clipboard."
         exit 0
-    fi
+        ;;
+    "$PROMPT_SPEAK")
+        trans -p $langs "$text" >/dev/null &
+        ;;
+    esac
 }
 
 translate() {
-    local input="$1"
-    local playback=false
+    local trans_input="$1"
 
-    if echo "$input" | rg "\-p" 1>/dev/null; then
-        playback=true
-        input=${input/-p/}
+    # match "-p :uk hello"
+    # "-p -b pl:uk hello"
+    # "pl: hello"
+    # "hello"
+    if [[ $trans_input =~ ((\-[a-z] *)*)\s*(([a-z]{2})?:([a-z]{2})?)?\s*(.*) ]]; then
+        flags=${BASH_REMATCH[1]}
+        langs=${BASH_REMATCH[3]}
+        text=${BASH_REMATCH[-1]}
+    else
+        result=" Incorred input"
+        result_copy=
+        return
     fi
 
-    if $playback; then
-        trans -p $input 1>/dev/null &
+    if [[ -z "$text" ]]; then
+        result=" Didn't supply text to translate"
+        result_copy=
+        return
     fi
 
-    result=$(trans -no-ansi $input 2>/dev/null &)
-    result_copy=$(trans -b $input 2>/dev/null &)
+    if [[ $flags = *-p* ]]; then
+        flags=${flags/-p/}
+        trans -p $langs "$text" >/dev/null &
+    fi
 
+    result=$(trans -no-ansi $flags $langs "$text" 2>/dev/null &)
+    result_copy=$(trans -b $flags $langs "$text" 2>/dev/null &)
 }
 
 input="$(rofi_cmd -l 0)"
 
-while [ -n "$input" ]; do
-    translate "$input"
+while [[ -n "$input" ]]; do
+    [[ $input != "$PROMPT_SPEAK" ]] && translate "$input"
     return_result
 done
