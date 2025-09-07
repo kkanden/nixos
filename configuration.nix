@@ -1,28 +1,15 @@
-{ pkgs, ... }:
-
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
   ]
-  ++ map (m: ./modules + "/${m}.nix") [
-    "bash"
-    "fonts"
-    "gpu"
-    "gvfs"
-    "hyprland"
-    "nh"
-    "nix-index"
-    "obs-studio"
-    "python"
-    "r"
-    "ratbag"
-    "ssd"
-    "ssh"
-    "steam"
-    "system-packages"
-    "uwsm"
-    "wayland"
-  ];
+  ++ lib.filesystem.listFilesRecursive ./modules;
+
+  oliwia.amdgpu.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
