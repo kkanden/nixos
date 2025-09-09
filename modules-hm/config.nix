@@ -15,5 +15,5 @@
     };
     scriptSymlink.enable = true;
   };
-  home.sessionVariables."RIPGREP_CONFIG_PATH" = "~/.config/ripgrep/ripgreprc";
+  home.sessionVariables."RIPGREP_CONFIG_PATH" = "$HOME/.config/ripgrep/ripgreprc";
 }
