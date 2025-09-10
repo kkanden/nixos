@@ -1,8 +1,14 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }:
+let
+  tmux-plugins = with pkgs.tmuxPlugins; [
+    yank
+  ];
+in
 {
   environment.systemPackages =
     with pkgs;
@@ -119,9 +125,17 @@
 
       stable.nodePackages.prettier
     ]
+    ++ tmux-plugins
     ++ [
       inputs.zen-browser.packages.${pkgs.system}.default
     ];
   programs.thunderbird.enable = true;
   programs.kdeconnect.enable = true;
+
+  environment.sessionVariables = {
+    TMUX_PLUGINS_CMD = lib.pipe tmux-plugins [
+      (builtins.map (x: "tmux run-shell ${x.rtp}"))
+      (builtins.concatStringsSep "\n")
+    ];
+  };
 }
