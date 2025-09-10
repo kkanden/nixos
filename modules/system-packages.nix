@@ -95,6 +95,7 @@ in
       groff
       hardinfo2
       hyprpanel
+      imagemagick
       inotify-tools
       libnotify
       libqalculate
@@ -119,6 +120,7 @@ in
       wtype
       xdg-utils
       xdotool
+      yt-dlp
 
       #other
       rustlings
