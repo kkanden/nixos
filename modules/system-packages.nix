@@ -69,6 +69,7 @@ in
       lua-language-server
       marksman
       nil
+      nixd
       taplo
       texlab
       tinymist
