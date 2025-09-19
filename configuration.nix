@@ -9,7 +9,7 @@
   ]
   ++ lib.filesystem.listFilesRecursive ./modules;
 
-  oliwia.amdgpu.enable = true;
+  oliwia.gpu.amd.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
