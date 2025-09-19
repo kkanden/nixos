@@ -112,6 +112,8 @@ in
       pulseaudio
       qimgv
       qpwgraph
+      (rofi.override { plugins = with pkgs; [ rofi-calc ]; })
+      rofi-power-menu
       sioyek
       spotify
       translate-shell

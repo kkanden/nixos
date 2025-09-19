@@ -12,6 +12,7 @@
       "ripgrep" = "ripgrep";
       "sioyek" = "sioyek";
       "tmux" = "tmux";
+      "rofi" = "rofi";
     };
     scriptSymlink.enable = true;
   };

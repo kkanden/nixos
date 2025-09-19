@@ -1,0 +1,33 @@
+configuration {
+    modes: [
+    "drun",
+    "window",
+    "calc",
+    "power_menu: rofi-power-menu --choices shutdown/reboot/suspend/lockscreen --confirm=" 
+    ];
+    case-smart: true;
+    close-on-delete: false;
+    combi-hide-mode-prefix: true;
+    dpi: 120;
+    drun-display-format: "{name}";
+    drun-match-fields: "name";
+    icon-theme: "Papirus";
+    kb-accept-entry: "Control+b,Return,KP_Enter";
+    kb-cancel: "Escape,Control+c";
+    kb-delete-entry: "Control+x";
+    kb-entry-history-down: "Control+k";
+    kb-entry-history-up: "Control+j";
+    kb-move-char-back: "Left";
+    kb-move-front: "Control+i";
+    kb-move-end: "Control+a";
+    kb-remove-to-eol: "";
+    kb-secondary-copy: "";
+    location: 0;
+    matching: "fuzzy";
+    monitor: "DP-2";
+    show-icons: true;
+    terminal: "alacritty";
+    xoffset: 0;
+    yoffset: 0;
+}
+@theme "vague"
