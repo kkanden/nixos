@@ -40,6 +40,7 @@ in
       unrar
       unzip
       wget
+      websocat
       which
       yarn
       zip
@@ -107,6 +108,7 @@ in
       nautilus
       papirus-icon-theme
       pavucontrol
+      pinta
       piper
       playerctl
       pulseaudio
