@@ -11,13 +11,11 @@ let
 in
 {
   environment.systemPackages =
-    with pkgs;
-    [
+    (with pkgs.stable; [
       # basic tools
       bat
       diffutils
       dust
-      fastfetch
       fd
       ffmpeg
       fontconfig
@@ -28,7 +26,7 @@ in
       gnumake
       jq
       killall
-      man-pages
+      man-pages # linux dev man pages
       nix-prefetch-git
       pandoc
       postgresql_17
@@ -39,18 +37,44 @@ in
       tree-sitter
       unrar
       unzip
-      wget
       websocat
+      wget
       which
       yarn
+      yt-dlp
       zip
-
       # cosmetic
-      cava
       cowsay
       fortune
       lolcat
-      stable.oh-my-posh
+      oh-my-posh
+
+      # desktop
+      cheese
+      cliphist
+      groff # plain text to typeset
+      inotify-tools
+      libnotify
+      libqalculate
+      libreoffice-qt6-fresh
+      mpv
+      nautilus
+      pinta
+      qimgv
+      translate-shell
+      vlc
+      wl-clipboard
+      wtype
+      xdg-utils
+      xdotool
+    ])
+    ++ (with pkgs; [
+
+      #basic tool
+      fastfetch
+
+      # cosmetic
+      cava
 
       # langs
       jdk
@@ -85,53 +109,37 @@ in
       stylua
       tex-fmt
       typstyle
+      stable.nodePackages.prettier
 
       # desktop
       alacritty
-      cheese
-      cliphist
       discord-ptb
-      easyeffects
       firefox
       gimp3-with-plugins
-      groff
-      hardinfo2
       hyprpanel
-      imagemagick
-      inotify-tools
-      libnotify
-      libqalculate
-      libratbag
-      libreoffice-qt6-fresh
-      lm_sensors
-      mpv
-      nautilus
       papirus-icon-theme
-      pavucontrol
-      pinta
-      piper
-      playerctl
-      pulseaudio
-      qimgv
-      qpwgraph
       (rofi.override { plugins = with pkgs; [ rofi-calc ]; })
       rofi-power-menu
       sioyek
       spotify
-      translate-shell
-      uxplay
-      vlc
-      wl-clipboard
-      wtype
-      xdg-utils
-      xdotool
-      yt-dlp
+      uxplay # apple airdrop server
+
+      # hardware tools
+      easyeffects
+      hardinfo2
+      imagemagick
+      libratbag
+      lm_sensors
+      pavucontrol
+      piper
+      playerctl
+      pulseaudio
+      qpwgraph
 
       #other
       rustlings
 
-      stable.nodePackages.prettier
-    ]
+    ])
     ++ tmux-plugins
     ++ [
       inputs.zen-browser.packages.${pkgs.system}.default

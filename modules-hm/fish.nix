@@ -9,7 +9,7 @@ in
     plugins = [
       {
         name = "fzf";
-        src = pkgs.fishPlugins.fzf-fish.src;
+        src = pkgs.stable.fishPlugins.fzf-fish.src;
       }
     ];
     shellAliases = {

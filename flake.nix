@@ -30,7 +30,8 @@
       lib' = import ./lib ({ inherit (nixpkgs) lib; } // libExtra);
       specialArgs = {
         inherit inputs system lib';
-      } // libExtra;
+      }
+      // libExtra;
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -51,7 +52,12 @@
 
           {
             nixpkgs.overlays = [
-              (final: prev: { stable = import nixpkgs-stable { inherit (prev) system; }; })
+              (final: prev: {
+                stable = import nixpkgs-stable {
+                  inherit (prev) system;
+                  config.allowUnfree = true;
+                };
+              })
             ];
           }
 
