@@ -57,12 +57,6 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   security.rtkit.enable = true;
   security.polkit.enable = true;
   services.pipewire = {
