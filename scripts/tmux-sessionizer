@@ -5,9 +5,9 @@ if [[ $# -eq 1 ]]; then
 else
     selected=$(
         {
-            find ~/projects ~/school ~/.config -mindepth 0 -maxdepth 2 -type d 2>/dev/null
+            fd -d 2 -t d . "$HOME/projects/" "$HOME/school/" "$HOME/.config/"
             echo "/etc/nixos"
-            tmux list-sessions -F "#{session_name} (session)" 2>/dev/null
+            tmux list-sessions -F "#{session_name} (session)"
         } | sed "s|^$HOME/||" | fzf --tac
     )
     if [[ -n $selected ]]; then
@@ -28,8 +28,9 @@ if [[ -z $selected ]]; then
 fi
 
 tmux_running=$(pgrep tmux)
+inside_tmux=$(tmux display-message -p "#{client_pid}")
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+if [[ -z $inside_tmux ]] && [[ -z $tmux_running ]]; then
     tmux new-session -s "$selected_name" -c "$selected"
     exit 0
 fi
@@ -38,7 +39,7 @@ if ! tmux has-session -t="$selected_name" 2>/dev/null; then
     tmux new-session -ds "$selected_name" -c "$selected"
 fi
 
-if [[ -z $TMUX ]]; then
+if [[ -z $inside_tmux ]]; then
     tmux attach -t "$selected_name"
 else
     tmux switch-client -t "$selected_name"
