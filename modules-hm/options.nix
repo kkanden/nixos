@@ -26,19 +26,8 @@ in
         }
       '';
     };
-    scriptSymlink = {
-      enable = lib.mkEnableOption "Symlink scripts folder";
-      path = lib.mkOption {
-        type = types.str;
-        default = "scripts";
-        description = "Path to scripts folder inside repoPath";
-      };
-    };
   };
   config = {
     xdg.configFile = (builtins.mapAttrs (_: mkConfig) cfg.configSymlink);
-    home.file = lib.mkIf cfg.scriptSymlink.enable {
-      scripts = mkSymlink "scripts";
-    };
   };
 }

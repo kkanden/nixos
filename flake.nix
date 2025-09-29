@@ -27,9 +27,15 @@
         configPath = ./config;
         scriptsPath = ./scripts;
       };
+      root = ./.;
       lib' = import ./lib ({ inherit (nixpkgs) lib; } // libExtra);
       specialArgs = {
-        inherit inputs system lib';
+        inherit
+          inputs
+          system
+          lib'
+          root
+          ;
       }
       // libExtra;
     in

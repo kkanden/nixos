@@ -147,6 +147,42 @@ in
   programs.thunderbird.enable = true;
   programs.kdeconnect.enable = true;
 
+  # my scripts with their dependencies
+  oliwia.scripts = {
+    definitions = {
+      focus-or-launch = [
+        pkgs.hyprland
+        pkgs.jq
+      ];
+      killactive-steamsafe = [
+        pkgs.hyprland
+        pkgs.stable.xdotool
+      ];
+      rofi-open-filetype = [
+        pkgs.rofi
+        pkgs.stable.coreutils
+        pkgs.stable.fd
+        pkgs.stable.findutils
+        pkgs.stable.xdg-utils
+      ];
+      rofi-tr = [
+        pkgs.rofi
+        pkgs.stable.translate-shell
+        pkgs.stable.wl-clipboard
+        pkgs.stable.libnotify
+        pkgs.stable.mpv
+      ];
+      tmux-sessionizer = [
+        pkgs.stable.tmux
+        pkgs.stable.coreutils
+        pkgs.stable.fd
+        pkgs.stable.fzf
+        pkgs.stable.gnused
+        pkgs.stable.procps
+      ];
+    };
+  };
+
   environment.sessionVariables = {
     TMUX_PLUGINS_CMD = lib.pipe tmux-plugins [
       (builtins.map (x: "tmux run-shell ${x.rtp}"))
