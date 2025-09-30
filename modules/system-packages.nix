@@ -152,7 +152,7 @@ in
     definitions = {
       focus-or-launch = [
         pkgs.hyprland
-        pkgs.jq
+        pkgs.stable.jq
       ];
       killactive-steamsafe = [
         pkgs.hyprland
