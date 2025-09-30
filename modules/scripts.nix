@@ -42,7 +42,8 @@ in
           name = script-name;
           runtimeInputs = deps;
           text = removeShebang (builtins.readFile (builtins.toPath "${root}/${cfg.path}/${script-name}"));
-          excludeShellChecks = [ "SC2086" ];
+          excludeShellChecks = [ "SC2086" ]; # Double quote to prevent globbing and word splitting -- sometimes i want it unquoted
+          bashOptions = [ ]; # errexit, nounset, pipefail by default and it's annoying
         }
       ) cfg.definitions;
     in
