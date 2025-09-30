@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+SCOPE=$1
+
+run_hyprpicker() {
+    hyprpicker -rz >/dev/null &
+    sleep 0.1
+}
+
+wait_and_kill_hyprpicker() {
+    sleep 0.1 # delay to let slurp load up
+    while true; do
+        [[ ! $(pgrep slurp) ]] && pkill hyprpicker && break
+    done
+}
+
+set_slurp_args() {
+    case $SCOPE in
+    region)
+        SLURP_ARGS="-d"
+        ;;
+    screen)
+        SLURP_ARGS="-or"
+        ;;
+    *)
+        cat >&2 <<-EOF
+		Invalid or unspecified screenshot scope specifier: $SCOPE
+		Valid scopes are "region", "screen"
+		EOF
+        exit 1
+        ;;
+    esac
+}
+grab() {
+    run_hyprpicker
+    region=$(slurp $SLURP_ARGS) || exit 1
+    grim -g "$region" - | wl-copy --type image/png
+}
+
+set_slurp_args
+grab &
+wait_and_kill_hyprpicker

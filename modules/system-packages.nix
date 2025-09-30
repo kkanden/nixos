@@ -172,6 +172,12 @@ in
         pkgs.stable.libnotify
         pkgs.stable.mpv
       ];
+      rofi-clipboard = [
+        pkgs.rofi
+        pkgs.cliphist
+        pkgs.hyprland
+        pkgs.wl-clipboard
+      ];
       tmux-sessionizer = [
         pkgs.stable.tmux
         pkgs.stable.coreutils
@@ -179,6 +185,13 @@ in
         pkgs.stable.fzf
         pkgs.stable.gnused
         pkgs.stable.procps
+      ];
+      screenshot = [
+        pkgs.grim
+        pkgs.hyprpicker
+        pkgs.procps
+        pkgs.slurp
+        pkgs.wl-clipboard
       ];
     };
   };

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+selection=$(cliphist list | rofi -dmenu -p clipboard -display-columns 2)
+if [[ -n "$selection" ]]; then
+    echo "$selection" | cliphist decode | wl-copy
+    hyprctl dispatch sendshortcut "CTRL,V,"
+fi
