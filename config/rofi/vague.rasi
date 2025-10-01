@@ -30,9 +30,11 @@ window {
 }
 
 inputbar {
-    children: [prompt, entry];
-    padding: 15px 15px;
-    margin: 0;
+    children: [entry];
+    padding: 12px 14px;
+    margin: 12px 32px 0px 11px;
+    border-color: @border-col;
+    border: 1px;
 }
 
 prompt {
@@ -80,7 +82,6 @@ element selected {
 }
 
 element-text {
-    font: "JetBrainsMono Nerd Font 9";
     background-color: transparent;
     text-color: inherit;
     highlight: @highlight;
