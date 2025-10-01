@@ -90,10 +90,11 @@
   nixpkgs.config.allowUnfree = true;
 
   nix = {
-    package = pkgs.nix;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+      "pipe-operators"
+    ];
   };
 
   # DON'T CHANGE!
