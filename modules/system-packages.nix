@@ -90,7 +90,7 @@ in
       bash-language-server
       fish-lsp
       hyprls
-      ltex-ls
+      harper
       lua-language-server
       marksman
       nil
