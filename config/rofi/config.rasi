@@ -21,6 +21,8 @@ configuration {
     kb-move-front: "Control+i";
     kb-move-end: "Control+a";
     kb-remove-to-eol: "";
+    kb-remove-word-back: "Control+w";
+    kb-clear-line: "";
     kb-secondary-copy: "";
     location: 0;
     matching: "fuzzy";
