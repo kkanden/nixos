@@ -33,6 +33,7 @@ in
         enable = true;
         enable32Bit = true;
       };
+      hardware.amdgpu.initrd.enable = false;
       services.xserver.videoDrivers = [ "amdgpu" ];
     })
 
