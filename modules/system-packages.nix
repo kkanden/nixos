@@ -97,7 +97,6 @@ in
       bash-language-server
       fish-lsp
       hyprls
-      harper
       lua-language-server
       marksman
       nil
