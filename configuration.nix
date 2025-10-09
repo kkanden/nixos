@@ -9,7 +9,14 @@
   ]
   ++ lib.filesystem.listFilesRecursive ./modules;
 
-  oliwia.gpu.amd.enable = true;
+  oliwia = {
+    fishInteractiveShell.enable = true;
+    fonts.enable = true;
+    gpu.amd.enable = true;
+    hyprland.enable = true;
+    steam.enable = true;
+    xdgPortal.enable = true;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

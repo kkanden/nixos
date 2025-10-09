@@ -1,5 +1,9 @@
-{ pkgs, lib, ... }:
-with lib;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   hypr-plugin-dir = pkgs.symlinkJoin {
     name = "hyrpland-plugins";
@@ -9,27 +13,39 @@ let
   };
 in
 {
-  environment.sessionVariables = {
-    HYPR_PLUGIN_DIR = hypr-plugin-dir;
+  options.oliwia = {
+    hyprland.enable = lib.mkEnableOption "Hyprland with utilities";
   };
-  environment.systemPackages = with pkgs; [
-    hyprpolkitagent
-    hyprpicker
-    hyprpaper
-    hyprsysteminfo
-    hyprland-qt-support
-    hyprland-qtutils
-    hyprcursor
-    rose-pine-hyprcursor
-  ];
+  config = lib.mkIf config.oliwia.hyprland.enable {
+    environment.sessionVariables = {
+      HYPR_PLUGIN_DIR = hypr-plugin-dir;
+    };
+    environment.systemPackages = with pkgs; [
+      hyprpolkitagent
+      hyprpicker
+      hyprpaper
+      hyprsysteminfo
+      hyprland-qt-support
+      hyprland-qtutils
+      hyprcursor
+      rose-pine-hyprcursor
+    ];
 
-  programs.hyprland = {
-    enable = true;
-    # required for screen sharing to work
-    xwayland.enable = true;
-    withUWSM = true;
+    programs.hyprland = {
+      enable = true;
+      # required for screen sharing to work
+      xwayland.enable = true;
+      withUWSM = true;
+    };
+
+    programs.hyprlock.enable = true;
+    services.hypridle.enable = true;
+
+    environment.loginShellInit = # bash
+      ''
+        if uwsm check may-start; then
+            exec uwsm start hyprland-uwsm.desktop
+        fi
+      '';
   };
-
-  programs.hyprlock.enable = true;
-  services.hypridle.enable = true;
 }
