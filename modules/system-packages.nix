@@ -82,6 +82,13 @@ in
       perl
       php
       powershell
+      (python313.withPackages (
+        p: with p; [
+          black
+          isort
+        ]
+      ))
+      R
       rustup
       typst
 
