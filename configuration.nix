@@ -16,6 +16,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
+  networking.networkmanager.enable = true;
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [
@@ -30,6 +31,18 @@
     ];
   };
 
+  services.getty.autologinUser = "oliwia"; # autologin
+  services.openssh.enable = true;
+  services.gvfs.enable = true; # trashcan
+  services.pipewire = {
+    enable = true;
+    wireplumber.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    audio.enable = true;
+    jack.enable = true;
+  };
   services.avahi = {
     enable = true;
     publish = {
@@ -39,8 +52,6 @@
       userServices = true;
     };
   };
-
-  networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Warsaw";
 
@@ -59,16 +70,9 @@
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    wireplumber.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    audio.enable = true;
-    jack.enable = true;
-  };
+
   hardware.enableAllFirmware = true;
+  hardware.logitech.wireless.enable = true;
 
   users.users.oliwia = {
     isNormalUser = true;
@@ -82,9 +86,6 @@
       "wireshark"
     ];
   };
-
-  # Enable automatic login for the user.
-  services.getty.autologinUser = "oliwia";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

@@ -146,6 +146,25 @@ in
     ];
   programs.thunderbird.enable = true;
   programs.kdeconnect.enable = true;
+  programs.nh = {
+    enable = true;
+    flake = "/etc/nixos";
+  };
+  programs.nix-index = {
+    enable = true;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+  };
+  programs.command-not-found.enable = false;
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vkcapture
+    ];
+  };
 
   # my scripts with their dependencies
   oliwia.scripts = {
