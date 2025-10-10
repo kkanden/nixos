@@ -119,7 +119,7 @@ in
 
       # desktop
       alacritty
-      discord-ptb
+      discord
       firefox
       gimp3-with-plugins
       hyprpanel
