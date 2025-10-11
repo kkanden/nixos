@@ -174,50 +174,66 @@ in
 
   # my scripts with their dependencies
   oliwia.scripts = {
-    definitions = {
-      focus-or-launch = [
-        pkgs.hyprland
-        pkgs.stable.jq
-      ];
-      killactive-steamsafe = [
-        pkgs.hyprland
-        pkgs.stable.xdotool
-      ];
-      rofi-open-filetype = [
-        pkgs.rofi
-        pkgs.stable.coreutils
-        pkgs.stable.fd
-        pkgs.stable.findutils
-        pkgs.stable.xdg-utils
-      ];
-      rofi-tr = [
-        pkgs.rofi
-        pkgs.stable.translate-shell
-        pkgs.stable.wl-clipboard
-        pkgs.stable.libnotify
-        pkgs.stable.mpv
-      ];
-      rofi-clipboard = [
-        pkgs.rofi
-        pkgs.cliphist
-        pkgs.hyprland
-        pkgs.wl-clipboard
-      ];
-      tmux-sessionizer = [
-        pkgs.stable.tmux
-        pkgs.stable.coreutils
-        pkgs.stable.fd
-        pkgs.stable.fzf
-        pkgs.stable.gnused
-        pkgs.stable.procps
-      ];
-      screenshot = [
-        pkgs.grim
-        pkgs.hyprpicker
-        pkgs.procps
-        pkgs.slurp
-        pkgs.wl-clipboard
-      ];
+    scripts = {
+      focus-or-launch = {
+        dependencies = with pkgs; [
+          hyprland
+          stable.jq
+        ];
+      };
+      killactive-steamsafe = {
+        dependencies = with pkgs; [
+          hyprland
+          stable.xdotool
+        ];
+      };
+      rofi-open-filetype = {
+        dependencies = with pkgs; [
+          rofi
+          stable.coreutils
+          stable.fd
+          stable.findutils
+          stable.xdg-utils
+        ];
+      };
+      rofi-tr = {
+        dependencies = with pkgs; [
+          rofi
+          stable.translate-shell
+          stable.wl-clipboard
+          stable.libnotify
+          stable.mpv
+        ];
+      };
+      rofi-clipboard = {
+        dependencies = with pkgs; [
+          rofi
+          cliphist
+          hyprland
+          wl-clipboard
+        ];
+      };
+      tmux-sessionizer = {
+        dependencies = with pkgs.stable; [
+          tmux
+          coreutils
+          fd
+          fzf
+          gnused
+          procps
+        ];
+      };
+      screenshot = {
+        dependencies = with pkgs; [
+          grim
+          hyprpicker
+          procps
+          slurp
+          wl-clipboard
+        ];
+      };
+        ];
+      };
     };
   };
 

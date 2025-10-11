@@ -12,22 +12,41 @@ in
 {
   options.oliwia = {
     scripts = {
-      # enable = lib.mkEnableOption "Symlink scripts folder";
       path = lib.mkOption {
         type = types.str;
         default = "scripts";
-        description = "Path to scripts folder inside root";
+        description = "Path to scripts folder inside root.";
       };
-      definitions = lib.mkOption {
-        type = types.attrsOf (types.listOf types.package);
+      scripts = lib.mkOption {
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              name = lib.mkOption {
+                description = "Target executable name (defaults to script file name).";
+                type = types.nullOr types.str;
+                default = null;
+              };
+              dependencies = lib.mkOption {
+                description = "Dependencies of the script.";
+                type = types.listOf types.package;
+                default = [ ];
+              };
+            };
+          }
+        );
         default = { };
-        description = "Attribute set with script names as keys and their
-        dependencies as the values. The source file will be taken as
-        '\${oliwia.scripts.path}/scripts-name' relative to NixOS configuration
-        folder (`root` defined in the flake).";
+        description = ''
+          Attribute set containing the defintions of scripts. The
+          keys is the script file name inside the scripts folder. The values are
+          submodules containing the target name of the executable (defaults to
+          the key) and its dependencies
+        '';
         example = lib.literalExpression ''
           {
-              script-name = [pkgs.hello pkgs.cowsay];
+            filename-in-scripts = {
+              name = my-script;
+              dependencies = [pkgs.hello pkgs.cowsay];
+            } ;
           }
         '';
       };
@@ -37,18 +56,25 @@ in
     let
       removeShebang = raw-script: lib.removePrefix "#!/usr/bin/env bash\n" raw-script;
       scriptPkgs = lib.mapAttrsToList (
-        script-name: deps:
+        script-name:
+        {
+          name,
+          dependencies,
+        }:
         pkgs.writeShellApplication {
-          name = script-name;
-          runtimeInputs = deps;
-          text = removeShebang (builtins.readFile (builtins.toPath "${root}/${cfg.path}/${script-name}"));
-          excludeShellChecks = [ "SC2086" ]; # Double quote to prevent globbing and word splitting -- sometimes i want it unquoted
+          name = if name != null then name else script-name;
+          runtimeInputs = dependencies;
+          text = removeShebang (builtins.readFile "${root}/${cfg.path}/${script-name}");
+          excludeShellChecks = [
+            "SC2086" # Double quote to prevent globbing and word splitting -- sometimes i want it unquoted
+            "SC2016" # Expressions don't expand in single quotes, use double quotes for that.
+          ];
           bashOptions = [ ]; # errexit, nounset, pipefail by default and it's annoying
         }
-      ) cfg.definitions;
+      ) cfg.scripts;
     in
     lib.mkMerge [
-      (lib.mkIf (cfg.definitions != { }) {
+      (lib.mkIf (cfg.scripts != { }) {
         environment.systemPackages = scriptPkgs;
       })
     ];
