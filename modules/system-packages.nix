@@ -232,6 +232,11 @@ in
           wl-clipboard
         ];
       };
+      nix-search-tv = {
+        name = "ns";
+        dependencies = with pkgs; [
+          stable.fzf
+          nix-search-tv
         ];
       };
     };
