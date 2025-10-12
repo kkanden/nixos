@@ -28,7 +28,6 @@ in
       hyprland-qt-support
       hyprland-qtutils
       hyprcursor
-      rose-pine-hyprcursor
     ];
 
     programs.hyprland = {
