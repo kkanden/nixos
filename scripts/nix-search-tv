@@ -8,6 +8,7 @@ SHELL="bash"
 
 declare -a INDEXES=(
     "nixpkgs ctrl-n"
+    "nixos ctrl-i"
     "home-manager ctrl-h"
 
     # you can add any indexes combination here,
@@ -19,20 +20,8 @@ declare -a INDEXES=(
 SEARCH_SNIPPET_KEY="ctrl-w"
 OPEN_SOURCE_KEY="ctrl-s"
 OPEN_HOMEPAGE_KEY="ctrl-o"
-NIX_SHELL_KEY="ctrl-i"
-PRINT_PREVIEW_KEY="ctrl-p"
 
 OPENER="xdg-open"
-
-if [[ "$(uname)" == 'Darwin' ]]; then
-    SEARCH_SNIPPET_KEY="alt-w"
-    OPEN_SOURCE_KEY="alt-s"
-    OPEN_HOMEPAGE_KEY="alt-o"
-    NIX_SHELL_KEY="alt-i"
-    PRINT_PREVIEW_KEY="alt-p"
-
-    OPENER="open"
-fi
 
 # ========================================
 
@@ -76,8 +65,6 @@ save_state() {
 HEADER="$OPEN_HOMEPAGE_KEY - open homepage
 $OPEN_SOURCE_KEY - open source
 $SEARCH_SNIPPET_KEY - search github for snippets
-$NIX_SHELL_KEY - nix-shell
-$PRINT_PREVIEW_KEY - print preview
 "
 
 FZF_BINDS=""
@@ -103,9 +90,6 @@ SEARCH_SNIPPET_CMD="$SEARCH_SNIPPET_CMD | tr -d \"\'\" "
 SEARCH_SNIPPET_CMD="$SEARCH_SNIPPET_CMD | awk \'{ if (\$2) { print \$2 } else print \$1 }\' "
 SEARCH_SNIPPET_CMD="$SEARCH_SNIPPET_CMD | xargs printf \"https://github.com/search?type=code&q=lang:nix+%s\" \$1 "
 
-NIX_SHELL_CMD='nix-shell --run $SHELL -p $(echo "{}" | sed "s:nixpkgs/::g"'
-NIX_SHELL_CMD="$NIX_SHELL_CMD | tr -d \"\'\")"
-
 PREVIEW_WINDOW="wrap"
 [ "$(tput cols)" -lt 90 ] && PREVIEW_WINDOW="$PREVIEW_WINDOW,up"
 
@@ -114,8 +98,6 @@ eval "$CMD print | fzf \
     --bind '$OPEN_SOURCE_KEY:execute($CMD source \$(cat $STATE_FILE) {} | xargs $OPENER)' \
     --bind '$OPEN_HOMEPAGE_KEY:execute($CMD homepage \$(cat $STATE_FILE) {} | xargs $OPENER)' \
     --bind $'$SEARCH_SNIPPET_KEY:execute($SEARCH_SNIPPET_CMD | xargs $OPENER)' \
-    --bind $'$NIX_SHELL_KEY:become($NIX_SHELL_CMD)' \
-    --bind $'$PRINT_PREVIEW_KEY:become($CMD preview \$(cat $STATE_FILE) {})' \
     --layout reverse \
     --scheme history \
     --preview-window='$PREVIEW_WINDOW' \
