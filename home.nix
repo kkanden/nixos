@@ -18,7 +18,7 @@
       git = "git";
       hypr = "hypr";
       hyprpanel = "hyprpanel";
-      "oh-my-posh/config.json" = "oh-my-posh/omp-vague.json";
+      "oh-my-posh/config.toml" = "oh-my-posh/omp-vague.toml";
       qimgv = "qimgv";
       ripgrep = "ripgrep";
       sioyek = "sioyek";

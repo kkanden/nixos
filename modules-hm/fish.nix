@@ -24,7 +24,7 @@ in
     interactiveShellInit =
       # fish
       ''
-        oh-my-posh init fish --config ~/.config/oh-my-posh/config.json | source
+        oh-my-posh init fish --config ~/.config/oh-my-posh/config.toml | source
         set fish_greeting
 
         bind \t accept-autosuggestion
