@@ -129,6 +129,7 @@ in
       sioyek
       spotify
       uxplay # apple airdrop server
+      r2modman
 
       # hardware tools
       easyeffects
