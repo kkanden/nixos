@@ -60,7 +60,6 @@ in
       mpv
       nautilus
       pinta
-      qimgv
       translate-shell
       vlc
       wl-clipboard
@@ -130,6 +129,10 @@ in
       spotify
       uxplay # apple airdrop server
       r2modman
+      (qimgv.override {
+        libsForQt5 = pkgs.kdePackages; # use qt6 instead of qt5
+      })
+      kdePackages.kimageformats # adds many image formats support to qt6 apps
 
       # hardware tools
       easyeffects
