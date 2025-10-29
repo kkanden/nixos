@@ -91,7 +91,7 @@
   "theme.bar.border.location": "none",
   "theme.bar.border.width": "1px",
   "theme.bar.outer_spacing": "3px",
-  "theme.bar.margin_sides": "5px",
+  "theme.bar.margin_sides": "2px",
   "theme.bar.border_radius": "1px",
   "theme.font.weight": 600,
   "theme.bar.margin_top": "3px",
