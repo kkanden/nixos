@@ -23,7 +23,6 @@
 
     environment.systemPackages = with pkgs; [
       mangohud
-      protonup
       protonup-qt
       (bottles.override { removeWarningPopup = true; })
     ];
