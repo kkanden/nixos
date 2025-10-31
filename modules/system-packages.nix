@@ -174,6 +174,7 @@ in
       obs-pipewire-audio-capture
       obs-vkcapture
     ];
+    enableVirtualCamera = true;
   };
 
   # my scripts with their dependencies
