@@ -2,6 +2,11 @@
 
 SCOPE=$1
 
+# don't run if already taking a screenshot
+if [[ $(pgrep slurp) ]]; then
+    exit 0
+fi
+
 run_hyprpicker() {
     hyprpicker -rz >/dev/null &
     sleep 0.1
