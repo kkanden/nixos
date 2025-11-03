@@ -37,6 +37,10 @@ configuration {
     }
     calc {
         display-name: "";
+        terse: true;
+        reuse-result: true;
+        calc-command: "echo -n '{result}' | wl-copy";
+        automatic-save-to-history: true;
     }
 }
 @theme "vague"
