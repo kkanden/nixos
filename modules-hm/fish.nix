@@ -20,6 +20,10 @@ in
     };
     shellAbbrs = {
       tree = "tree -C";
+      nrun = {
+        setCursor = true;
+        expansion = "nix run nixpkgs#%";
+      };
     };
     interactiveShellInit =
       # fish
