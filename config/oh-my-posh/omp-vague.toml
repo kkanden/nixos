@@ -29,16 +29,16 @@ type = "prompt"
   [[blocks.segments]]
   foreground = "p:green"
   foreground_templates = [
-  "{{ if or (.Working.Changed) (.Staging.Changed) }}#f3be7c{{ end }}",
-  "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#cdcdcd{{ end }}",
-  "{{ if gt .Ahead 0 }}#bb9dbd{{ end }}",
-  "{{ if gt .Behind 0 }}#bb9dbd{{ end }}"
+  "{{ if or (.Working.Changed) (.Staging.Changed) }}p:yellow{{ end }}",
+  "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:white{{ end }}",
+  "{{ if gt .Ahead 0 }}p:purple{{ end }}",
+  "{{ if gt .Behind 0 }}p:purple{{ end }}"
 ]
-  template = """<#cdcdcd>on</> \
+  template = """<p:white>on</> \
   {{ .HEAD }}\
   {{ if gt .Ahead 0 }} ↑{{ .Ahead }}{{ end }}\ 
   {{ if gt .Behind 0 }} ↓{{ .Behind }}{{ end }}\
-  {{ if .Staging.Changed }}<#e6917d>  {{ .Staging.String }}</>{{ end }}\
+  {{ if .Staging.Changed }}<p:orange>  {{ .Staging.String }}</>{{ end }}\
   {{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}\
   {{ if .Working.Changed }}  {{ .Working.String }}{{ end }}\
   {{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} """
@@ -63,22 +63,10 @@ newline = true
 type = "prompt"
 
   [[blocks.segments]]
-  foreground = "p:closer"
+  type = "status"
   style = "plain"
-  template = "at"
-  type = "text"
-
-  [[blocks.segments]]
-  type = "time"
-  style = "plain"
-  foreground = "p:red"
+  template = "{{ if eq .Code 0 }}<p:white></>{{ else }}<p:red></>{{ end }}"
 
     [blocks.segments.properties]
-    time_format = "15:04:05"
-
-  [[blocks.segments]]
-  foreground = "p:closer"
-  style = "plain"
-  template = ""
-  type = "text"
+    always_enabled = true
 
