@@ -17,6 +17,7 @@ in
       gs = "git status";
       la = "ls -la";
       nho = "nh os switch";
+      nix-shell = "NIX_SHELL=1 nix-shell";
     };
     shellAbbrs = {
       tree = "tree -C";
@@ -24,6 +25,15 @@ in
         setCursor = true;
         expansion = "nix run nixpkgs#%";
       };
+    };
+    functions = {
+      nix = ''
+        if test "$argv[1]" = "shell"; or test "$argv[1]" = "develop"
+          NIX_SHELL=1 command nix $argv
+        else
+          command nix $argv
+        end
+      '';
     };
     interactiveShellInit =
       # fish
