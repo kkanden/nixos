@@ -69,5 +69,11 @@
 
         ];
       };
+      templates = {
+        python = {
+          path = ./templates/python;
+          name = "Python impure template";
+        };
+      };
     };
 }
