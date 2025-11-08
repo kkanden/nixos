@@ -19,7 +19,8 @@
     {
       linkTreesitterParsers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         rm -rf $HOME/.local/share/nvim/parser
-        ln -rs ${grammarsPath}/parser $HOME/.local/share/nvim
+        mkdir -p $HOME/.local/share/nvim/parser
+        ln -rs ${grammarsPath}/parser/* $HOME/.local/share/nvim/parser
       '';
     };
 }
