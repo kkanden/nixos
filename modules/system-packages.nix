@@ -154,6 +154,19 @@ in
     ++ [
       inputs.zen-browser.packages.${pkgs.system}.default
     ];
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      dbus # libdbus-1.so.3
+      fontconfig # libfontconfig.so.1
+      freetype # libfreetype.so.6
+      glib # libglib-2.0.so.0
+      libGL # libGL.so.1
+      libxkbcommon # libxkbcommon.so.0
+      wayland
+      xorg.libX11 # libX11.so.6
+    ];
+  };
   programs.thunderbird.enable = true;
   programs.kdeconnect.enable = true;
   programs.nh = {
