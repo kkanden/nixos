@@ -47,9 +47,9 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    audio.enable = true;
     jack.enable = true;
   };
+  security.rtkit.enable = true; # for pipewire
   services.avahi = {
     enable = true;
     publish = {
@@ -74,9 +74,6 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_GB.UTF-8";
   };
-
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
 
   hardware.enableAllFirmware = true;
   hardware.logitech.wireless.enable = true;
