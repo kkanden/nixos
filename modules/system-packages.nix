@@ -18,6 +18,7 @@ in
       dust
       fd
       ffmpeg
+      file
       fontconfig
       fzf
       gcc
@@ -50,7 +51,6 @@ in
       oh-my-posh
 
       # desktop
-      cheese
       cliphist
       groff # plain text to typeset
       inotify-tools
@@ -71,6 +71,7 @@ in
 
       #basic tool
       fastfetch
+      btop-rocm
 
       # cosmetic
       cava
@@ -145,6 +146,7 @@ in
       playerctl
       pulseaudio
       qpwgraph
+      gparted
 
       #other
       rustlings
