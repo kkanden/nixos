@@ -21,3 +21,6 @@ thickness = 0.25
 
 [keyboard]
 bindings = [ { key = "Space", mods = "Control", chars = "\u0000" } ]
+
+[terminal]
+shell = "fish"

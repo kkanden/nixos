@@ -10,7 +10,10 @@
   ++ lib.filesystem.listFilesRecursive ./modules;
 
   oliwia = {
-    fishInteractiveShell.enable = true;
+    fish = {
+      enable = true;
+      stable = true;
+    };
     fonts.enable = true;
     gpu.amd.enable = true;
     hyprland.enable = true;

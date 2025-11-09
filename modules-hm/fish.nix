@@ -1,15 +1,11 @@
 { pkgs, lib', ... }:
-let
-  fish-pkg = pkgs.stable.fish;
-in
 {
   programs.fish = {
     enable = true;
-    package = fish-pkg;
     plugins = [
       {
         name = "fzf";
-        src = pkgs.stable.fishPlugins.fzf-fish.src;
+        src = pkgs.fishPlugins.fzf-fish.src;
       }
     ];
     shellAliases = {
@@ -54,5 +50,5 @@ in
       '';
   };
 
-  home.sessionVariables."SHELL" = "${fish-pkg}/bin/fish";
+  home.sessionVariables."SHELL" = "${pkgs.fish}/bin/fish";
 }
