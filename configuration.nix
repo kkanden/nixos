@@ -19,6 +19,7 @@
     hyprland.enable = true;
     steam.enable = true;
     xdgPortal.enable = true;
+    virtualization.enable = true;
   };
 
   boot.loader.systemd-boot.enable = true;
