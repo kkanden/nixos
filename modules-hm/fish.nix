@@ -13,7 +13,7 @@
       gs = "git status";
       la = "ls -la";
       nho = "nh os switch";
-      nix-shell = "NIX_SHELL=1 nix-shell";
+      nix-shell = "NIX_SHELL=1 command nix-shell";
     };
     shellAbbrs = {
       tree = "tree -C";
@@ -49,6 +49,4 @@
         fortune | cowsay
       '';
   };
-
-  home.sessionVariables."SHELL" = "${pkgs.fish}/bin/fish";
 }
