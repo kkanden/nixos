@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   lib,
+  lib',
   ...
 }:
 let
@@ -156,6 +157,12 @@ in
     ++ [
       inputs.zen-browser.packages.${pkgs.system}.default
     ];
+  programs.bash = {
+    blesh.enable = true;
+    interactiveShellInit = ''
+      source ${lib'.mkConfigPath "bash/blesh-vague.sh"}
+    '';
+  };
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
