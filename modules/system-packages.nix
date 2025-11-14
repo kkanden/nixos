@@ -69,7 +69,6 @@ in
       xdotool
     ])
     ++ (with pkgs; [
-
       #basic tool
       fastfetch
       btop-rocm
@@ -94,6 +93,7 @@ in
       typst
 
       # lsp
+      ty
       basedpyright
       bash-language-server
       fish-lsp
@@ -151,7 +151,6 @@ in
 
       #other
       rustlings
-
     ])
     ++ tmux-plugins
     ++ [
