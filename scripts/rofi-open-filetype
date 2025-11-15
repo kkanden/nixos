@@ -1,16 +1,27 @@
 #!/usr/bin/env bash
-filetype=$1
+filetype=$1 # comma-separated string of file extensions
 program=${2:-xdg-open}
 
 declare -A files_dict
+
+fd_cmd="fd -t f -0 "
+IFS=","
+for ext in $filetype; do
+    fd_cmd+="-e $ext "
+done
+fd_cmd+=". ~"
+
+# list full paths sorted decreasingly by mtime
 files=$(while read -r file; do
     echo "/${file#*/}"
-done <<<"$(fd -t f -0 "$filetype\$" ~ | xargs -0 ls -lt)")
+done <<<"$(eval "$fd_cmd" | xargs -0 ls -lt)")
 
 while read -r file; do
     basename=${file##*/}
     files_dict[$basename]=$file
 done <<<"$files"
+
+# base names
 files=$(
     while read -r file; do
         echo "${file##*/}"
