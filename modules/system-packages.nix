@@ -58,7 +58,7 @@ in
       inotify-tools
       libnotify
       libqalculate
-      libreoffice-qt6-fresh
+      libreoffice-fresh
       mpv
       nautilus
       pinta
