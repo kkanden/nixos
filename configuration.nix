@@ -81,6 +81,10 @@
 
   hardware.enableAllFirmware = true;
   hardware.logitech.wireless.enable = true;
+  # disable logitech mouse from waking up from `systemctl suspend`
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", DRIVER=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c539", ATTR{power/wakeup}="disabled"
+  '';
 
   users.users.oliwia = {
     isNormalUser = true;
