@@ -97,6 +97,7 @@ in
       ty
       basedpyright
       bash-language-server
+      ccls
       fish-lsp
       hyprls
       lua-language-server
@@ -112,6 +113,7 @@ in
       # formatters
       air-formatter
       alejandra
+      clang-tools
       nixfmt-rfc-style
       shfmt
       stylua
