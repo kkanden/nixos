@@ -3,6 +3,7 @@
   pkgs,
   lib,
   lib',
+  repoPathStr,
   ...
 }:
 let
@@ -179,7 +180,7 @@ in
   programs.kdeconnect.enable = true;
   programs.nh = {
     enable = true;
-    flake = "/etc/nixos";
+    flake = repoPathStr;
   };
   programs.nix-index = {
     enable = true;

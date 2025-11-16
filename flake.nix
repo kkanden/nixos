@@ -23,18 +23,20 @@
     }@inputs:
     let
       system = "x86_64-linux";
+      repoPath = ./.;
+      repoPathStr = "/etc/nixos";
       libExtra = {
         configPath = ./config;
         scriptsPath = ./scripts;
       };
-      root = ./.;
       lib' = import ./lib ({ inherit (nixpkgs) lib; } // libExtra);
       specialArgs = {
         inherit
           inputs
           system
           lib'
-          root
+          repoPath
+          repoPathStr
           ;
       }
       // libExtra;

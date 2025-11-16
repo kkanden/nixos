@@ -2,6 +2,7 @@
   lib,
   config,
   configPath,
+  repoPathStr,
   ...
 }:
 let
@@ -12,12 +13,12 @@ let
     let
       fullPath = "${configPath}/${sourcePath}";
       pathType = lib.pathType fullPath;
-      repoConfigPathStr = "${cfg.repoPath}/config";
+      configPathStr = "${repoPathStr}/config";
     in
     if pathType == "regular" then
       {
         "${targetPath}" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${repoConfigPathStr}/${sourcePath}";
+          source = config.lib.file.mkOutOfStoreSymlink "${configPathStr}/${sourcePath}";
         };
       }
     else if pathType == "directory" then
@@ -28,7 +29,7 @@ let
           map (file: {
             name = builtins.unsafeDiscardStringContext "${targetPath}/${mkRelative file}"; # string context comes from file being a nix store path
             value = {
-              source = config.lib.file.mkOutOfStoreSymlink "${repoConfigPathStr}/${sourcePath}/${mkRelative file}";
+              source = config.lib.file.mkOutOfStoreSymlink "${configPathStr}/${sourcePath}/${mkRelative file}";
             };
           }) dirContents
         );
@@ -39,10 +40,6 @@ let
 in
 {
   options.oliwia.home = {
-    repoPath = lib.mkOption {
-      type = types.str;
-      default = "/etc/nixos";
-    };
     configSymlink = lib.mkOption {
       type = types.attrsOf types.str;
       example = lib.literalExpression ''

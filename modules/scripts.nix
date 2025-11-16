@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  root,
+  scriptsPath,
   ...
 }:
 let
@@ -12,11 +12,6 @@ in
 {
   options.oliwia = {
     scripts = {
-      path = lib.mkOption {
-        type = types.str;
-        default = "scripts";
-        description = "Path to scripts folder inside root.";
-      };
       scripts = lib.mkOption {
         type = types.attrsOf (
           types.submodule {
@@ -64,7 +59,7 @@ in
         pkgs.writeShellApplication {
           name = if name != null then name else script-name;
           runtimeInputs = dependencies;
-          text = removeShebang (builtins.readFile "${root}/${cfg.path}/${script-name}");
+          text = removeShebang builtins.readFile (scriptsPath + "/${script-name}");
           excludeShellChecks = [
             "SC2086" # Double quote to prevent globbing and word splitting -- sometimes i want it unquoted
             "SC2016" # Expressions don't expand in single quotes, use double quotes for that.
