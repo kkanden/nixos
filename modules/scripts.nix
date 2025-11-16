@@ -59,7 +59,7 @@ in
         pkgs.writeShellApplication {
           name = if name != null then name else script-name;
           runtimeInputs = dependencies;
-          text = removeShebang builtins.readFile (scriptsPath + "/${script-name}");
+          text = removeShebang (builtins.readFile (scriptsPath + "/${script-name}"));
           excludeShellChecks = [
             "SC2086" # Double quote to prevent globbing and word splitting -- sometimes i want it unquoted
             "SC2016" # Expressions don't expand in single quotes, use double quotes for that.
