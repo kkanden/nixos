@@ -15,6 +15,7 @@
     configSymlink = {
       alacritty = "alacritty";
       fastfetch = "fastfetch";
+      clangd = "clangd";
       git = "git";
       hypr = "hypr";
       hyprpanel = "hyprpanel";
