@@ -8,7 +8,6 @@ let
   cfg = config.oliwia.fish;
 in
 {
-
   options.oliwia.fish = {
     enable = lib.mkEnableOption "fish as interactive shell";
     stable = lib.mkEnableOption "overlaying the fish package with the stable one.";
@@ -16,9 +15,9 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      programs.fish.enable = true;
+      programs.fish.enable = lib.mkForce true;
       # run fish if parent process is not fish and user is oliwia and set the SHELL variable
-      programs.bash.interactiveShellInit = ''
+      programs.bash.interactiveShellInit = /* bash */ ''
         if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} && $USER == "oliwia" ]]; then
             shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
             SHELL="${pkgs.fish}/bin/fish" exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
