@@ -24,4 +24,9 @@ function nix
 end
 
 source ~/.config/fish/theme.fish
-fortune | cowsay
+
+# do a fortune-cowsay only in top level shell (no output in tmux shells)
+if not set -q COWSAY_OUT
+    fortune | cowsay
+    set -gx COWSAY_OUT 1
+end
