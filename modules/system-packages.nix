@@ -15,6 +15,7 @@ in
   environment.systemPackages =
     (with pkgs.stable; [
       # basic tools
+      android-tools
       bat
       diffutils
       dust
@@ -53,6 +54,11 @@ in
       oh-my-posh
 
       # desktop
+      (scrcpy.overrideAttrs (prev: {
+        postInstall = prev.postInstall + ''
+          wrapProgram $out/bin/scrcpy --set SDL_VIDEODRIVER x11
+        '';
+      }))
       cliphist
       groff # plain text to typeset
       inotify-tools
