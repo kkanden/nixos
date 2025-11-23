@@ -157,7 +157,7 @@ in
     ])
     ++ tmux-plugins
     ++ [
-      inputs.zen-browser.packages.${pkgs.system}.default
+      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   programs.bash = {
     blesh.enable = true;
