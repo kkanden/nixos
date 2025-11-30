@@ -57,7 +57,9 @@
               extraSpecialArgs = specialArgs;
             };
           }
-
+          {
+            environment.sessionVariables.NIXOS_REPO = repoPathStr;
+          }
           {
             nixpkgs.overlays = [
               (final: prev: {
