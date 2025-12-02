@@ -16,7 +16,20 @@
     };
     fonts.enable = true;
     gpu.amd.enable = true;
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      monitors = [
+        {
+          name = "DP-2";
+          res = "highres";
+          main = true;
+        }
+        {
+          name = "HDMI-A-1";
+          pos = "auto-left";
+        }
+      ];
+    };
     steam.enable = true;
     xdgPortal.enable = true;
     virtualization.enable = true;
