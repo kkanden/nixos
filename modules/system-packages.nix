@@ -144,6 +144,7 @@ in
         libsForQt5 = pkgs.kdePackages; # use qt6 instead of qt5
       })
       kdePackages.kimageformats # adds many image formats support to qt6 apps
+      prismlauncher
 
       # hardware tools
       easyeffects
