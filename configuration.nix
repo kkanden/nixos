@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -139,11 +140,15 @@
   nixpkgs.config.allowUnfree = true;
 
   nix = {
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-      "pipe-operators"
-    ];
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "pipe-operators"
+      ];
+      warn-dirty = false;
+    };
+    nixPath = builtins.map (x: "${x}=${inputs.${x}}") (builtins.attrNames inputs);
   };
 
   # DON'T CHANGE!
