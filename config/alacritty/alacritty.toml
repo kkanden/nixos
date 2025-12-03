@@ -6,8 +6,6 @@ live_config_reload = true
 dimensions = { columns = 190, lines = 49 }
 padding = { x = 0, y = 0 }
 decorations = "None"
-opacity = 0.90
-# blur = true
 startup_mode = "Windowed"
 dynamic_title = false
 
