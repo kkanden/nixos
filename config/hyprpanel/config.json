@@ -6,27 +6,13 @@
   "bar.customModules.cava.showIcon": false,
   "bar.customModules.cava.stereo": true,
   "bar.customModules.kbLayout.labelType": "code",
-  "bar.customModules.storage.paths": [
-    "/"
-  ],
+  "bar.customModules.storage.paths": ["/"],
   "bar.customModules.weather.unit": "metric",
   "bar.layouts": {
     "0": {
-      "left": [
-        "weather",
-        "workspaces",
-        "windowtitle"
-      ],
-      "middle": [
-        "clock"
-      ],
-      "right": [
-        "cava",
-        "media",
-        "kbinput",
-        "volume",
-        "notifications"
-      ]
+      "left": ["weather", "workspaces", "windowtitle"],
+      "middle": ["clock"],
+      "right": ["cava", "media", "kbinput", "volume", "notifications"]
     },
     "1": {
       "left": [],
@@ -53,15 +39,16 @@
   "bar.workspaces.show_numbered": false,
   "bar.workspaces.spacing": 1,
   "bar.workspaces.workspaceIconMap": {
+    "1": "",
     "2": "",
     "3": "",
-    "4": "",
-    "9": "",
-    "10": "",
-    "11": "󰓇"
+    "96": "",
+    "97": "",
+    "98": "",
+    "99": "󰓇"
   },
-  "bar.workspaces.workspaceMask": true,
-  "bar.workspaces.workspaces": 4,
+  "bar.workspaces.workspaceMask": false,
+  "bar.workspaces.workspaces": 3,
   "menus.clock.time.military": true,
   "menus.clock.weather.key": "9914a3c1bc584e609a392927252904",
   "menus.clock.weather.location": "Wroclaw, Poland",
@@ -299,3 +286,4 @@
   "theme.bar.buttons.bluetooth.background": "#252530",
   "theme.bar.buttons.battery.background": "#141415"
 }
+

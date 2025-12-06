@@ -62,15 +62,14 @@ in
       secondDisplay = lib.optionalString hasMultipleMonitors (
         monitors |> lib.filter (m: !m.main) |> lib.head |> (m: m.name)
       );
-      workspaceAssignment =
+      workspaceAssignment = lib.optionalString hasMultipleMonitors (
         "\n"
-        + lib.optionalString hasMultipleMonitors (
-          (lib.range 1 9)
-          |> lib.map (
-            n: "workspace = ${builtins.toString n}, monitor:${if n == 1 then secondDisplay else mainDisplay}"
-          )
+        + (
+          (lib.range 1 10)
+          |> lib.map (n: "workspace = ${builtins.toString n}, monitor:${mainDisplay}")
           |> lib.concatStringsSep "\n"
-        );
+        )
+      );
     in
     lib.mkMerge [
       {
@@ -85,9 +84,7 @@ in
           }
         ];
       }
-      {
-        environment.sessionVariables.MAIN_DISPLAY = mainDisplay;
-        environment.sessionVariables.MAIN_DISPLAY_ROFI = "'${mainDisplay}'"; # rofi needs extra quotes to deal with env variables
+      (lib.mkIf cfg.enable {
         # file to be sourced in hyprland.conf
         environment.etc."hypr/monitors.hypr".text =
           (lib.optionalString (cfg.monitors != [ ]) (
@@ -96,11 +93,14 @@ in
             |> lib.concatStringsSep "\n"
           ))
           + workspaceAssignment;
-      }
-      (lib.mkIf cfg.enable {
+
         environment.sessionVariables = {
           HYPR_PLUGIN_DIR = hypr-plugin-dir;
-        };
+          MAIN_DISPLAY = mainDisplay;
+          MAIN_DISPLAY_ROFI = "'${mainDisplay}'"; # rofi needs extra quotes to deal with env variables
+          SECOND_DISPLAY = if hasMultipleMonitors then secondDisplay else mainDisplay;
+        }; # setting this here so i can manage autostart apps that are to open on the second display (if applies)
+
         environment.systemPackages = with pkgs; [
           hyprpolkitagent
           hyprpicker
