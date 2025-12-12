@@ -77,6 +77,7 @@
       userServices = true;
     };
   };
+  services.playerctld.enable = true;
 
   time.timeZone = "Europe/Warsaw";
 
