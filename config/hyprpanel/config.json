@@ -6,13 +6,27 @@
   "bar.customModules.cava.showIcon": false,
   "bar.customModules.cava.stereo": true,
   "bar.customModules.kbLayout.labelType": "code",
-  "bar.customModules.storage.paths": ["/"],
+  "bar.customModules.storage.paths": [
+    "/"
+  ],
   "bar.customModules.weather.unit": "metric",
   "bar.layouts": {
     "0": {
-      "left": ["weather", "workspaces", "windowtitle"],
-      "middle": ["clock"],
-      "right": ["cava", "media", "kbinput", "volume", "notifications"]
+      "left": [
+        "weather",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "clock"
+      ],
+      "right": [
+        "cava",
+        "media",
+        "kbinput",
+        "volume",
+        "notifications"
+      ]
     },
     "1": {
       "left": [],
@@ -286,4 +300,3 @@
   "theme.bar.buttons.bluetooth.background": "#252530",
   "theme.bar.buttons.battery.background": "#141415"
 }
-
