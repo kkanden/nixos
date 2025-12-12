@@ -71,62 +71,65 @@ in
         )
       );
     in
-    lib.mkMerge [
-      {
-        assertions = [
-          {
-            assertion = (monitors != [ ]) -> (lib.count (m: m.main) monitors) == 1;
-            message = "oliwia.hyprland.monitors: one (and only one) main monitor must be configured!";
-          }
-          {
-            assertion = lib.all (m: m.name != null) monitors;
-            message = "oliwia.hyprland.monitors: a monitor must have a name defined!";
-          }
-        ];
-      }
-      (lib.mkIf cfg.enable {
-        # file to be sourced in hyprland.conf
-        environment.etc."hypr/monitors.hypr".text =
-          (lib.optionalString (cfg.monitors != [ ]) (
-            cfg.monitors
-            |> lib.map (opts: with opts; "monitor=${name},${res},${pos},${scaling}")
-            |> lib.concatStringsSep "\n"
-          ))
-          + workspaceAssignment;
+    lib.mkIf cfg.enable (
+      lib.mkMerge [
+        {
+          assertions = [
+            {
+              assertion = (monitors != [ ]) -> (lib.count (m: m.main) monitors) == 1;
+              message = "oliwia.hyprland.monitors: one (and only one) main monitor must be configured!";
+            }
+            {
+              assertion = lib.all (m: m.name != null) monitors;
+              message = "oliwia.hyprland.monitors: a monitor must have a name defined!";
+            }
+          ];
+        }
+        {
+          # file to be sourced in hyprland.conf
+          environment.etc."hypr/monitors.hypr".text =
+            (lib.optionalString (cfg.monitors != [ ]) (
+              cfg.monitors
+              |> lib.map (opts: with opts; "monitor=${name},${res},${pos},${scaling}")
+              |> lib.concatStringsSep "\n"
+            ))
+            + workspaceAssignment;
 
-        environment.sessionVariables = {
-          HYPR_PLUGIN_DIR = hypr-plugin-dir;
-          MAIN_DISPLAY = mainDisplay;
-          MAIN_DISPLAY_ROFI = "'${mainDisplay}'"; # rofi needs extra quotes to deal with env variables
-          SECOND_DISPLAY = if hasMultipleMonitors then secondDisplay else mainDisplay;
-        }; # setting this here so i can manage autostart apps that are to open on the second display (if applies)
+          environment.sessionVariables = {
+            HYPR_PLUGIN_DIR = hypr-plugin-dir;
+            MAIN_DISPLAY = mainDisplay;
+            MAIN_DISPLAY_ROFI = "'${mainDisplay}'"; # rofi needs extra quotes to deal with env variables
+            SECOND_DISPLAY = if hasMultipleMonitors then secondDisplay else mainDisplay;
+          }; # setting this here so i can manage autostart apps that are to open on the second display (if applies)
 
-        environment.systemPackages = with pkgs; [
-          hyprpolkitagent
-          hyprpicker
-          hyprpaper
-          hyprsysteminfo
-          hyprland-qt-support
-          hyprland-qtutils
-          hyprcursor
-        ];
+          environment.systemPackages = with pkgs; [
+            hyprpolkitagent
+            hyprpicker
+            hyprpaper
+            hyprsysteminfo
+            hyprland-qt-support
+            hyprland-qtutils
+            hyprcursor
+          ];
 
-        programs.hyprland = {
-          enable = true;
-          # required for screen sharing to work
-          xwayland.enable = true;
-          withUWSM = true;
-        };
+          programs.hyprland = {
+            enable = true;
+            # required for screen sharing to work
+            xwayland.enable = true;
+            withUWSM = true;
+          };
 
-        programs.hyprlock.enable = true;
-        services.hypridle.enable = true;
+          programs.hyprlock.enable = true;
+          services.hypridle.enable = true;
 
-        environment.loginShellInit = # bash
-          ''
-            if uwsm check may-start; then
-                exec uwsm start hyprland-uwsm.desktop
-            fi
-          '';
-      })
-    ];
+          environment.loginShellInit =
+            # bash
+            ''
+              if uwsm check may-start; then
+              exec uwsm start hyprland-uwsm.desktop
+              fi
+            '';
+        }
+      ]
+    );
 }
