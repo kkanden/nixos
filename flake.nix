@@ -22,7 +22,6 @@
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
       repoPath = ./.;
       repoPathStr = "/etc/nixos";
       libExtra = {
@@ -30,6 +29,7 @@
         scriptsPath = ./scripts;
       };
       lib' = import ./lib ({ inherit (nixpkgs) lib; } // libExtra);
+      system = "x86_64-linux";
       specialArgs = {
         inherit
           inputs
@@ -40,39 +40,50 @@
           ;
       }
       // libExtra;
+      mkHost = host: {
+        name = host;
+        value = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = (nixpkgs.lib.filesystem.listFilesRecursive ./modules) ++ [
+            ## GLOBALS ##
+            ./configuration.nix
+            {
+              environment.sessionVariables.NIXOS_REPO = repoPathStr;
+              nixpkgs.overlays = [
+                (final: prev: {
+                  stable = import nixpkgs-stable {
+                    inherit system;
+                    config.allowUnfree = true;
+                  };
+                })
+              ];
+            }
+            ## HOST SPECIFIC ##
+            ./hosts/${host}/configuration.nix
+            {
+              networking.hostName = host;
+            }
+            ## HOME MANAGER ##
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                sharedModules = (nixpkgs.lib.filesystem.listFilesRecursive ./modules-hm);
+                users.oliwia = ./hosts/${host}/home.nix;
+                backupFileExtension = "hm-backup";
+                extraSpecialArgs = specialArgs;
+              };
+            }
+          ];
+
+        };
+      };
     in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system specialArgs;
-        modules = [
-          ./configuration.nix
-          ./hardware-configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.oliwia = ./home.nix;
-              backupFileExtension = "hm-backup";
-              extraSpecialArgs = specialArgs;
-            };
-          }
-          {
-            environment.sessionVariables.NIXOS_REPO = repoPathStr;
-          }
-          {
-            nixpkgs.overlays = [
-              (final: prev: {
-                stable = import nixpkgs-stable {
-                  inherit system;
-                  config.allowUnfree = true;
-                };
-              })
-            ];
-          }
-
-        ];
-      };
+      nixosConfigurations = builtins.listToAttrs (
+        map mkHost (builtins.attrNames (builtins.readDir ./hosts))
+      );
       templates = {
         python = {
           path = ./templates/python;

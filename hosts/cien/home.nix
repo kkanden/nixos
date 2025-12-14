@@ -1,10 +1,15 @@
 {
-  pkgs,
   lib',
+  pkgs,
   osConfig,
   ...
 }:
 {
+  home.username = "oliwia";
+  home.homeDirectory = "/home/oliwia";
+
+  home.stateVersion = "25.05";
+
   programs.neovim = {
     enable = true;
     plugins = [
@@ -76,4 +81,7 @@
       color-scheme = "prefer-dark";
     };
   };
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }
