@@ -17,6 +17,7 @@
     };
     fonts.enable = true;
     gpu.amd.enable = true;
+    gpu.amd.overdrive = true;
     hyprland = {
       enable = true;
       monitors = [

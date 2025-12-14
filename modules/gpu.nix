@@ -10,6 +10,7 @@ in
 {
   options.oliwia.gpu = {
     amd.enable = lib.mkEnableOption "AMD GPU";
+    amd.overdrive = lib.mkEnableOption "AMD GPU overclocking";
     nvidia.enable = lib.mkEnableOption "NVIDIA GPU";
   };
   config = lib.mkMerge [
@@ -22,20 +23,27 @@ in
       ];
     }
 
-    (lib.mkIf cfg.amd.enable {
-      environment.systemPackages = with pkgs; [
-        mesa
-        mesa-demos
-        vulkan-tools
-      ];
-      # enable OpenGL
-      hardware.graphics = {
-        enable = true;
-        enable32Bit = true;
-      };
-      hardware.amdgpu.initrd.enable = false;
-      services.xserver.videoDrivers = [ "amdgpu" ];
-    })
+    (lib.mkIf cfg.amd.enable (
+      lib.mkMerge [
+        {
+          environment.systemPackages = with pkgs; [
+            mesa
+            mesa-demos
+            vulkan-tools
+          ];
+          # enable OpenGL
+          hardware.graphics = {
+            enable = true;
+            enable32Bit = true;
+          };
+          hardware.amdgpu.initrd.enable = false;
+          services.xserver.videoDrivers = [ "amdgpu" ];
+        }
+        (lib.mkIf cfg.amd.overdrive {
+          hardware.amdgpu.overdrive.enable = true;
+        })
+      ]
+    ))
 
     (lib.mkIf cfg.nvidia.enable {
       # enable OpenGL
