@@ -69,7 +69,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                sharedModules = (nixpkgs.lib.filesystem.listFilesRecursive ./modules-hm);
+                sharedModules = (nixpkgs.lib.filesystem.listFilesRecursive ./modules-hm) ++ [ ./home.nix ];
                 users.oliwia = ./hosts/${host}/home.nix;
                 backupFileExtension = "hm-backup";
                 extraSpecialArgs = specialArgs;

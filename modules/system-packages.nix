@@ -210,7 +210,7 @@ in
           rofi-power-menu
           sioyek
           spotify
-          spotify_player
+          spotify-player
           uxplay # apple airdrop server
           r2modman
           (qimgv.override {
