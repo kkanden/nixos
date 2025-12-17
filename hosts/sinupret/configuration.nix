@@ -9,6 +9,7 @@
   oliwia = {
     packages.extra.enable = true;
     gpu.amd.enable = true;
+    gpu.amd.override = true;
     hyprland = {
       enable = true;
       monitors = [
