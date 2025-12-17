@@ -30,9 +30,9 @@ let
   inherit (lib) types;
 
   hostname = osConfig.networking.hostName;
-  hostPathStr = repoPathStr + "/hosts/${hostname}/config";
+  hostPathStr = "${repoPathStr}/hosts/${hostname}/config";
   hostPath = repoPath + "/hosts/${hostname}/config";
-  globalPathStr = repoPathStr + "config";
+  globalPathStr = "${repoPathStr}/config";
   globalPath = repoPath + "/config";
 
   mkSymlink =
