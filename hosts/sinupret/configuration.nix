@@ -45,6 +45,7 @@
     ];
   };
 
+  # for uxplay
   services.avahi = {
     enable = true;
     publish = {
@@ -54,6 +55,7 @@
       userServices = true;
     };
   };
+
   services.ratbagd.enable = true;
   services.playerctld.enable = true;
 
