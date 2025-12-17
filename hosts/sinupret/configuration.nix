@@ -59,6 +59,8 @@
 
   services.ratbagd.enable = true;
   services.playerctld.enable = true;
+  services.lact.enable = true;
+  services.qbittorrent.enable = true;
 
   hardware.enableAllFirmware = true;
   hardware.logitech.wireless.enable = true;

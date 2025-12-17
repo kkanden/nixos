@@ -188,6 +188,7 @@ in
           nautilus
           pinta
           translate-shell
+          tesseract
           vlc
           wl-clipboard
           wtype
@@ -209,6 +210,7 @@ in
           rofi-power-menu
           sioyek
           spotify
+          spotify_player
           uxplay # apple airdrop server
           r2modman
           (qimgv.override {
@@ -216,6 +218,7 @@ in
           })
           kdePackages.kimageformats # adds many image formats support to qt6 apps
           prismlauncher
+          protonvpn-gui
 
           # hardware tools
           easyeffects
