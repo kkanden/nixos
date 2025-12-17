@@ -79,6 +79,8 @@
     };
   };
   services.playerctld.enable = true;
+  services.lact.enable = true;
+  services.qbittorrent.enable = true;
 
   time.timeZone = "Europe/Warsaw";
 
