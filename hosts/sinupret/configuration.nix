@@ -7,6 +7,7 @@
   ];
 
   oliwia = {
+    packages.extra.enable = true;
     gpu.amd.enable = true;
     hyprland = {
       enable = true;
@@ -31,7 +32,6 @@
   };
 
   networking.firewall = {
-    enable = true;
     # for uxplay
     allowedTCPPorts = [
       7100
@@ -64,22 +64,18 @@
     ACTION=="add", SUBSYSTEM=="usb", DRIVER=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c539", ATTR{power/wakeup}="disabled"
   '';
 
-  users.users.oliwia = {
-    isNormalUser = true;
-    description = "oliwia";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "audio"
-      "video"
-      "input"
-      "wireshark"
-    ];
+  # makes terminal apps work when opened as xdg default (eg neovim)
+  xdg.terminal-exec = {
+    enable = true;
+    settings = {
+      default = [ "Alacritty.desktop" ];
+    };
   };
 
   environment.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "zen";
+    TERMINAL = "alacritty";
   };
 
   # DON'T CHANGE!
