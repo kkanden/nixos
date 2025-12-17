@@ -1,46 +1,10 @@
 {
-  lib',
   pkgs,
   osConfig,
   ...
 }:
 {
-  home.username = "oliwia";
-  home.homeDirectory = "/home/oliwia";
-
   home.stateVersion = "25.05";
-
-  programs.neovim = {
-    enable = true;
-    plugins = [
-      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-    ];
-  };
-
-  home.file = {
-    ".Rprofile".source = lib'.mkConfigPath ".Rprofile";
-    ".latexmkrc".source = lib'.mkConfigPath "latexmkrc";
-  };
-
-  oliwia.home = {
-    configSymlink = {
-      alacritty = "alacritty";
-      fastfetch = "fastfetch";
-      clangd = "clangd";
-      "fish/theme.fish" = "fish/vague.fish";
-      "fish/config.fish" = "fish/config.fish";
-      git = "git";
-      hypr = "hypr";
-      hyprpanel = "hyprpanel";
-      "oh-my-posh/config.toml" = "oh-my-posh/omp-vague.toml";
-      qimgv = "qimgv";
-      ripgrep = "ripgrep";
-      sioyek = "sioyek";
-      tmux = "tmux";
-      rofi = "rofi";
-    };
-  };
-  home.sessionVariables."RIPGREP_CONFIG_PATH" = "$HOME/.config/ripgrep/ripgreprc";
 
   home.pointerCursor = {
     enable = true;
@@ -50,8 +14,6 @@
     gtk.enable = true;
     hyprcursor.enable = osConfig.oliwia.hyprland.enable;
   };
-
-  xdg.enable = true;
 
   # QT & GTK options
   qt = {
@@ -81,7 +43,4 @@
       color-scheme = "prefer-dark";
     };
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
