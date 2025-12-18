@@ -63,6 +63,11 @@ newline = true
 type = "prompt"
 
   [[blocks.segments]]
+  type = "session"
+  style = "plain"
+  template = "<#606079>{{ .UserName }}@{{ .HostName }}</>"
+
+  [[blocks.segments]]
   type = "status"
   style = "plain"
   template = "{{ if eq .Code 0 }}<p:white></>{{ else }}<p:red></>{{ end }}"
