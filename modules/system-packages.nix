@@ -313,6 +313,13 @@ in
               pinta
             ];
           };
+          image-to-text = {
+            dependencies = with pkgs.stable; [
+              libnotify
+              wl-clipboard
+              tesseract
+            ];
+          };
         };
       };
     })

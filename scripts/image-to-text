@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ "$(wl-paste -l)" != "image/png" ]]; then
+    notify-send "image-to-text" "Item in clipboard is not an image"
+    exit 1
+fi
+
+wl-paste | tesseract stdin stdout | wl-copy && notify-send "image-to-text" "Text from image successfully copied to clipboard"
