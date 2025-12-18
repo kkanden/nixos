@@ -16,6 +16,9 @@ in
         type = types.attrsOf (
           types.submodule {
             options = {
+              enable = lib.mkEnableOption "this script" // {
+                default = true;
+              };
               name = lib.mkOption {
                 description = "Target executable name (defaults to script file name).";
                 type = types.nullOr types.str;
@@ -50,11 +53,13 @@ in
   config =
     let
       removeShebang = raw-script: lib.removePrefix "#!/usr/bin/env bash\n" raw-script;
+      enabledScripts = lib.filterAttrs (_: { enable, ... }: enable) cfg.scripts;
       scriptPkgs = lib.mapAttrsToList (
         script-name:
         {
           name,
           dependencies,
+          ...
         }:
         pkgs.writeShellApplication {
           name = if name != null then name else script-name;
@@ -66,7 +71,7 @@ in
           ];
           bashOptions = [ ]; # errexit, nounset, pipefail by default and it's annoying
         }
-      ) cfg.scripts;
+      ) enabledScripts;
     in
     lib.mkMerge [
       (lib.mkIf (cfg.scripts != { }) {

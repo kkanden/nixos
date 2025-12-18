@@ -1,108 +1,19 @@
 {
   pkgs,
-  lib,
   inputs,
+  lib,
   ...
 }:
 {
-  imports = [
-    ./hardware-configuration.nix
-  ]
-  ++ lib.filesystem.listFilesRecursive ./modules;
-
+  # oliwia defaults ----
   oliwia = {
     fish = {
-      enable = true;
-      stable = true;
+      enable = lib.mkDefault true;
+      stable = lib.mkDefault true;
     };
-    fonts.enable = true;
-    gpu.amd.enable = true;
-    gpu.amd.overdrive = true;
-    hyprland = {
-      enable = true;
-      monitors = [
-        {
-          name = "DP-2";
-          res = "highres";
-          main = true;
-        }
-        {
-          name = "HDMI-A-1";
-          pos = "auto-left";
-        }
-      ];
-    };
-    steam.enable = true;
-    xdgPortal.enable = true;
-    virtualization.enable = true;
+    fonts.enable = lib.mkDefault true;
+    xdgPortal.enable = lib.mkDefault true;
   };
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      7100
-      7000
-      7001
-    ];
-    allowedUDPPorts = [
-      7011
-      6000
-      6001
-    ];
-  };
-
-  services.getty.autologinUser = "oliwia"; # autologin
-  services.openssh.enable = true;
-  services.gvfs.enable = true; # trashcan
-  services.pipewire = {
-    enable = true;
-    wireplumber.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-  security.rtkit.enable = true; # for pipewire
-  services.avahi = {
-    enable = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      workstation = true;
-      userServices = true;
-    };
-  };
-  services.playerctld.enable = true;
-  services.lact.enable = true;
-  services.qbittorrent.enable = true;
-
-  time.timeZone = "Europe/Warsaw";
-
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFIUSTION = "en_CA.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
-  };
-
-  hardware.enableAllFirmware = true;
-  hardware.logitech.wireless.enable = true;
-  # disable logitech mouse from waking up from `systemctl suspend`
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="usb", DRIVER=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c539", ATTR{power/wakeup}="disabled"
-  '';
 
   users.users.oliwia = {
     isNormalUser = true;
@@ -117,44 +28,56 @@
     ];
   };
 
-  systemd.services.lock-before-suspend =
-    let
-      lockScript = pkgs.writeShellScript "lock-before-suspend" ''
-        echo "lock-before-suspend.service: Attempting to lock sessions before suspension..."
-        if ${pkgs.systemd}/bin/loginctl lock-sessions; then
-          echo "lock-before-suspend.service: Successfully locked sessions."
-        else
-          echo "lock-before-suspend.service: Failed to lock sessions." >&2
-          exit 1
-        fi
-      '';
-    in
-    {
-      enable = true;
-      description = "Lock sessions before suspending it.";
-      before = [ "suspend.target" ];
-      wantedBy = [ "suspend.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${lockScript}";
-      };
-    };
+  # boot ----
+  boot.loader.systemd-boot.enable = lib.mkDefault true;
+  boot.loader.efi.canTouchEfiVariables = lib.mkDefault true; # UEFI boot
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # networking ----
+  networking.networkmanager.enable = lib.mkDefault true;
 
+  # services ----
+  services.getty.autologinUser = lib.mkDefault "oliwia"; # autologin
+  services.openssh.enable = lib.mkDefault true;
+  services.gvfs.enable = lib.mkDefault true; # trashcan
+  services.pipewire = {
+    enable = lib.mkDefault true;
+    wireplumber.enable = lib.mkDefault true;
+    alsa.enable = lib.mkDefault true;
+    alsa.support32Bit = lib.mkDefault true;
+    pulse.enable = lib.mkDefault true;
+    jack.enable = lib.mkDefault true;
+  };
+  security.rtkit.enable = lib.mkDefault true; # for pipewire
+  services.playerctld.enable = lib.mkDefault true;
+
+  # nix ----
   nix = {
     settings = {
-      experimental-features = [
+      experimental-features = lib.mkDefault [
         "nix-command"
         "flakes"
         "pipe-operators"
       ];
-      warn-dirty = false;
+      warn-dirty = lib.mkDefault false;
     };
-    nixPath = builtins.map (x: "${x}=${inputs.${x}}") (builtins.attrNames inputs);
+    nixPath = lib.mkDefault (builtins.map (x: "${x}=${inputs.${x}}") (builtins.attrNames inputs));
   };
+  nixpkgs.config.allowUnfree = lib.mkDefault true;
 
-  # DON'T CHANGE!
-  system.stateVersion = "25.05";
+  # misc ----
+  time.timeZone = lib.mkDefault "Europe/Warsaw";
+
+  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = lib.mkDefault "en_US.UTF-8";
+    LC_IDENTIFIUSTION = lib.mkDefault "en_CA.UTF-8";
+    LC_MEASUREMENT = lib.mkDefault "en_US.UTF-8";
+    LC_MONETARY = lib.mkDefault "en_US.UTF-8";
+    LC_NAME = lib.mkDefault "en_US.UTF-8";
+    LC_NUMERIC = lib.mkDefault "en_US.UTF-8";
+    LC_PAPER = lib.mkDefault "en_US.UTF-8";
+    LC_TELEPHONE = lib.mkDefault "en_US.UTF-8";
+    LC_TIME = lib.mkDefault "en_GB.UTF-8";
+  };
 }

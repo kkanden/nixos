@@ -6,25 +6,33 @@
   outputs =
     { nixpkgs, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      ld_libs = with pkgs; [ ];
+      forAllSystems = nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+      ];
     in
     {
-      devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          python
-          uv
-        ];
-        LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath ld_libs}";
-        shellHook = ''
-          export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$NIX_LD_LIBRARY_PATH"
-          unset PYTHONPATH
-          uv sync
-          . .venv/bin/activate
-          exec fish
-        '';
-      };
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          ld_libs = with pkgs; [ ];
+        in
+        {
+          ${system}.default = pkgs.mkShell {
+            packages = with pkgs; [
+              python
+              uv
+            ];
+            LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath ld_libs}";
+            shellHook = ''
+              export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$NIX_LD_LIBRARY_PATH"
+              unset PYTHONPATH
+              uv sync
+              . .venv/bin/activate
+              exec fish
+            '';
+          };
+        }
+      );
     };
-
 }

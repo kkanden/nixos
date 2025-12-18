@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# takes image from clipboard, creates a file and opens it in pinta
+
+[[ -d "$HOME/images" ]] || mkdir "$HOME/images"
+filename="$HOME/images/$(date +"%H:%M:%S %d-%m-%y").png"
+if ! wl-paste --type image/png >"$filename"; then
+    rm "$filename"
+    notify-send "pinta-clipboard" "Item in clipboard is not an image"
+    exit 1
+fi
+pinta "$filename" &
+disown
