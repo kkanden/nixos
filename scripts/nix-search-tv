@@ -17,7 +17,6 @@ declare -a INDEXES=(
     "all ctrl-a"
 )
 
-SEARCH_SNIPPET_KEY="ctrl-w"
 OPEN_SOURCE_KEY="ctrl-s"
 OPEN_HOMEPAGE_KEY="ctrl-o"
 
@@ -64,7 +63,6 @@ save_state() {
 
 HEADER="$OPEN_HOMEPAGE_KEY - open homepage
 $OPEN_SOURCE_KEY - open source
-$SEARCH_SNIPPET_KEY - search github for snippets
 "
 
 FZF_BINDS=""
@@ -83,13 +81,6 @@ done
 # reset the state
 echo "" >/tmp/nix-search-tv-fzf
 
-SEARCH_SNIPPET_CMD=$'echo "{}"'
-# fzf surrounds the matched package with ', trim them
-SEARCH_SNIPPET_CMD="$SEARCH_SNIPPET_CMD | tr -d \"\'\" "
-# if it's multi-index search, then we need to remote the prefix
-SEARCH_SNIPPET_CMD="$SEARCH_SNIPPET_CMD | awk \'{ if (\$2) { print \$2 } else print \$1 }\' "
-SEARCH_SNIPPET_CMD="$SEARCH_SNIPPET_CMD | xargs printf \"https://github.com/search?type=code&q=lang:nix+%s\" \$1 "
-
 PREVIEW_WINDOW="wrap"
 [ "$(tput cols)" -lt 90 ] && PREVIEW_WINDOW="$PREVIEW_WINDOW,up"
 
@@ -97,7 +88,6 @@ eval "$CMD print | fzf \
     --preview '$CMD preview \$(cat $STATE_FILE) {}' \
     --bind '$OPEN_SOURCE_KEY:execute($CMD source \$(cat $STATE_FILE) {} | xargs $OPENER)' \
     --bind '$OPEN_HOMEPAGE_KEY:execute($CMD homepage \$(cat $STATE_FILE) {} | xargs $OPENER)' \
-    --bind $'$SEARCH_SNIPPET_KEY:execute($SEARCH_SNIPPET_CMD | xargs $OPENER)' \
     --layout reverse \
     --scheme history \
     --preview-window='$PREVIEW_WINDOW' \
