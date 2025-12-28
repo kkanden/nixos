@@ -24,12 +24,12 @@
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus Dark";
     };
     theme = {
       package = pkgs.gnome-themes-extra;
-      name = "Adwaita";
+      name = "Papirus Dark";
     };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
