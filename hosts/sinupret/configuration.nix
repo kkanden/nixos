@@ -1,7 +1,4 @@
 {
-  ...
-}:
-{
   imports = [
     ./_hardware-configuration.nix
   ];
@@ -32,35 +29,11 @@
     };
   };
 
-  networking.firewall = {
-    # for uxplay
-    allowedTCPPorts = [
-      7100
-      7000
-      7001
-    ];
-    allowedUDPPorts = [
-      7011
-      6000
-      6001
-    ];
-  };
-
-  # for uxplay
-  services.avahi = {
-    enable = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      workstation = true;
-      userServices = true;
-    };
-  };
-
   services.ratbagd.enable = true;
   services.playerctld.enable = true;
   services.lact.enable = true;
   services.qbittorrent.enable = true;
+  services.mullvad-vpn.enable = true;
 
   hardware.enableAllFirmware = true;
   hardware.logitech.wireless.enable = true;

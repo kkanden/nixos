@@ -252,6 +252,47 @@ in
         ];
         enableVirtualCamera = true;
       };
+      # for uxplay
+      services.avahi = {
+        enable = true;
+        publish = {
+          enable = true;
+          addresses = true;
+          workstation = true;
+          userServices = true;
+        };
+      };
+      networking.firewall = {
+        allowedTCPPorts = [
+          # spotify
+          57621
+          # uxplay
+          7100
+          7000
+          7001
+        ];
+        allowedUDPPorts = [
+          # spotify
+          57621
+          # uxplay
+          7011
+          6000
+          6001
+        ];
+      };
+
+      # nautilus plugins
+      environment.sessionVariables.GST_PLUGIN_SYSTEM_PATH_1_0 =
+        lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
+          (
+            with pkgs.gst_all_1;
+            [
+              gst-plugins-good
+              gst-plugins-bad
+              gst-plugins-ugly
+              gst-libav
+            ]
+          );
 
       # my scripts with their dependencies
       oliwia.scripts = {
