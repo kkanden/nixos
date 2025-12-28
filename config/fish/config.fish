@@ -1,10 +1,19 @@
 oh-my-posh init fish --config ~/.config/oh-my-posh/config.toml | source
 set fish_greeting
 
-bind \t accept-autosuggestion
-bind \cn complete-and-search
-bind \cp down-or-search
-bind \cf tmux-sessionizer
+function replace-command
+    set cmdline $(test -n "$(commandline)" && echo $(commandline) || echo $history[1] )
+    set cmdline (string split " " $cmdline)
+    set -e cmdline[1]
+    commandline -r " $cmdline"
+    commandline -C 0
+end
+
+bind tab accept-autosuggestion
+bind ctrl-n complete-and-search
+bind ctrl-p down-or-search
+bind alt-r replace-command
+bind ctrl-f tmux-sessionizer
 
 alias r="R"
 alias gs="git status"
