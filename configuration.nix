@@ -4,15 +4,18 @@
   lib,
   ...
 }:
+let
+  mk = lib.mkDefault;
+in
 {
   # oliwia defaults ----
   oliwia = {
     fish = {
-      enable = lib.mkDefault true;
-      stable = lib.mkDefault true;
+      enable = mk true;
+      stable = mk true;
     };
-    fonts.enable = lib.mkDefault true;
-    xdgPortal.enable = lib.mkDefault true;
+    fonts.enable = mk true;
+    xdgPortal.enable = mk true;
   };
 
   users.users.oliwia = {
@@ -29,55 +32,56 @@
   };
 
   # boot ----
-  boot.loader.systemd-boot.enable = lib.mkDefault true;
-  boot.loader.efi.canTouchEfiVariables = lib.mkDefault true; # UEFI boot
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
+  boot.loader.systemd-boot.enable = mk true;
+  boot.loader.efi.canTouchEfiVariables = mk true; # UEFI boot
+  boot.kernelPackages = mk pkgs.linuxPackages_zen;
 
   # networking ----
-  networking.networkmanager.enable = lib.mkDefault true;
+  networking.networkmanager.enable = mk true;
+  systemd.services.NetworkManager-wait-online.enable = mk false;
+  systemd.network.wait-online.enable = mk false;
 
   # services ----
-  services.getty.autologinUser = lib.mkDefault "oliwia"; # autologin
-  services.openssh.enable = lib.mkDefault true;
-  services.gvfs.enable = lib.mkDefault true; # trashcan
+  services.openssh.enable = mk true;
+  services.gvfs.enable = mk true; # trashcan
   services.pipewire = {
-    enable = lib.mkDefault true;
-    wireplumber.enable = lib.mkDefault true;
-    alsa.enable = lib.mkDefault true;
-    alsa.support32Bit = lib.mkDefault true;
-    pulse.enable = lib.mkDefault true;
-    jack.enable = lib.mkDefault true;
+    enable = mk true;
+    wireplumber.enable = mk true;
+    alsa.enable = mk true;
+    alsa.support32Bit = mk true;
+    pulse.enable = mk true;
+    jack.enable = mk true;
   };
-  security.rtkit.enable = lib.mkDefault true; # for pipewire
-  services.playerctld.enable = lib.mkDefault true;
+  security.rtkit.enable = mk true; # for pipewire
+  services.playerctld.enable = mk true;
 
   # nix ----
   nix = {
     settings = {
-      experimental-features = lib.mkDefault [
+      experimental-features = mk [
         "nix-command"
         "flakes"
         "pipe-operators"
       ];
-      warn-dirty = lib.mkDefault false;
+      warn-dirty = mk false;
     };
-    nixPath = lib.mkDefault (builtins.map (x: "${x}=${inputs.${x}}") (builtins.attrNames inputs));
+    nixPath = mk (builtins.map (x: "${x}=${inputs.${x}}") (builtins.attrNames inputs));
   };
-  nixpkgs.config.allowUnfree = lib.mkDefault true;
+  nixpkgs.config.allowUnfree = mk true;
 
   # misc ----
-  time.timeZone = lib.mkDefault "Europe/Warsaw";
+  time.timeZone = mk "Europe/Warsaw";
 
-  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
+  i18n.defaultLocale = mk "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = lib.mkDefault "en_US.UTF-8";
-    LC_IDENTIFIUSTION = lib.mkDefault "en_CA.UTF-8";
-    LC_MEASUREMENT = lib.mkDefault "en_US.UTF-8";
-    LC_MONETARY = lib.mkDefault "en_US.UTF-8";
-    LC_NAME = lib.mkDefault "en_US.UTF-8";
-    LC_NUMERIC = lib.mkDefault "en_US.UTF-8";
-    LC_PAPER = lib.mkDefault "en_US.UTF-8";
-    LC_TELEPHONE = lib.mkDefault "en_US.UTF-8";
-    LC_TIME = lib.mkDefault "en_GB.UTF-8";
+    LC_ADDRESS = mk "en_US.UTF-8";
+    LC_IDENTIFIUSTION = mk "en_CA.UTF-8";
+    LC_MEASUREMENT = mk "en_US.UTF-8";
+    LC_MONETARY = mk "en_US.UTF-8";
+    LC_NAME = mk "en_US.UTF-8";
+    LC_NUMERIC = mk "en_US.UTF-8";
+    LC_PAPER = mk "en_US.UTF-8";
+    LC_TELEPHONE = mk "en_US.UTF-8";
+    LC_TIME = mk "en_GB.UTF-8";
   };
 }
