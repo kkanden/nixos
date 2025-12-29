@@ -218,7 +218,6 @@ in
           })
           kdePackages.kimageformats # adds many image formats support to qt6 apps
           prismlauncher
-          protonvpn-gui
 
           # hardware tools
           easyeffects
