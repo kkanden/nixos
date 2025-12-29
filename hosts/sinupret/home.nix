@@ -25,11 +25,7 @@
     enable = true;
     iconTheme = {
       package = pkgs.papirus-icon-theme;
-      name = "Papirus Dark";
-    };
-    theme = {
-      package = pkgs.gnome-themes-extra;
-      name = "Papirus Dark";
+      name = "Papirus";
     };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
