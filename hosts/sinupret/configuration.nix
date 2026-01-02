@@ -1,4 +1,8 @@
 {
+  lib,
+  ...
+}:
+{
   imports = [
     ./_hardware-configuration.nix
   ];
@@ -36,6 +40,15 @@
   services.lact.enable = true;
   services.qbittorrent.enable = true;
   services.mullvad-vpn.enable = true;
+  systemd.services.qbittorrent =
+    let
+      vpn-device = "sys-devices-virtual-net-wg0\\x2dmullvad.device";
+    in
+    {
+      after = lib.mkAfter [ vpn-device ];
+      bindsTo = lib.mkAfter [ vpn-device ];
+      upheldBy = lib.mkAfter [ vpn-device ];
+    };
 
   hardware.enableAllFirmware = true;
   hardware.logitech.wireless.enable = true;
