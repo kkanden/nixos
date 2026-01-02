@@ -21,7 +21,7 @@ alias la="ls -la"
 alias nho="nh os switch"
 alias nix-shell="NIX_SHELL=1 command nix-shell"
 alias tree="tree -C"
-alias nrepl="nix repl --expr 'let flake = (builtins.getFlake \"$NIXOS_REPO\").nixosConfigurations.$hostname; in {inherit (flake) pkgs lib config;}'"
+alias nrepl="nixos-rebuild repl --flake $NIXOS_REPO#$hostname"
 
 abbr --add --set-cursor -- nrun 'nix run nixpkgs#%'
 
