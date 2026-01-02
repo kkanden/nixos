@@ -30,6 +30,7 @@
     };
   };
 
+  services.getty.autologinUser = "oliwia"; # autologin
   services.ratbagd.enable = true;
   services.playerctld.enable = true;
   services.lact.enable = true;
