@@ -9,6 +9,7 @@
     gpu.amd.overdrive = true;
     hyprland = {
       enable = true;
+      autoStartup = true;
       monitors = [
         {
           name = "DP-2";

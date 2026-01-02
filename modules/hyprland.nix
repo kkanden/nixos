@@ -19,6 +19,7 @@ in
   # monitor = HDMI-A-1, preferred, -1920x120, 1
   options.oliwia.hyprland = {
     enable = lib.mkEnableOption "Hyprland with utilities";
+    autoStartup = lib.mkEnableOption "Hyprland UWSM autostartup";
     monitors = mkOption {
       default = [ ];
       type = types.listOf (
@@ -121,7 +122,8 @@ in
 
           programs.hyprlock.enable = true;
           services.hypridle.enable = true;
-
+        }
+        (lib.mkIf cfg.autoStartup {
           environment.loginShellInit =
             # bash
             ''
@@ -129,7 +131,7 @@ in
               exec uwsm start hyprland-uwsm.desktop
               fi
             '';
-        }
+        })
       ]
     );
 }
