@@ -303,13 +303,6 @@ in
               stable.jq
             ];
           };
-          killactive-steamsafe = {
-            enable = config.oliwia.hyprland.enable;
-            dependencies = with pkgs; [
-              hyprland
-              stable.xdotool
-            ];
-          };
           rofi-open-filetype = {
             dependencies = with pkgs; [
               rofi
