@@ -5,7 +5,8 @@
 {
   imports = [
     ./_hardware-configuration.nix
-  ];
+  ]
+  ++ lib.filesystem.listFilesRecursive ./imports;
 
   oliwia = {
     packages.extra.enable = true;
