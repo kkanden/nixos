@@ -48,6 +48,7 @@
       after = lib.mkAfter [ vpn-device ];
       bindsTo = lib.mkAfter [ vpn-device ];
       upheldBy = lib.mkAfter [ vpn-device ];
+      wantedBy = lib.mkForce [ ];
     };
 
   hardware.enableAllFirmware = true;
