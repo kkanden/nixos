@@ -20,6 +20,10 @@ in
   options.oliwia.hyprland = {
     enable = lib.mkEnableOption "Hyprland with utilities";
     autoStartup = lib.mkEnableOption "Hyprland UWSM autostartup";
+    extraConfig = lib.mkOption {
+      type = types.lines;
+      default = '''';
+    };
     monitors = mkOption {
       default = [ ];
       type = types.listOf (
@@ -95,6 +99,8 @@ in
               |> lib.concatStringsSep "\n"
             ))
             + workspaceAssignment;
+
+          environment.etc."hypr/extra.hypr".text = cfg.extraConfig;
 
           environment.sessionVariables = {
             HYPR_PLUGIN_DIR = hypr-plugin-dir;
