@@ -14,6 +14,26 @@
     packages.extra.enable = true;
     hyprland = {
       enable = true;
+      extraConfig = /* hyprlang */ ''
+        debug {
+          disable_scale_checks = true
+        }
+        input {
+          sensitivity = 0
+          touchpad {
+            natural_scroll = true
+            drag_lock = true
+            scroll_factor = 0.7
+          }
+        }
+      '';
+      monitors = [
+        {
+          name = "eDP-1";
+          scaling = "0.85";
+          main = true;
+        }
+      ];
     };
     xdgPortal.enable = true;
     virtualization.enable = true;
@@ -36,6 +56,7 @@
       upheldBy = lib.mkAfter [ vpn-device ];
       wantedBy = lib.mkForce [ ];
     };
+  services.upower.enable = true;
 
   hardware.enableAllFirmware = true;
 
