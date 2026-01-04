@@ -7,7 +7,7 @@ SHELL="bash"
 # === Change keybinds or add more here ===
 
 declare -a INDEXES=(
-    "nixpkgs ctrl-n"
+    "nixpkgs ctrl-j"
     "nixos ctrl-i"
     "home-manager ctrl-h"
 
