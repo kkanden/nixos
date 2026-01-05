@@ -55,6 +55,9 @@
                     inherit system;
                     config.allowUnfree = true;
                   };
+                  vimPlugins = prev.vimPlugins // {
+                    nvim-treesitter = final.stable.vimPlugins.nvim-treesitter;
+                  };
                 })
               ];
             }
