@@ -36,14 +36,12 @@
       ];
     };
     xdgPortal.enable = true;
-    virtualization.enable = true;
     systemdServices = {
       enable = true;
     };
   };
 
   services.playerctld.enable = true;
-  services.lact.enable = true;
   services.qbittorrent.enable = true;
   services.mullvad-vpn.enable = true;
   systemd.services.qbittorrent =
@@ -57,8 +55,14 @@
       wantedBy = lib.mkForce [ ];
     };
   services.upower.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   hardware.enableAllFirmware = true;
+
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+  };
 
   # makes terminal apps work when opened as xdg default (eg neovim)
   xdg.terminal-exec = {
