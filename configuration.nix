@@ -42,7 +42,13 @@ in
   systemd.network.wait-online.enable = mk false;
 
   # services ----
-  services.openssh.enable = mk true;
+  services.openssh = {
+    enable = mk true;
+    settings = {
+      PubkeyAuthentication = true;
+      PermitRootLogin = false;
+    };
+  };
   services.gvfs.enable = mk true; # trashcan
   services.pipewire = {
     enable = mk true;
