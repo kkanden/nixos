@@ -6,7 +6,8 @@
 {
   imports = [
     ./_hardware-configuration.nix
-  ];
+  ]
+  ++ lib.filesystem.listFilesRecursive ./imports;
 
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
 
