@@ -65,6 +65,10 @@
     HandleLidSwitch = "ignore";
   };
 
+  oliwia.immich = {
+    server.enable = true;
+  };
+
   # makes terminal apps work when opened as xdg default (eg neovim)
   xdg.terminal-exec = {
     enable = true;
