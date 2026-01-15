@@ -4,6 +4,7 @@
   ...
 }:
 {
+  programs.bash.enable = true; # required for home.sessionVariables to work
   programs.neovim = {
     enable = true;
     plugins = [
