@@ -37,7 +37,9 @@ in
             enable32Bit = true;
           };
           hardware.amdgpu.initrd.enable = false;
+          hardware.amdgpu.opencl.enable = true;
           services.xserver.videoDrivers = [ "amdgpu" ];
+          nixpkgs.config.rocmSupport = true;
         }
         (lib.mkIf cfg.amd.overdrive {
           hardware.amdgpu.overdrive.enable = true;
@@ -63,6 +65,9 @@ in
           finegrained = false;
         };
       };
+
+      nixpkgs.config.cudaSupport = true;
+
       boot =
         let
           mkNvidia =
