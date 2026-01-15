@@ -28,6 +28,7 @@
       ];
     };
     steam.enable = true;
+    immich.machine-learning.enable = true;
     xdgPortal.enable = true;
     virtualization.enable = true;
     systemdServices = {
