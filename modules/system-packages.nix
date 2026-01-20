@@ -49,6 +49,7 @@ in
           postgresql_17
           ripgrep
           tmux
+          trash-cli
           tree
           unrar
           unzip
