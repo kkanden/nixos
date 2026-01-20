@@ -4,9 +4,15 @@ set fish_greeting
 function replace-command
     set cmdline $(test -n "$(commandline)" && echo $(commandline) || echo $history[1] )
     set cmdline (string split " " $cmdline)
-    set -e cmdline[1]
-    commandline -r " $cmdline"
-    commandline -C 0
+    if test "$cmdline[1]" = sudo
+        set -e cmdline[1..2]
+        commandline -r "sudo  "(string join " " -- $cmdline)
+        commandline -C 5 # position after sudo
+    else
+        set -e cmdline[1]
+        commandline -r " "(string join " " -- $cmdline)
+        commandline -C 0
+    end
 end
 
 bind tab accept-autosuggestion
