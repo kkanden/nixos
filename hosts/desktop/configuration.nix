@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   ...
 }:
@@ -15,6 +16,9 @@
     hyprland = {
       enable = true;
       autoStartup = true;
+      plugins = with pkgs.hyprlandPlugins; [
+        csgo-vulkan-fix
+      ];
       monitors = [
         {
           name = "DP-2";
@@ -26,6 +30,16 @@
           pos = "auto-left";
         }
       ];
+      extraConfig = /* hyprlang */ ''
+        plugin {
+            csgo-vulkan-fix {
+                res_w = 1680
+                res_h = 1050
+                class = cs2
+                fix_mouse = true
+            }
+        }
+      '';
     };
     steam.enable = true;
     immich.machine-learning.enable = true;

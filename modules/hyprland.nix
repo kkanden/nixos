@@ -7,12 +7,6 @@
 let
   inherit (lib) types mkOption;
   cfg = config.oliwia.hyprland;
-  hypr-plugin-dir = pkgs.symlinkJoin {
-    name = "hyrpland-plugins";
-    paths = with pkgs.hyprlandPlugins; [
-      csgo-vulkan-fix
-    ];
-  };
 in
 {
   # monitor = DP-2, 1920x1080@75, 0x0, 1
@@ -20,9 +14,9 @@ in
   options.oliwia.hyprland = {
     enable = lib.mkEnableOption "Hyprland with utilities";
     autoStartup = lib.mkEnableOption "Hyprland UWSM autostartup";
-    extraConfig = lib.mkOption {
-      type = types.lines;
-      default = '''';
+    plugins = lib.mkOption {
+      type = types.listOf types.package;
+      default = [ ];
     };
     monitors = mkOption {
       default = [ ];
@@ -54,10 +48,25 @@ in
         }
       );
     };
+    extraConfig = lib.mkOption {
+      type = types.lines;
+      default = "";
+    };
   };
 
   config =
     let
+      hyprPluginsJoin = pkgs.symlinkJoin {
+        name = "hyprland-plugins";
+        paths = cfg.plugins;
+      };
+      loadPluginsScript = lib.optionalString (cfg.plugins != [ ]) (
+        cfg.plugins
+        |> map (p: p.pname)
+        |> map (name: "exec-once = hyprctl plugin load \"${hyprPluginsJoin}/lib/lib${name}.so\"")
+        |> lib.concatStringsSep "\n"
+      );
+
       monitors = cfg.monitors;
       hasMultipleMonitors = lib.length monitors > 1;
       mainDisplay = lib.optionalString (monitors != [ ]) (
@@ -71,7 +80,7 @@ in
         "\n"
         + (
           (lib.range 1 10)
-          |> lib.map (n: "workspace = ${builtins.toString n}, monitor:${mainDisplay}")
+          |> lib.map (n: "workspace = ${toString n}, monitor:${mainDisplay}")
           |> lib.concatStringsSep "\n"
         )
       );
@@ -100,10 +109,12 @@ in
             ))
             + workspaceAssignment;
 
-          environment.etc."hypr/extra.hypr".text = cfg.extraConfig;
+          environment.etc."hypr/extra.hypr".text = ''
+            ${loadPluginsScript}
+            ${cfg.extraConfig}
+          '';
 
           environment.sessionVariables = {
-            HYPR_PLUGIN_DIR = hypr-plugin-dir;
             MAIN_DISPLAY = mainDisplay;
             MAIN_DISPLAY_ROFI = "'${mainDisplay}'"; # rofi needs extra quotes to deal with env variables
             SECOND_DISPLAY = if hasMultipleMonitors then secondDisplay else mainDisplay;
