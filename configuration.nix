@@ -46,7 +46,7 @@ in
     enable = mk true;
     settings = {
       PubkeyAuthentication = true;
-      PermitRootLogin = "no";
+      PasswordAuthentication = false;
     };
   };
   services.gvfs.enable = mk true; # trashcan
