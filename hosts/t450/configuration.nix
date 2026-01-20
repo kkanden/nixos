@@ -67,6 +67,10 @@
 
   oliwia.immich = {
     server.enable = true;
+    backup = {
+      db.enable = true;
+      assets.enable = true;
+    };
   };
 
   # makes terminal apps work when opened as xdg default (eg neovim)
