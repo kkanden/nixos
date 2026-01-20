@@ -105,7 +105,7 @@ in
           air-formatter
           alejandra
           clang-tools
-          nixfmt-rfc-style
+          nixfmt
           shfmt
           stylua
           tex-fmt
