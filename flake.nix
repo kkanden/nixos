@@ -12,6 +12,10 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -58,6 +62,7 @@
                 })
               ];
             }
+            inputs.nix-index.nixosModules.default
             ## HOST SPECIFIC ##
             ./hosts/${host}/configuration.nix
             {
