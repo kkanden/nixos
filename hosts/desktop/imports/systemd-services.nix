@@ -1,29 +1,21 @@
 { pkgs, lib', ... }:
 {
-  systemd.services.home-backup =
-    let
-      script = pkgs.writeShellScript "sync" ''
+  systemd.services.home-backup = {
+    description = "Home backup";
+    after = [
+      "mnt-hdd.mount"
+      "multi-user.target"
+    ];
+    requires = [ "mnt-hdd.mount" ];
+    serviceConfig = lib'.mkHardened {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "home-backup" ''
         ${pkgs.rsync}/bin/rsync -ah --delete --exclude-from=/etc/nixos/config/rsync-exclude /home/oliwia/ /mnt/hdd/home
       '';
-    in
-    {
-      description = "Backup /home/oliwia to /mnt/hdd/home";
-      after = [
-        "mnt-hdd.mount"
-        "multi-user.target"
-      ];
-      requires = [ "mnt-hdd.mount" ];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${script}";
-        StandardOutput = "journal";
-        StandardError = "journal";
-        PrivateTmp = true;
-        NoNewPrivileges = true;
-      };
     };
+  };
   systemd.timers.home-backup = {
-    description = "Daily backup of /home/oliwia";
+    description = "Home backup timer";
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "5min";

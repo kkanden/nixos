@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  lib',
   ...
 }:
 let
@@ -69,7 +70,7 @@ in
           MACHINE_LEARNING_WORKERS = "1";
           MACHINE_LEARNING_WORKER_TIMEOUT = "120";
         };
-        serviceConfig = {
+        serviceConfig = lib'.mkHardened {
           Type = "simple";
           Restart = "on-failure";
           RestartSec = 3;
@@ -82,18 +83,11 @@ in
 
           # Hardening
           DynamicUser = true;
-          PrivateMounts = true;
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
           RestrictAddressFamilies = [
             "AF_INET"
             "AF_INET6"
             "AF_UNIX"
           ];
-          RestrictRealtime = true;
           UMask = "0077";
         };
       };
