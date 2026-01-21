@@ -15,7 +15,6 @@ in
       stable = mk true;
     };
     fonts.enable = mk true;
-    xdgPortal.enable = mk true;
   };
 
   users.users.oliwia = {

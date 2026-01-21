@@ -36,7 +36,6 @@
         }
       ];
     };
-    xdgPortal.enable = true;
     systemdServices = {
       enable = true;
     };

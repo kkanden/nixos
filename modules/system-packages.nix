@@ -268,6 +268,15 @@ in
         ];
       };
 
+      xdg.portal = {
+        enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        xdgOpenUsePortal = true;
+        config = {
+          common.default = [ "gtk" ];
+        };
+      };
+
       # nautilus plugins
       environment.sessionVariables.GST_PLUGIN_SYSTEM_PATH_1_0 =
         lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
