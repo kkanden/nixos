@@ -83,6 +83,8 @@ in
 
           # Hardening
           DynamicUser = true;
+          ProtectProc = "default";
+          ProcSubset = "all";
           RestrictAddressFamilies = [
             "AF_INET"
             "AF_INET6"
