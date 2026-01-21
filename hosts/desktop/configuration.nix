@@ -10,7 +10,21 @@
   ++ lib.filesystem.listFilesRecursive ./imports;
 
   oliwia = {
-    packages.extra.enable = true;
+    packages.extra = {
+      enable = true;
+      extraPackages = with pkgs; [
+        (scrcpy.overrideAttrs (prev: {
+          postInstall = prev.postInstall + ''
+            wrapProgram $out/bin/scrcpy --set SDL_VIDEODRIVER x11 --add-flags "--render-driver=opengl"
+          '';
+        }))
+        texliveFull
+        prismlauncher
+        piper
+        rustlings
+        libratbag
+      ];
+    };
     gpu.amd.enable = true;
     gpu.amd.overdrive = true;
     hyprland = {

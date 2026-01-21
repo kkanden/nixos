@@ -173,11 +173,6 @@ in
           yt-dlp
 
           # desktop
-          (scrcpy.overrideAttrs (prev: {
-            postInstall = prev.postInstall + ''
-              wrapProgram $out/bin/scrcpy --set SDL_VIDEODRIVER x11
-            '';
-          }))
           cliphist
           groff # plain text to typeset
           inotify-tools
@@ -185,7 +180,6 @@ in
           libqalculate
           libreoffice-fresh
           mpv
-          texliveFull
           nautilus
           pinta
           translate-shell
@@ -206,7 +200,6 @@ in
           firefox
           gimp3-with-plugins
           hyprpanel
-          papirus-icon-theme
           (rofi.override { plugins = with pkgs; [ rofi-calc ]; })
           rofi-power-menu
           sioyek
@@ -218,23 +211,17 @@ in
             libsForQt5 = pkgs.kdePackages; # use qt6 instead of qt5
           })
           kdePackages.kimageformats # adds many image formats support to qt6 apps
-          prismlauncher
 
           # hardware tools
           easyeffects
           hardinfo2
           imagemagick
-          libratbag
           lm_sensors
           pavucontrol
-          piper
           playerctl
           pulseaudio
           qpwgraph
           gparted
-
-          #other
-          rustlings
         ])
         ++ [
           inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
