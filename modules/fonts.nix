@@ -20,6 +20,7 @@
         newcomputermodern
         source-sans-pro
         nerd-fonts.jetbrains-mono
+        corefonts
       ];
       fontconfig = {
         defaultFonts = {
