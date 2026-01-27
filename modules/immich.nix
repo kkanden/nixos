@@ -60,6 +60,7 @@ in
     (lib.mkIf cfg.machine-learning.enable {
       networking.firewall.allowedTCPPorts = [ 3003 ];
       systemd.services.immich-ml = {
+        description = "Immich Machine Learning";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         environment = {
@@ -115,7 +116,7 @@ in
           dbDeleteOlderThan = cfg.backup.db.deleteOlderThan;
         in
         {
-          description = "Immich database backup";
+          description = "Immich Database Backup";
           path = with pkgs.stable; [
             postgresql
             gzip
@@ -181,7 +182,7 @@ in
         };
 
       systemd.services.immich-restart-after-backup = {
-        description = "Restart Immich server after backup";
+        description = "Restart Immich Server After Backup";
         after = [ "immich-backup.service" ];
         wantedBy = [ "immich-backup.service" ];
         serviceConfig = {

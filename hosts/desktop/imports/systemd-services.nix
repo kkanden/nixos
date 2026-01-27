@@ -1,7 +1,7 @@
 { pkgs, lib', ... }:
 {
   systemd.services.home-backup = {
-    description = "Home backup";
+    description = "Home Backup";
     after = [
       "mnt-hdd.mount"
       "multi-user.target"
@@ -15,7 +15,7 @@
     };
   };
   systemd.timers.home-backup = {
-    description = "Home backup timer";
+    description = "Home Backup timer";
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "5min";
