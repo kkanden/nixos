@@ -25,15 +25,22 @@
     };
   };
 
-  systemd.services.immich-backup-sync = {
-    description = "Sync immich backup";
+  systemd.services.pull-backups = {
+    description = "Pull Remote Backups";
     after = [
       "mnt-hdd.mount"
       "network-online.target"
+      "nss-lookup.target"
+      "NetworkManager-wait-online.service"
+      "multi-user.target"
+    ];
+    wants = [
+      "network-online.target"
+      "nss-lookup.target"
+      "multi-user.target"
     ];
     requires = [
       "mnt-hdd.mount"
-      "network-online.target"
     ];
     path = with pkgs; [
       rsync
@@ -42,21 +49,23 @@
     ];
     serviceConfig = lib'.mkHardened {
       Type = "oneshot";
-      ExecStart = pkgs.writeShellScript "immich-backup-sync" ''
-        if ! ping -c 1 -W 5 t450 &>/dev/null; then
+      Restart = "on-failure";
+      RestartSec = "10s";
+      ExecStart = pkgs.writeShellScript "pull-backups" ''
+        if ! ping -c 1 -W 5 t450 1>/dev/null; then
           echo "Remote is not reachable. Exiting..."
           exit 1
         fi
 
-        rsync -ahH --delete --info=stats root@t450:/var/backups/immich/ /mnt/hdd/immich
-        chown -R oliwia:users /mnt/hdd/immich
+        rsync -ahH --delete --info=stats root@t450:/var/backups/ /mnt/hdd/backups
+        chown -R oliwia:users /mnt/hdd/backups
       '';
 
-      PrivateUsers = false; # /mnt/hdd/immich is owned by a regular user
+      PrivateUsers = false; # /mnt/hdd/backups is owned by a regular user
     };
   };
-  systemd.timers.immich-backup-sync = {
-    description = "Sync immich backup timer";
+  systemd.timers.pull-backups = {
+    description = "Pull Remote Backups Timer";
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "8:00:00";
