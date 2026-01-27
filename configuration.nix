@@ -37,8 +37,8 @@ in
 
   # networking ----
   networking.networkmanager.enable = mk true;
-  systemd.services.NetworkManager-wait-online.enable = mk false;
-  systemd.network.wait-online.enable = mk false;
+  systemd.services.NetworkManager-wait-online.wantedBy = lib.mkForce [ ];
+  systemd.targets.network-online.wantedBy = lib.mkForce [ ];
 
   # services ----
   services.openssh = {
