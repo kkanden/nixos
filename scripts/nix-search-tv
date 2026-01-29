@@ -84,7 +84,7 @@ echo "" >/tmp/nix-search-tv-fzf
 PREVIEW_WINDOW="wrap"
 [ "$(tput cols)" -lt 90 ] && PREVIEW_WINDOW="$PREVIEW_WINDOW,up"
 
-eval "$CMD print | fzf \
+choice=$(eval "$CMD print | fzf \
     --preview '$CMD preview \$(cat $STATE_FILE) {}' \
     --bind '$OPEN_SOURCE_KEY:execute($CMD source \$(cat $STATE_FILE) {} | xargs $OPENER)' \
     --bind '$OPEN_HOMEPAGE_KEY:execute($CMD homepage \$(cat $STATE_FILE) {} | xargs $OPENER)' \
@@ -96,4 +96,6 @@ eval "$CMD print | fzf \
     --header-border \
     --header-label \"Help\" \
     $FZF_BINDS
-"
+")
+
+nix shell "nixpkgs#${choice#nixpkgs/ }"
