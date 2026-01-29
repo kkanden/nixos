@@ -12,16 +12,16 @@
       ExecStart = pkgs.writeShellScript "home-backup" ''
         ${pkgs.rsync}/bin/rsync -ah --delete --exclude-from=/etc/nixos/config/rsync-exclude /home/oliwia/ /mnt/hdd/home
       '';
+
+      PrivateUsers = false;
     };
   };
   systemd.timers.home-backup = {
     description = "Home Backup timer";
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "5min";
       OnCalendar = "daily";
       Persistent = true;
-      RandomizedDelaySec = "30min";
     };
   };
 
