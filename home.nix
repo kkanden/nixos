@@ -22,6 +22,7 @@
       alacritty = "alacritty";
       fastfetch = "fastfetch";
       clangd = "clangd";
+      dust = "dust";
       "fish/theme.fish" = "fish/vague.fish";
       "fish/config.fish" = "fish/config.fish";
       git = "git";
