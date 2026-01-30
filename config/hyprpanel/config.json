@@ -21,11 +21,9 @@
         "clock"
       ],
       "right": [
-        "cava",
         "media",
         "kbinput",
-        "volume",
-        "notifications"
+        "volume"
       ]
     },
     "1": {
