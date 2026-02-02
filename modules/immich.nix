@@ -41,6 +41,13 @@ in
       };
       assets.enable = mkEnableOption "Backup assets";
     };
+    public-proxy = {
+      enable = mkEnableOption "Immich Public Proxy";
+      url = mkOption {
+        type = types.str;
+        default = "http://${cfg.server.host}:${toString config.services.immich.port}";
+      };
+    };
   };
   config = lib.mkMerge [
 
@@ -198,6 +205,14 @@ in
           Persistent = true;
           Unit = "immich-backup.service";
         };
+      };
+    })
+
+    (lib.mkIf cfg.public-proxy.enable {
+      services.immich-public-proxy = {
+        enable = true;
+        immichUrl = cfg.public-proxy.url;
+        openFirewall = true;
       };
     })
   ];

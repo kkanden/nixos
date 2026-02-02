@@ -70,6 +70,7 @@
       db.enable = true;
       assets.enable = true;
     };
+    public-proxy.enable = true;
   };
 
   # makes terminal apps work when opened as xdg default (eg neovim)
