@@ -57,7 +57,7 @@
           exit 1
         fi
 
-        rsync -ahH --delete --info=stats root@t450:/var/backups/ /mnt/hdd/backups
+        rsync -ahH --info=stats root@t450:/var/backups/ /mnt/hdd/backups
         chown -R oliwia:users /mnt/hdd/backups
       '';
 
