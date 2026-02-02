@@ -98,4 +98,4 @@ choice=$(eval "$CMD print | fzf \
     $FZF_BINDS
 ")
 
-nix shell "nixpkgs#${choice#nixpkgs/ }"
+[[ -n "$choice" ]] && NIX_SHELL=1 nix shell "nixpkgs#${choice#nixpkgs/ }"
