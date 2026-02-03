@@ -142,16 +142,22 @@ in
                 asset-script = lib.optionalString cfg.backup.assets.enable /* bash */ ''
                   BACKUP_ASSET_DIR="${backupDir}/assets"
                   LAST_TIMESTAMP=$(cat ${backupDir}/.last-backup 2>/dev/null || true)
-                  LAST_BACKUP="$BACKUP_ASSET_DIR/immich-assets-$LAST_TIMESTAMP"
+                  LAST_BACKUP="$BACKUP_ASSET_DIR/immich_assets-$LAST_TIMESTAMP"
 
                   echo "Backing up assets..."
 
                   if [[ -d "$LAST_BACKUP" ]]; then
                     echo "Creating incremental backup..."
-                    rsync -aAX --delete --link-dest="$LAST_BACKUP" ${uploadLocation}/ "$BACKUP_ASSET_DIR/immich-assets-$TIMESTAMP"
+                    rsync -aAX --delete --link-dest="$LAST_BACKUP" ${uploadLocation}/ "$BACKUP_ASSET_DIR/immich_assets-$TIMESTAMP"
                   else
-                    rsync -aAX --delete ${uploadLocation}/ "$BACKUP_ASSET_DIR/immich-assets-$TIMESTAMP"
+                    rsync -aAX --delete ${uploadLocation}/ "$BACKUP_ASSET_DIR/immich_assets-$TIMESTAMP"
                   fi
+                  echo "Done!"
+
+                  echo "Removing assets backups older than ${dbDeleteOlderThan} days..."
+
+                  find "$BACKUP_ASSET_DIR" -maxdepth 1 -type d -name "immich_*" -mtime +${dbDeleteOlderThan} -exec rm -rf {} +
+
                   echo "Done!"
                 '';
               in
@@ -177,11 +183,12 @@ in
                 echo "Done!"
 
                 echo "Removing database backups older than ${dbDeleteOlderThan} days..."
+
+                find "$BACKUP_DB_DIR" -name "immich_*" -mtime +${dbDeleteOlderThan} -delete
+
                 echo "Done!"
 
                 ${asset-script}
-
-                find "${backupDir}" -name "immich_*" -mtime +${dbDeleteOlderThan} -delete
 
                 echo "$TIMESTAMP" > "${backupDir}/.last-backup"
               '';
