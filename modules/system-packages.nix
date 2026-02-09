@@ -125,7 +125,7 @@ in
           libGL # libGL.so.1
           libxkbcommon # libxkbcommon.so.0
           wayland
-          xorg.libX11 # libX11.so.6
+          libx11 # libX11.so.6
         ];
       };
       programs.nh = {
