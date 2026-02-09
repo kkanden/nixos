@@ -8,6 +8,8 @@ let
   mk = lib.mkDefault;
 in
 {
+  imports = lib.filesystem.listFilesRecursive ./imports;
+
   # oliwia defaults ----
   oliwia = {
     fish = {
