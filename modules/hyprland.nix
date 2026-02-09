@@ -139,6 +139,7 @@ in
 
           programs.hyprlock.enable = true;
           services.hypridle.enable = true;
+          systemd.user.services.hypridle.path = [ pkgs.playerctl ];
         }
         (lib.mkIf cfg.autoStartup {
           environment.loginShellInit =
