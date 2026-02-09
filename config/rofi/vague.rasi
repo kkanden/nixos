@@ -20,7 +20,7 @@
     border-radius: 1px;
     border: 3px;
     background-color: @bg-col;
-    font: "JetBrainsMono Nerd Font 10";
+    font: "JetBrainsMono Nerd Font 9";
 }
 
 window {
@@ -91,7 +91,7 @@ element-text {
 
 element-icon {
     background-color: transparent;
-    size: 25;
+    size: 20;
     margin: 0;
 }
 
