@@ -37,8 +37,29 @@ in
   boot.loader.efi.canTouchEfiVariables = mk true; # UEFI boot
   boot.kernelPackages = mk pkgs.linuxPackages_zen;
 
-  # networking ----
-  networking.networkmanager.enable = mk true;
+  # networking
+  networking.networkmanager = {
+    enable = mk true;
+    dispatcherScripts = [
+      {
+        # if connected to ethernet, disable wifi
+        source = pkgs.writeShellScript "toggleWifi" ''
+          # $1 is device name, $2 is the action
+          if [[ "$1" =~ en.*|eth.* ]]; then
+              case "$2" in
+                  up)
+                      ${pkgs.networkmanager}/bin/nmcli radio wifi off
+                      ;;
+                  down)
+                      ${pkgs.networkmanager}/bin/nmcli radio wifi on
+                      ;;
+              esac
+          fi
+        '';
+        type = "basic";
+      }
+    ];
+  };
   systemd.services.NetworkManager-wait-online.wantedBy = mk [ ];
   systemd.targets.network-online.wantedBy = mk [ ];
 
