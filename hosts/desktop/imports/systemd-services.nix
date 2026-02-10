@@ -30,17 +30,12 @@
     after = [
       "mnt-hdd.mount"
       "network-online.target"
-      "nss-lookup.target"
-      "NetworkManager-wait-online.service"
-      "multi-user.target"
-    ];
-    wants = [
-      "network-online.target"
-      "nss-lookup.target"
       "multi-user.target"
     ];
     requires = [
       "mnt-hdd.mount"
+      "network-online.target"
+      "multi-user.target"
     ];
     path = with pkgs; [
       rsync
