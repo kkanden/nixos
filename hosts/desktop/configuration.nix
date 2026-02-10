@@ -9,6 +9,8 @@
   ]
   ++ lib.filesystem.listFilesRecursive ./imports;
 
+  boot.kernelPackages = pkgs.linuxPackages_lqx;
+
   oliwia = {
     packages.extra = {
       enable = true;

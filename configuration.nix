@@ -35,7 +35,6 @@ in
   # boot ----
   boot.loader.systemd-boot.enable = mk true;
   boot.loader.efi.canTouchEfiVariables = mk true; # UEFI boot
-  boot.kernelPackages = mk pkgs.linuxPackages_zen;
 
   # networking
   networking.networkmanager = {
