@@ -127,6 +127,8 @@ in
             hyprsysteminfo
             hyprland-qt-support
             hyprland-qtutils
+            hyprlock
+            hypridle
             hyprcursor
           ];
 
@@ -137,9 +139,31 @@ in
             withUWSM = true;
           };
 
-          programs.hyprlock.enable = true;
-          services.hypridle.enable = true;
-          systemd.user.services.hypridle.path = [ pkgs.playerctl ];
+          # set up hyprlock and hypridle manually because upstream is weird
+          security.pam.services.hyprlock = { };
+
+          systemd.user.services.hypridle = {
+            description = "hypridle";
+            path = with pkgs; [
+              playerctl
+              hyprlock
+              procps
+            ];
+
+            wantedBy = [ "graphical-session.target" ];
+            after = [ "graphical-session.target" ];
+            partOf = [ "graphical-session.target" ];
+
+            serviceConfig = {
+              ExecStart = lib.getExe pkgs.hypridle;
+              Restart = "always";
+              RestartSec = 10;
+            };
+
+            unitConfig = {
+              ConditionEnvironment = "WAYLAND_DISPLAY";
+            };
+          };
         }
         (lib.mkIf cfg.autoStartup {
           environment.loginShellInit =
