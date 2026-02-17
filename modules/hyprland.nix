@@ -147,6 +147,7 @@ in
             path = with pkgs; [
               playerctl
               hyprlock
+              hyprland
               procps
             ];
 
