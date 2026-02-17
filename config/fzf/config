@@ -1,0 +1,15 @@
+--color=fg:#cdcdcd
+--color=bg:#141415
+--color=hl:#d8647e
+--color=fg+:#aeaed1
+--color=bg+:#252530
+--color=hl+:#d8647e
+--color=border:#606079
+--color=header:#6e94b2
+--color=gutter:#141415
+--color=spinner:#7fa563
+--color=info:#f3be7c
+--color=pointer:#aeaed1
+--color=marker:#d8647e
+--color=prompt:#bb9dbd
+--cycle

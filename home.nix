@@ -20,11 +20,13 @@
   oliwia.home = {
     configSymlink = {
       alacritty = "alacritty";
+      bat = "bat";
       fastfetch = "fastfetch";
       clangd = "clangd";
       dust = "dust";
       "fish/theme.fish" = "fish/vague.fish";
       "fish/config.fish" = "fish/config.fish";
+      fzf = "fzf";
       git = "git";
       hypr = "hypr";
       hyprpanel = "hyprpanel";
@@ -37,6 +39,7 @@
     };
   };
   home.sessionVariables."RIPGREP_CONFIG_PATH" = "$HOME/.config/ripgrep/ripgreprc";
+  home.sessionVariables."FZF_DEFAULT_OPTS_FILE" = "$HOME/.config/fzf/config";
 
   # adds xdg variables
   xdg.enable = true;
