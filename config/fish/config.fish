@@ -29,6 +29,14 @@ alias nix-shell="NIX_SHELL=1 command nix-shell"
 alias tree="tree -C"
 alias nrepl="nixos-rebuild repl --flake $NIXOS_REPO#$hostname"
 
+function man
+    if string match -- "-*" $argv
+        command man $argv
+    else
+        command man $argv | bat -l man
+    end
+end
+
 abbr --add --set-cursor -- nrun 'nix run nixpkgs#%'
 
 function nix
