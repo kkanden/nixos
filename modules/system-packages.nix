@@ -154,6 +154,14 @@ in
             nix-search-tv
           ];
         };
+        fzfman = {
+          name = "manf";
+          dependencies = with pkgs.stable; [
+            fzf
+            bat
+            man
+          ];
+        };
       };
 
       environment.sessionVariables = {

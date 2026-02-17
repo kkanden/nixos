@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+SHELL=bash
+
+manpages=$(man -k .)
+PREVIEW_CMD="bat -P -l man --style=plain --color=always <(man {1})"
+
+choice=$(echo "$manpages" | sort | fzf \
+    --preview "$PREVIEW_CMD" \
+    --nth "1" \
+    --accept-nth "1") || exit 1
+
+man "$choice" | bat -l man --style=plain
