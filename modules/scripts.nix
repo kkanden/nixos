@@ -52,7 +52,14 @@ in
   };
   config =
     let
-      removeShebang = raw-script: lib.removePrefix "#!/usr/bin/env bash\n" raw-script;
+      removeShebang =
+        raw-script:
+        let
+          lines = lib.splitString "\n" raw-script;
+          firstLine = builtins.head lines;
+          restLines = builtins.tail lines;
+        in
+        if lib.hasPrefix "#!" firstLine then lib.concatStringsSep "\n" restLines else raw-script;
       enabledScripts = lib.filterAttrs (_: { enable, ... }: enable) cfg.scripts;
       scriptPkgs = lib.mapAttrsToList (
         script-name:
