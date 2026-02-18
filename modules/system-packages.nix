@@ -91,7 +91,6 @@ in
           bash-language-server
           ccls
           fish-lsp
-          hyprls
           lua-language-server
           marksman
           nil
