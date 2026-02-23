@@ -156,9 +156,23 @@ in
 
                   echo "Removing assets backups older than ${dbDeleteOlderThan} days..."
 
-                  find "$BACKUP_ASSET_DIR" -maxdepth 1 -type d -name "immich_*" -mtime +${dbDeleteOlderThan} -exec rm -rf {} +
+                  # rsync copies the mtime of the source which is often old
+                  # we need to find backups whose *ctime* is X+ days old
+                  # otherwise we just delete the newly created backup
+                  old_backups=$(find "$BACKUP_ASSET_DIR" -maxdepth 1 -type d -name "immich_*" -ctime +${dbDeleteOlderThan})
 
-                  echo "Done!"
+                  if [[ -n "$old_backups" ]]; then
+                      echo -n "Removing asset backups from: "
+                      while read -r b; do
+                          t="''${b//"$BACKUP_ASSET_DIR/immich_assets-"/}"
+                          echo -n "''${t:0:4}-''${t:4:2}-''${t:6:2} "
+                          rm -r "$b"
+                      done <<< $(echo "$old_backups")
+                      echo $'\n'
+                      echo "Done!"
+                  else
+                      echo "No asset backups to remove"
+                  fi
                 '';
               in
               pkgs.writeShellScript "immich-backup" ''
@@ -184,9 +198,21 @@ in
 
                 echo "Removing database backups older than ${dbDeleteOlderThan} days..."
 
-                find "$BACKUP_DB_DIR" -name "immich_*" -mtime +${dbDeleteOlderThan} -delete
+                old_backups=$(find "$BACKUP_DB_DIR" -name "immich_*" -ctime +${dbDeleteOlderThan})
 
-                echo "Done!"
+                if [[ -n "$old_backups" ]]; then
+                    echo -n "Removing database backups from: "
+                    while read -r b; do
+                        t="''${b//.sql.gz/}"
+                        t="''${t//"$BACKUP_DB_DIR/immich_db-"/}"
+                        echo -n "''${t:0:4}-''${t:4:2}-''${t:6:2} "
+                        rm -r "$b"
+                    done <<< $(echo "$old_backups")
+                    echo $'\n'
+                    echo "Done!"
+                else
+                    echo "No database backups to remove"
+                fi
 
                 ${asset-script}
 
