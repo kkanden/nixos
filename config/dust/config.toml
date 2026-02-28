@@ -1,2 +1,2 @@
-no-bars=true
-collapse=[".git"]
+no-bars = true
+collapse = [".git"]

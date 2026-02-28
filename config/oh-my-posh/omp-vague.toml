@@ -1,4 +1,5 @@
-"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
 final_space = true
 version = 3
 
@@ -16,25 +17,24 @@ white = "#cdcdcd"
 alignment = "left"
 type = "prompt"
 
-  [[blocks.segments]]
-  foreground = "p:blue"
-  style = "plain"
-  template = "{{ .Path }} "
-  type = "path"
+[[blocks.segments]]
+foreground = "p:blue"
+style = "plain"
+template = "{{ .Path }} "
+type = "path"
 
-    [blocks.segments.properties]
-    style = "full"
+[blocks.segments.properties]
+style = "full"
 
-
-  [[blocks.segments]]
-  foreground = "p:green"
-  foreground_templates = [
+[[blocks.segments]]
+foreground = "p:green"
+foreground_templates = [
   "{{ if or (.Working.Changed) (.Staging.Changed) }}p:yellow{{ end }}",
   "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:white{{ end }}",
   "{{ if gt .Ahead 0 }}p:purple{{ end }}",
   "{{ if gt .Behind 0 }}p:purple{{ end }}"
 ]
-  template = """<p:white>on</> \
+template = """<p:white>on</> \
   {{ .HEAD }}\
   {{ if gt .Ahead 0 }} ↑{{ .Ahead }}{{ end }}\ 
   {{ if gt .Behind 0 }} ↓{{ .Behind }}{{ end }}\
@@ -42,36 +42,34 @@ type = "prompt"
   {{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}\
   {{ if .Working.Changed }}  {{ .Working.String }}{{ end }}\
   {{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} """
-  style = "accordion"
-  type = "git"
+style = "accordion"
+type = "git"
 
-    [blocks.segments.properties]
-    fetch_stash_count = true
-    fetch_status = true
-    native_fallback = true
+[blocks.segments.properties]
+fetch_stash_count = true
+fetch_status = true
+native_fallback = true
 
-  [[blocks.segments]]
-  type = "text"
-  style = "plain"
-  foreground = "p:blue"
-  template = "{{ if .Env.NIX_SHELL }} {{ end }}"
-
+[[blocks.segments]]
+type = "text"
+style = "plain"
+foreground = "p:blue"
+template = "{{ if .Env.NIX_SHELL }} {{ end }}"
 
 [[blocks]]
 alignment = "left"
 newline = true
 type = "prompt"
 
-  [[blocks.segments]]
-  type = "session"
-  style = "plain"
-  template = "<#606079>{{ .UserName }}@{{ .HostName }}</>"
+[[blocks.segments]]
+type = "session"
+style = "plain"
+template = "<#606079>{{ .UserName }}@{{ .HostName }}</>"
 
-  [[blocks.segments]]
-  type = "status"
-  style = "plain"
-  template = "{{ if eq .Code 0 }}<p:white></>{{ else }}<p:red></>{{ end }}"
+[[blocks.segments]]
+type = "status"
+style = "plain"
+template = "{{ if eq .Code 0 }}<p:white></>{{ else }}<p:red></>{{ end }}"
 
-    [blocks.segments.properties]
-    always_enabled = true
-
+[blocks.segments.properties]
+always_enabled = true
