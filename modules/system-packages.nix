@@ -95,7 +95,7 @@ in
           marksman
           nil
           nixd
-          taplo
+          tombi
           texlab
           tinymist
           vscode-langservers-extracted
