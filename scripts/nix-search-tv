@@ -9,7 +9,7 @@ SHELL="bash"
 declare -a INDEXES=(
     "nixpkgs ctrl-j"
     "nixos ctrl-i"
-    "home-manager ctrl-h"
+    "noogle ctrl-h"
 
     # you can add any indexes combination here,
     # like `nixpkgs,nixos`
