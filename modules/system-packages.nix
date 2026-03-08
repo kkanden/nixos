@@ -81,7 +81,11 @@ in
               isort
             ]
           ))
-          R
+          (rWrapper.override {
+            packages = with pkgs.rPackages; [
+              languageserver
+            ];
+          })
           rustup
           typst
 
