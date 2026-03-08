@@ -95,7 +95,7 @@ in
           bash-language-server
           ccls
           fish-lsp
-          lua-language-server
+          emmylua-ls
           marksman
           nil
           nixd
