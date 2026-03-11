@@ -33,6 +33,7 @@ in
           # basic tools
           bat
           dust
+          duf
           fd
           ffmpeg
           file
