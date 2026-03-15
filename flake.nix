@@ -29,7 +29,6 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs-stable,
       home-manager,
       ...
     }@inputs:
@@ -62,12 +61,7 @@
             {
               environment.sessionVariables.NIXOS_REPO = repoPathStr;
               nixpkgs.overlays = [
-                (final: prev: {
-                  stable = import nixpkgs-stable {
-                    inherit system;
-                    config.allowUnfree = true;
-                  };
-                })
+                (import ./overlays.nix { inherit inputs system; })
               ];
             }
             inputs.nix-index.nixosModules.default
