@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -220,6 +219,7 @@ in
           uxplay # apple airdrop server
           r2modman
           qimgv
+          zen
 
           # hardware tools
           easyeffects
@@ -231,10 +231,7 @@ in
           pulseaudio
           qpwgraph
           gparted
-        ])
-        ++ [
-          inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-        ];
+        ]);
 
       programs.thunderbird.enable = true;
       programs.kdeconnect.enable = true;

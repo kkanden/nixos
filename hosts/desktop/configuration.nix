@@ -99,7 +99,7 @@
 
   environment.sessionVariables = {
     EDITOR = "nvim";
-    BROWSER = "zen";
+    BROWSER = "zen-beta";
     TERMINAL = "alacritty";
   };
 
