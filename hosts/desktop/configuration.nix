@@ -9,7 +9,7 @@
   ]
   ++ lib.filesystem.listFilesRecursive ./imports;
 
-  boot.kernelPackages = pkgs.linuxPackages_lqx;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   oliwia = {
     packages.extra = {
