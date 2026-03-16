@@ -57,7 +57,7 @@ in
       }
     ];
   };
-  systemd.services.NetworkManager-wait-online.wantedBy = mk [ ];
+  systemd.services.NetworkManager-wait-online.wantedBy = lib.mkForce [ ];
   systemd.targets.network-online.wantedBy = mk [ ];
 
   # services ----
