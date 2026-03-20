@@ -5,12 +5,6 @@
 }:
 {
   programs.bash.enable = true; # required for home.sessionVariables to work
-  programs.neovim = {
-    enable = true;
-    plugins = [
-      pkgs.vimPlugins.nvim-treesitter-legacy.withAllGrammars
-    ];
-  };
 
   home.file = {
     ".Rprofile".source = lib'.mkConfigPath ".Rprofile";

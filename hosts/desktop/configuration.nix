@@ -98,7 +98,6 @@
   };
 
   environment.sessionVariables = {
-    EDITOR = "nvim";
     BROWSER = "zen-beta";
     TERMINAL = "alacritty";
   };

@@ -45,7 +45,6 @@ in
           jq
           killall
           man-pages # linux dev man pages
-          neovim
           postgresql_17
           ripgrep
           tmux
@@ -69,6 +68,7 @@ in
           #basic tool
           fastfetch
           btop-rocm
+          tree-sitter # for neovim
 
           # langs
           jdk
@@ -117,6 +117,11 @@ in
           stable.nodePackages.prettier
         ])
         ++ tmux-plugins;
+
+      programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
 
       programs.nix-ld = {
         enable = true;
