@@ -12,14 +12,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
     nix-index = {
       url = "github:nix-community/nix-index-database";
@@ -30,7 +25,6 @@
   outputs =
     {
       nixpkgs,
-      home-manager,
       ...
     }@inputs:
     let
@@ -70,18 +64,6 @@
             ./hosts/${host}/configuration.nix
             {
               networking.hostName = host;
-            }
-            ## HOME MANAGER ##
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                sharedModules = (nixpkgs.lib.filesystem.listFilesRecursive ./modules-hm) ++ [ ./home.nix ];
-                users.oliwia = ./hosts/${host}/home.nix;
-                backupFileExtension = "hm-backup";
-                extraSpecialArgs = specialArgs;
-              };
             }
           ];
 
