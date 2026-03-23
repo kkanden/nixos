@@ -35,7 +35,4 @@
   home.sessionVariables."RIPGREP_CONFIG_PATH" = "$HOME/.config/ripgrep/ripgreprc";
   home.sessionVariables."FZF_DEFAULT_OPTS_FILE" = "$HOME/.config/fzf/config";
 
-  # adds xdg variables
-  xdg.enable = true;
-
 }
