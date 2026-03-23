@@ -15,6 +15,37 @@ in
       stable = mk true;
     };
     fonts.enable = mk true;
+    dotfiles = {
+      "fish/config.fish" = "fish/config.fish";
+      "fish/theme.fish" = "fish/vague.fish";
+      "oh-my-posh/config.toml" = "oh-my-posh/omp-vague.toml";
+      alacritty = "alacritty";
+      bat = "bat";
+      clangd = "clangd";
+      dust = "dust";
+      fastfetch = "fastfetch";
+      fzf = "fzf";
+      git = "git";
+      hypr = "hypr";
+      hyprpanel = "hyprpanel";
+      qimgv = "qimgv";
+      ripgrep = "ripgrep";
+      rofi = "rofi";
+      sioyek = "sioyek";
+      tmux = "tmux";
+    };
+  };
+  environment = {
+    sessionVariables."RIPGREP_CONFIG_PATH" = "$HOME/.config/ripgrep/ripgreprc";
+    sessionVariables."FZF_DEFAULT_OPTS_FILE" = "$HOME/.config/fzf/config";
+
+    # xdg ----
+    sessionVariables = {
+      XDG_CACHE_HOME = "$HOME/.cache";
+      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_DATA_HOME = "$HOME/.local/share";
+      XDG_STATE_HOME = "$HOME/.local/state";
+    };
   };
 
   users.users.oliwia = {
@@ -79,14 +110,6 @@ in
   };
   security.rtkit.enable = mk true; # for pipewire
   services.playerctld.enable = mk true;
-
-  # xdg ----
-  environment.sessionVariables = {
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_DATA_HOME = "$HOME/.local/share";
-    XDG_STATE_HOME = "$HOME/.local/state";
-  };
 
   # nix ----
   nix = {
