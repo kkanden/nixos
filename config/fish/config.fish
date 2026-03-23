@@ -28,6 +28,7 @@ alias nho="nh os switch"
 alias nix-shell="NIX_SHELL=1 command nix-shell"
 alias tree="tree -C"
 alias nrepl="nixos-rebuild repl --flake $NIXOS_REPO#$hostname"
+alias duf="duf -hide special"
 
 function man
     if string match -- "-*" $argv
