@@ -60,9 +60,6 @@
     steam.enable = true;
     immich.machine-learning.enable = true;
     virtualization.enable = true;
-    systemdServices = {
-      enable = true;
-    };
   };
 
   services.getty.autologinUser = "oliwia"; # autologin
