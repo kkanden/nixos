@@ -12,10 +12,14 @@
 	autocrlf = false
 	editor = "nvim"
 
+[difftool "nvim_difftool"]
+    cmd = nvim -c \"packadd nvim.difftool\" -d \"$REMOTE\" \"$LOCAL\"
+
 [diff]
 	context = 3
 	interHunkContext = 10
 	renames = "copies"
+    tool = nvim_difftool
 
 [init]
 	defaultbranch = "main"
