@@ -18,6 +18,7 @@
         lato
         font-awesome
         newcomputermodern
+        lmodern
         source-sans-pro
         nerd-fonts.jetbrains-mono
         corefonts
