@@ -5,7 +5,6 @@ final: prev: {
     config.allowUnfree = true;
   };
   zen = inputs.zen-browser.packages.${system}.default;
-  neovim-unwrapped = inputs.neovim.packages.${system}.default;
   hyprlandPlugins = prev.hyprlandPlugins // {
     csgo-vulkan-fix = prev.hyprlandPlugins.csgo-vulkan-fix.overrideAttrs {
       version = "0.54.0";
