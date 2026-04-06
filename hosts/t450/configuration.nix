@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   ...
 }:
 {
@@ -9,7 +10,10 @@
   ++ lib.filesystem.listFilesRecursive ./imports;
 
   oliwia = {
-    packages.extra.enable = true;
+    packages.extra = {
+      enable = true;
+      extraPackages = with pkgs; [ bluetui ];
+    };
     hyprland = {
       enable = true;
       extraConfig = /* hyprlang */ ''
@@ -33,6 +37,7 @@
         }
       ];
     };
+    theme.enable = true;
   };
 
   services.playerctld.enable = true;
