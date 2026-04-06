@@ -47,6 +47,9 @@
         }
       ];
       extraConfig = /* hyprlang */ ''
+        exec-once = $spotify
+        exec-once = $discord
+        exec-once = $mail
         plugin {
             csgo-vulkan-fix {
                 res_w = 1680
