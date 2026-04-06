@@ -41,7 +41,7 @@ in
           mk_config_link() {
               local dest="$1"
               local src="$2"
-              local host_src="${repoPathStr}/hosts/$hostname/config/$src"
+              local host_src="${repoPathStr}/hosts/${config.networking.hostName}/config/$src"
               local global_src="${configDir}/$src"
               local resolved_src
 
