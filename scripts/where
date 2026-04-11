@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+prog="$1"
+[[ -z "$prog" ]] && exit 1
+where="$(which "$prog")"
+
+while [[ -L "$where" ]]; do
+    where="$(readlink "$where")"
+done
+
+echo "$where"

@@ -170,6 +170,8 @@ in
             man
           ];
         };
+        where = {
+        };
       };
 
       environment.sessionVariables = {
