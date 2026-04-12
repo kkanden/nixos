@@ -1,3 +1,5 @@
+; vim: set filetype=gitconfig :
+
 [alias]
 	lg = "log --oneline --graph --all --decorate --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(yellow)%h%Creset - %C(blue)%an <%ae>%Creset - %C(green)%ad%Creset -%C(red)%d%Creset %s'"
 	lgu = "log --oneline --graph origin..HEAD"
@@ -13,13 +15,19 @@
 	editor = "nvim"
 
 [difftool "nvim_difftool"]
-    cmd = nvim -c \"packadd nvim.difftool\" -d \"$REMOTE\" \"$LOCAL\"
+    cmd = "nvim -c \"packadd nvim.difftool\" -d \"$REMOTE\" \"$LOCAL\""
 
 [diff]
 	context = 3
 	interHunkContext = 10
 	renames = "copies"
-    tool = nvim_difftool
+    tool = "nvim_difftool"
+
+[mergetool "nvimdiff"]
+    layout = "MERGED,(LOCAL/BASE/REMOTE)"
+
+[merge]
+    tool = "nvimdiff"
 
 [init]
 	defaultbranch = "main"
