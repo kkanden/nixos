@@ -97,7 +97,6 @@ in
           fish-lsp
           emmylua-ls
           marksman
-          nil
           nixd
           tombi
           texlab
