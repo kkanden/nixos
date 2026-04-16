@@ -20,4 +20,5 @@ final: prev: {
         "${gh-src}/csgo-vulkan-fix";
     };
   };
+  nix = prev.lixPackageSets.latest.lix;
 }

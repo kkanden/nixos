@@ -117,7 +117,7 @@ in
       experimental-features = mk [
         "nix-command"
         "flakes"
-        "pipe-operators"
+        "pipe-operator"
       ];
       warn-dirty = mk false;
     };
