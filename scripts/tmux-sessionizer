@@ -5,7 +5,7 @@ if [[ $# -eq 1 ]]; then
 else
     selected=$(
         {
-            fd -d 2 -t d . "$HOME/projects/" "$HOME/.config/" 2>/dev/null
+            fd -d 1 -t d . "$HOME/projects/" "$HOME/.config/" 2>/dev/null
             echo "/etc/nixos"
             tmux list-sessions -F "#{session_name} (session)" 2>/dev/null
         } | sed "s|^$HOME/||" | fzf --tac
