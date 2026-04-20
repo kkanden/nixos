@@ -8,6 +8,7 @@ let
   defaultGtk = ''
     [Settings]
     gtk-application-prefer-dark-theme=true
+    gtk-theme-name=Vague
     gtk-icon-theme-name=Papirus
     gtk-cursor-theme-name=phinger-cursors-dark
     gtk-cursor-theme-size=24
@@ -17,6 +18,12 @@ in
   options.oliwia.theme.enable = lib.mkEnableOption "default theming";
 
   config = lib.mkIf config.oliwia.theme.enable {
+    environment.systemPackages = with pkgs; [
+      phinger-cursors
+      papirus-icon-theme
+      vague-gtk
+    ];
+
     # qt
     qt = {
       enable = true;
@@ -32,6 +39,7 @@ in
           settings = {
             "org/gnome/desktop/interface" = {
               color-scheme = "prefer-dark";
+              gtk-theme = "Vague";
             };
           };
         }
@@ -41,15 +49,22 @@ in
     environment.etc."gtk-4.0/settings.ini".text = defaultGtk;
 
     # cursor
-    environment.systemPackages = with pkgs; [
-      phinger-cursors
-      papirus-icon-theme
-    ];
     environment.sessionVariables = {
       XCURSOR_SIZE = 24;
       XCURSOR_THEME = "phinger-cursors-dark";
       HYPRCURSOR_SIZE = 24;
       HYPRCURSOR_THEME = "phinger-cursors-dark";
+    };
+
+    system.activationScripts.gtk4-vague = {
+      text = ''
+        mkdir -p /home/oliwia/.config/gtk-4.0 
+        ln -sf ${pkgs.vague-gtk}/share/themes/Vague/gtk-4.0/gtk-dark.css /home/oliwia/.config/gtk-4.0/gtk.css
+      '';
+      deps = [
+        "users"
+        "groups"
+      ];
     };
     system.activationScripts.cursor = {
       text = ''
