@@ -93,7 +93,6 @@ in
           ty
           basedpyright
           bash-language-server
-          ccls
           fish-lsp
           emmylua-ls
           marksman
