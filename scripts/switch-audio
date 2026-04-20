@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# switches output audio between my headphone and monitor
+
+if [[ $(pactl get-default-sink) == "alsa_output.pci-0000_0e_00.6.analog-stereo" ]]; then
+    pactl set-default-sink "alsa_output.pci-0000_03_00.1.hdmi-stereo-extra2"
+else
+    pactl set-default-sink "alsa_output.pci-0000_0e_00.6.analog-stereo"
+fi

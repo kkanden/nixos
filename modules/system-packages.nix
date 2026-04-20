@@ -361,6 +361,11 @@ in
               tesseract
             ];
           };
+          switch-audio = {
+            dependencies = with pkgs; [
+              pulseaudio
+            ];
+          };
         };
       };
     })
