@@ -4,7 +4,7 @@ prog="$1"
 [[ -z "$prog" ]] && exit 1
 where="$(which "$prog")"
 
-while [[ -L "$where" ]]; do
+while [[ -L "$where" && "$where" != /nix/store* ]]; do # stop when we are in /nix/store
     where="$(readlink "$where")"
 done
 
