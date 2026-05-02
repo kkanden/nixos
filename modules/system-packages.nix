@@ -69,6 +69,8 @@ in
           fastfetch
           btop-rocm
           tree-sitter # for neovim
+          bear
+          valgrind
 
           # langs
           jdk
