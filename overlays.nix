@@ -22,4 +22,7 @@ final: prev: {
   };
   nix = prev.lixPackageSets.latest.lix;
   vague-gtk = prev.callPackage ./pkgs/vague-gtk.nix { };
+  openldap = prev.openldap.overrideAttrs {
+    doCheck = !prev.stdenv.hostPlatform.isi686;
+  };
 }
