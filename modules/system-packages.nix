@@ -71,6 +71,7 @@ in
           tree-sitter # for neovim
           bear
           valgrind
+          gdb
 
           # langs
           jdk
