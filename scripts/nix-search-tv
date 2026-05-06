@@ -1,31 +1,15 @@
 #!/usr/bin/env bash
 
-# In case the system uses a non-POSIX shell, like fish or nushell,
-# we want to ensure run also our forked processes in a bash environment.
-SHELL="bash"
-
-# === Change keybinds or add more here ===
-
 declare -a INDEXES=(
     "nixpkgs ctrl-j"
     "nixos ctrl-i"
     "noogle ctrl-h"
-
-    # you can add any indexes combination here,
-    # like `nixpkgs,nixos`
-
     "all ctrl-a"
 )
 
 OPEN_SOURCE_KEY="ctrl-s"
 OPEN_HOMEPAGE_KEY="ctrl-o"
-
 OPENER="xdg-open"
-
-# ========================================
-
-# for debug / development
-CMD="${NIX_SEARCH_TV:-nix-search-tv}"
 
 # bind_index binds the given $key to the given $index
 bind_index() {
@@ -39,8 +23,8 @@ bind_index() {
         prompt=$index
     fi
 
-    local preview="$CMD preview $indexes_flag"
-    local print="$CMD print $indexes_flag"
+    local preview="nix-search-tv preview $indexes_flag"
+    local print="nix-search-tv print $indexes_flag"
 
     echo "$key:change-prompt($prompt> )+change-preview($preview {})+reload($print)"
 }
@@ -84,17 +68,16 @@ echo "" >/tmp/nix-search-tv-fzf
 PREVIEW_WINDOW="wrap"
 [ "$(tput cols)" -lt 90 ] && PREVIEW_WINDOW="$PREVIEW_WINDOW,up"
 
-choice=$(eval "$CMD print | fzf \
-    --preview '$CMD preview \$(cat $STATE_FILE) {}' \
-    --bind '$OPEN_SOURCE_KEY:execute($CMD source \$(cat $STATE_FILE) {} | xargs $OPENER)' \
-    --bind '$OPEN_HOMEPAGE_KEY:execute($CMD homepage \$(cat $STATE_FILE) {} | xargs $OPENER)' \
+choice=$(eval "nix-search-tv print | fzf \
+    --preview 'nix-search-tv preview \$(cat $STATE_FILE) {}' \
+    --bind '$OPEN_SOURCE_KEY:execute(nix-search-tv source \$(cat $STATE_FILE) {} | xargs $OPENER)' \
+    --bind '$OPEN_HOMEPAGE_KEY:execute(nix-search-tv homepage \$(cat $STATE_FILE) {} | xargs $OPENER)' \
     --layout reverse \
-    --scheme history \
+    --scheme path \
     --preview-window='$PREVIEW_WINDOW' \
     --header '$HEADER' \
     --header-first \
     --header-border \
-    --header-label \"Help\" \
     $FZF_BINDS
 ")
 
