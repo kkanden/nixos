@@ -41,12 +41,8 @@ in
       };
       assets.enable = mkEnableOption "Backup assets";
     };
-    public-proxy = {
-      enable = mkEnableOption "Immich Public Proxy";
-      url = mkOption {
-        type = types.str;
-        default = "http://${cfg.server.host}:${toString config.services.immich.port}";
-      };
+    caddy-proxy = {
+      enable = mkEnableOption "Immich caddy proxy for album sharing";
     };
   };
   config = lib.mkMerge [
@@ -241,11 +237,38 @@ in
       };
     })
 
-    (lib.mkIf cfg.public-proxy.enable {
-      services.immich-public-proxy = {
+    (lib.mkIf cfg.caddy-proxy.enable {
+      services.caddy = {
         enable = true;
-        immichUrl = cfg.public-proxy.url;
-        openFirewall = true;
+        virtualHosts."http://:8080" = {
+          extraConfig =
+            let
+              url = "localhost:${toString config.services.immich.port}";
+            in
+            ''
+              # allow all get requests, they're read-only
+              @get {
+                  method GET
+              }
+              handle @get {
+                  reverse_proxy ${url}
+              }
+
+              # allow upload only if it's a shared album
+              @upload {
+                method POST
+                path /api/assets* /api/download*
+              }
+              handle @upload {
+                reverse_proxy ${url}
+              }
+
+              # otherwise reject
+              handle {
+                respond 403
+              }
+            '';
+        };
       };
     })
   ];
