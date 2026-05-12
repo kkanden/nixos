@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+SHELL="bash"
+
 declare -a INDEXES=(
     "nixpkgs ctrl-j"
     "nixos ctrl-i"
@@ -81,4 +83,4 @@ choice=$(eval "nix-search-tv print | fzf \
     $FZF_BINDS
 ")
 
-[[ -n "$choice" ]] && NIX_SHELL=1 nix shell "nixpkgs#${choice#nixpkgs/ }"
+[[ -n "$choice" ]] && NIX_SHELL=1 SHELL=fish nix shell "nixpkgs#${choice#nixpkgs/ }"
