@@ -63,6 +63,7 @@ in
 
   # boot ----
   boot.loader.systemd-boot.enable = mk true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = mk true; # UEFI boot
 
   # networking
