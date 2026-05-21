@@ -1,0 +1,18 @@
+[[bar.layout]]
+monitor = "DP-2"
+show = true
+left = [
+  "weather",
+  "hyprland-workspaces",
+  "window-title",
+]
+center = ["clock"]
+right = [
+  "media",
+  "keyboard-input",
+  "volume",
+]
+
+[[bar.layout]]
+monitor = "*"
+show = false

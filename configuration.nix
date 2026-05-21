@@ -27,12 +27,12 @@ in
       fzf = "fzf";
       git = "git";
       hypr = "hypr";
-      hyprpanel = "hyprpanel";
       qimgv = "qimgv";
       ripgrep = "ripgrep";
       rofi = "rofi";
       sioyek = "sioyek";
       tmux = "tmux";
+      wayle = "wayle";
     };
   };
   environment = {

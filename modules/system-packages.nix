@@ -218,7 +218,7 @@ in
           discord
           firefox
           gimp3-with-plugins
-          hyprpanel
+          wayle
           (rofi.override { plugins = with pkgs; [ rofi-calc ]; })
           rofi-power-menu
           sioyek

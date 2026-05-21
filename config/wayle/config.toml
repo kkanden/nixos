@@ -1,0 +1,113 @@
+imports = ["layout.toml"]
+
+[bar]
+scale = 0.8
+inset-edge = 0.125
+inset-ends = 0.125
+bg = "bg-base"
+button-variant = "basic"
+button-icon-size = 0.8500000238418579
+button-border-location = "none"
+dropdown-shadow = false
+padding-ends = 1
+module-gap = 1
+
+[general]
+font-sans = "JetBrainsMono Nerd Font"
+font-mono = "JetBrainsMono Nerd Font"
+
+[styling.palette]
+bg = "#141415"
+elevated = "#252530"
+surface = "#252530"
+fg = "#cdcdcd"
+primary = "#d8647e"
+red = "#d8647e"
+yellow = "#f3be7c"
+green = "#7fa563"
+blue = "#bb9dbd"
+
+[modules.clock]
+format = "%d/%m/%Y %H:%M:%S"
+icon-name = "md-calendar_today-symbolic"
+button-bg-color = "bg-base"
+label-color = "fg-default"
+
+[modules.hyprland-workspaces]
+display-mode = "icon"
+min-workspace-count = 3
+icon-size = 0.8
+container-bg-color = "bg-base"
+empty-color = "bg-surface"
+occupied-color = "#606079"
+active-indicator = "underline"
+
+[modules.hyprland-workspaces.workspace-map]
+99 = { icon = "si-spotify" }
+98 = { icon = "si-discord" }
+97 = { icon = "md-videogame_asset-symbolic" }
+96 = { icon = "si-steam" }
+1 = { icon = "tbf-circle-symbolic" }
+2 = { icon = "tbf-circle-symbolic" }
+3 = { icon = "tbf-circle-symbolic" }
+
+[modules.keyboard-input]
+icon-color = "accent"
+label-color = "fg-default"
+button-bg-color = "bg-base"
+
+[modules.keyboard-input.layout-alias-map]
+Polish = "PL"
+"Ukrainian (phonetic)" = "UA"
+"English (US, intl., with dead keys)" = "US"
+
+[modules.media]
+button-bg-color = "bg-elevated"
+icon-name = "si-spotify"
+icon-type = "default"
+players-ignored = ["*mozilla*", "*firefox*", "*zen*"]
+player-priority = ["*spotify*"]
+icon-color = "accent"
+label-color = "fg-default"
+middle-click = "playerctl next -p spotify"
+right-click = "playerctl play-pause -p spotify"
+scroll-up = "playerctl volume 0.1+ -p spotify"
+scroll-down = "playerctl volume 0.1- -p spotify"
+
+[modules.volume]
+icon-color = "accent"
+label-color = "fg-default"
+button-bg-color = "bg-base"
+scroll-up = "wayle audio output-volume +5"
+scroll-down = "wayle audio output-volume -5"
+
+[modules.weather]
+location = "Wroclaw, Poland"
+button-bg-color = "bg-base"
+label-color = "fg-default"
+
+[modules.window-title]
+format = "{{ app }}"
+icon-color = "accent"
+button-bg-color = "bg-base"
+label-color = "fg-default"
+
+[modules.notification]
+popup-position = "bottom-right"
+popup-max-visible = 3
+popup-duration = 4000
+popup-shadow = false
+
+[modules.network]
+label-color = "fg-default"
+button-bg-color = "bg-base"
+icon-color = "accent"
+
+[modules.battery]
+icon-color = "accent"
+icon-bg-color = "bg-base"
+label-color = "fg-default"
+button-bg-color = "bg-base"
+
+[osd]
+enabled = false
