@@ -6,7 +6,7 @@ className=$2
 running=$(hyprctl -j clients | jq -r ".[] | select(.class == \"$className\")")
 
 if [ "$running" ]; then
-	hyprctl dispatch focuswindow "class:$className"
+    hyprctl dispatch "hl.dsp.focus({window = 'class:$className'})"
 else
-	hyprctl dispatch exec "$execCommand"
+    hyprctl dispatch "hl.dsp.exec_cmd('$execCommand')"
 fi

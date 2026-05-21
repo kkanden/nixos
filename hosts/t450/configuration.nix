@@ -16,18 +16,20 @@
     };
     hyprland = {
       enable = true;
-      extraConfig = /* hyprlang */ ''
-        debug {
-          disable_scale_checks = true
-        }
-        input {
-          sensitivity = 0
-          touchpad {
-            natural_scroll = true
-            drag_lock = true
-            scroll_factor = 0.7
+      extraConfig = /* lua */ ''
+        hl.config({
+          debug = {
+            disable_scale_checks = true
+          },
+          input = {
+            sensitivity = 0,
+            touchpad =  {
+              natural_scroll = true,
+              drag_lock = true,
+              scroll_factor = 0.7,
+            }
           }
-        }
+        })
       '';
       monitors = [
         {

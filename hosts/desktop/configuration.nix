@@ -46,18 +46,19 @@
           pos = "auto-left";
         }
       ];
-      extraConfig = /* hyprlang */ ''
-        exec-once = $spotify
-        exec-once = $discord
-        exec-once = $mail
-        plugin {
-            csgo-vulkan-fix {
-                res_w = 1680
-                res_h = 1050
-                class = cs2
-                fix_mouse = true
-            }
-        }
+      extraConfig = /* lua */ ''
+        --variables defined in main config
+        hl.on("hyprland.start", function()
+            hl.exec_cmd("uwsm app -- " .. spotify)
+            hl.exec_cmd(discord) -- no uwsm for discord because it doesn't behave
+            hl.exec_cmd("uwsm app -- " .. mail)
+        end)
+        if hl.plugin.csgo_vulkan_fix ~= nil then
+          hl.plugin.csgo_vulkan_fix.vkfix_app({ app = "cs2", w = 1680, h = 1050 })
+          hl.config({
+              plugin = { csgo_vulkan_fix = { fix_mouse = true } }
+          })
+        end
       '';
     };
     steam.enable = true;

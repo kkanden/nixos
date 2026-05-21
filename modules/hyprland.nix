@@ -63,7 +63,7 @@ in
       loadPluginsScript = lib.optionalString (cfg.plugins != [ ]) (
         cfg.plugins
         |> map (p: p.pname)
-        |> map (name: "exec-once = hyprctl plugin load \"${hyprPluginsJoin}/lib/lib${name}.so\"")
+        |> map (name: "hl.exec_cmd('hyprctl plugin load \"${hyprPluginsJoin}/lib/lib${name}.so\"')")
         |> lib.concatStringsSep "\n"
       );
 
@@ -80,7 +80,7 @@ in
         "\n"
         + (
           (lib.range 1 10)
-          |> lib.map (n: "workspace = ${toString n}, monitor:${mainDisplay}")
+          |> lib.map (n: "hl.workspace_rule({ workspace = ${toString n}, monitor = '${mainDisplay}'})")
           |> lib.concatStringsSep "\n"
         )
       );
@@ -101,15 +101,17 @@ in
         }
         {
           # file to be sourced in hyprland.conf
-          environment.etc."hypr/monitors.hypr".text =
+          environment.etc."hypr/monitors.lua".text =
             (lib.optionalString (cfg.monitors != [ ]) (
               cfg.monitors
-              |> lib.map (opts: with opts; "monitor=${name},${res},${pos},${scaling}")
+              |> lib.map (
+                opts: with opts; "hl.monitor({output='${name}',mode='${res}',position='${pos}',scale='${scaling}'})"
+              )
               |> lib.concatStringsSep "\n"
             ))
             + workspaceAssignment;
 
-          environment.etc."hypr/extra.hypr".text = ''
+          environment.etc."hypr/extra.lua".text = ''
             ${loadPluginsScript}
             ${cfg.extraConfig}
           '';
