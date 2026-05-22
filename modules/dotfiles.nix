@@ -44,25 +44,24 @@ in
               local host_src="${repoPathStr}/hosts/${config.networking.hostName}/config/$src"
               local global_src="${configDir}/$src"
               local resolved_src
+              local found=false
 
-              if [[ -e "$host_src" ]]; then
-                  resolved_src="$host_src"
-              elif [[ -e "$global_src" ]]; then
-                  resolved_src="$global_src"
-              else
+              for resolved_src in "$global_src" "$host_src"; do
+                  [[ -e "$resolved_src" ]] || continue
+                  local found=true
+                  if [[ -d "$resolved_src" ]]; then
+                      while IFS= read -r -d "" file; do
+                          rel="''${file#"$resolved_src/"}"
+                          mk_link ".config/$dest/$rel" "$file"
+                      done < <(find "$resolved_src" -type f -print0)
+                  elif [[ -f "$resolved_src" ]]; then
+                      mk_link ".config/$dest" "$resolved_src"
+                  fi
+              done
+
+              if ! $found; then
                   echo "dotfiles: $src not found, skipping"
-                  return 0
               fi
-
-              if [[ -d "$resolved_src" ]]; then
-                  while IFS= read -r -d "" file; do
-                      rel="''${file#"$resolved_src/"}"
-                      mk_link ".config/$dest/$rel" "$file"
-                  done < <(find "$resolved_src" -type f -print0)
-              elif [[ -f "$resolved_src" ]]; then
-                  mk_link ".config/$dest" "$resolved_src"
-              fi
-
           }
 
           echo -n "symlinking dotfiles... "
