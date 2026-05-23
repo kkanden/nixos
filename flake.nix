@@ -77,7 +77,7 @@
       templates = {
         python = {
           path = ./templates/python;
-          name = "Python impure template";
+          description = "Python impure template";
         };
       };
     };
