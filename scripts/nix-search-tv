@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+SHELL_ORIG=$SHELL
 SHELL="bash"
 
 declare -a INDEXES=(
@@ -83,4 +84,4 @@ choice=$(eval "nix-search-tv print | fzf \
     $FZF_BINDS
 ")
 
-[[ -n "$choice" ]] && NIX_SHELL=1 SHELL=fish nix shell "nixpkgs#${choice#nixpkgs/ }"
+[[ -n "$choice" ]] && NIX_SHELL=1 SHELL=$SHELL_ORIG nix shell "nixpkgs#${choice#nixpkgs/ }"
