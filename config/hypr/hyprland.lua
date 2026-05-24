@@ -8,7 +8,7 @@ browser_class = "zen-beta"
 discord = "discord"
 discord_class = "discord"
 spotify = "spotify"
-spotify_class = "spotify"
+spotify_class = "Spotify"
 mail = "thunderbird"
 
 local ws_spotify = "99"
