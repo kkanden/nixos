@@ -30,11 +30,7 @@
     let
       repoPath = ./.;
       repoPathStr = "/etc/nixos";
-      libExtra = {
-        configPath = ./config;
-        scriptsPath = ./scripts;
-      };
-      lib' = import ./lib ({ inherit (nixpkgs) lib; } // libExtra);
+      lib' = import ./lib;
       system = "x86_64-linux";
       specialArgs = {
         inherit
@@ -44,8 +40,7 @@
           repoPath
           repoPathStr
           ;
-      }
-      // libExtra;
+      };
       mkHost = host: {
         name = host;
         value = nixpkgs.lib.nixosSystem {
