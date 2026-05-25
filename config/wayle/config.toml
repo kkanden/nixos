@@ -1,12 +1,12 @@
 imports = ["layout.toml"]
 
 [bar]
-scale = 0.8
+scale = 0.83
 inset-edge = 0.125
 inset-ends = 0.125
 bg = "bg-base"
 button-variant = "basic"
-button-icon-size = 0.8500000238418579
+button-icon-size = 0.85
 button-border-location = "none"
 dropdown-shadow = false
 padding-ends = 1
@@ -29,7 +29,7 @@ blue = "#bb9dbd"
 
 [modules.clock]
 format = "%d/%m/%Y %H:%M:%S"
-icon-name = "md-calendar_today-symbolic"
+icon-name = "md-calendar_month-symbolic"
 button-bg-color = "bg-base"
 label-color = "fg-default"
 
@@ -55,6 +55,7 @@ active-indicator = "underline"
 icon-color = "accent"
 label-color = "fg-default"
 button-bg-color = "bg-base"
+icon-name = "md-keyboard-symbolic"
 
 [modules.keyboard-input.layout-alias-map]
 Polish = "PL"
@@ -80,17 +81,25 @@ label-color = "fg-default"
 button-bg-color = "bg-base"
 scroll-up = "wayle audio output-volume +5"
 scroll-down = "wayle audio output-volume -5"
+icon-muted = "md-volume_off-symbolic"
+level-icons = [
+  "md-volume_mute-symbolic",
+  "md-volume_down-symbolic",
+  "md-volume_up-symbolic"
+]
 
 [modules.weather]
 location = "Wroclaw, Poland"
 button-bg-color = "bg-base"
 label-color = "fg-default"
+icon-name = "md-sunny-symbolic"
 
 [modules.window-title]
 format = "{{ app }}"
 icon-color = "accent"
 button-bg-color = "bg-base"
 label-color = "fg-default"
+icon-name = "md-window-symbolic"
 
 [modules.notification]
 popup-position = "bottom-right"
