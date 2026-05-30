@@ -84,11 +84,6 @@
     };
   };
 
-  environment.sessionVariables = {
-    BROWSER = "zen";
-    TERMINAL = "alacritty";
-  };
-
   # DON'T CHANGE!
   system.stateVersion = "26.05";
 }
