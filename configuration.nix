@@ -4,17 +4,14 @@
   lib,
   ...
 }:
-let
-  mk = lib.mkDefault;
-in
 {
   # oliwia defaults ----
   oliwia = {
     fish = {
-      enable = mk true;
-      stable = mk true;
+      enable = true;
+      stable = true;
     };
-    fonts.enable = mk true;
+    fonts.enable = true;
     dotfiles = {
       "fish/config.fish" = "fish/config.fish";
       "fish/theme.fish" = "fish/vague.fish";
@@ -65,13 +62,13 @@ in
   };
 
   # boot ----
-  boot.loader.systemd-boot.enable = mk true;
+  boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10;
-  boot.loader.efi.canTouchEfiVariables = mk true; # UEFI boot
+  boot.loader.efi.canTouchEfiVariables = true; # UEFI boot
 
   # networking
   networking.networkmanager = {
-    enable = mk true;
+    enable = true;
     dispatcherScripts = [
       {
         # if connected to ethernet, disable wifi
@@ -93,55 +90,75 @@ in
     ];
   };
   systemd.services.NetworkManager-wait-online.wantedBy = lib.mkForce [ ];
-  systemd.targets.network-online.wantedBy = mk [ ];
+  systemd.targets.network-online.wantedBy = [ ];
 
   # services ----
   services.openssh = {
-    enable = mk true;
+    enable = true;
     settings = {
       PubkeyAuthentication = true;
       PasswordAuthentication = false;
     };
   };
-  services.gvfs.enable = mk true; # trashcan
+  services.gvfs.enable = true; # trashcan
   services.pipewire = {
-    enable = mk true;
-    wireplumber.enable = mk true;
-    alsa.enable = mk true;
-    alsa.support32Bit = mk true;
-    pulse.enable = mk true;
-    jack.enable = mk true;
+    enable = true;
+    wireplumber.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
   };
-  security.rtkit.enable = mk true; # for pipewire
-  services.playerctld.enable = mk true;
+  security.rtkit.enable = true; # for pipewire
+  services.playerctld.enable = true;
+  security = {
+    polkit = {
+      enable = true;
+      extraConfig = /* javascript */ ''
+        polkit.addRule(function (action, subject) {
+          if (
+            subject.isInGroup("users") &&
+            [
+              "org.freedesktop.login1.reboot",
+              "org.freedesktop.login1.reboot-multiple-sessions",
+              "org.freedesktop.login1.power-off",
+              "org.freedesktop.login1.power-off-multiple-sessions",
+            ].indexOf(action.id) !== -1
+          ) {
+            return polkit.Result.YES;
+          }
+        });
+      '';
+    };
+  };
 
   # nix ----
   nix = {
     settings = {
-      experimental-features = mk [
+      experimental-features = [
         "nix-command"
         "flakes"
         "pipe-operator"
       ];
-      warn-dirty = mk false;
+      warn-dirty = false;
     };
-    nixPath = mk (builtins.map (x: "${x}=${inputs.${x}}") (builtins.attrNames inputs));
+    nixPath = (builtins.map (x: "${x}=${inputs.${x}}") (builtins.attrNames inputs));
   };
-  nixpkgs.config.allowUnfree = mk true;
+  nixpkgs.config.allowUnfree = true;
 
   # misc ----
-  time.timeZone = mk "Europe/Warsaw";
+  time.timeZone = "Europe/Warsaw";
 
-  i18n.defaultLocale = mk "en_US.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = mk "en_US.UTF-8";
-    LC_IDENTIFIUSTION = mk "en_CA.UTF-8";
-    LC_MEASUREMENT = mk "en_US.UTF-8";
-    LC_MONETARY = mk "en_US.UTF-8";
-    LC_NAME = mk "en_US.UTF-8";
-    LC_NUMERIC = mk "en_US.UTF-8";
-    LC_PAPER = mk "en_US.UTF-8";
-    LC_TELEPHONE = mk "en_US.UTF-8";
-    LC_TIME = mk "en_GB.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFIUSTION = "en_CA.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_GB.UTF-8";
   };
 }
