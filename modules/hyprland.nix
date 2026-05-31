@@ -140,6 +140,27 @@ in
             xwayland.enable = true;
             withUWSM = true;
           };
+          xdg.portal = {
+            enable = true;
+            extraPortals = with pkgs; [
+              config.programs.hyprland.portalPackage
+              xdg-desktop-portal-gtk
+            ];
+            config = {
+              Hyprland = {
+                default = [
+                  "hyprland"
+                  "gtk"
+                ];
+                "org.desktop.impl.portal.OpenURI" = [ "hyprland" ];
+                "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+
+              };
+              common = {
+                default = [ "gtk" ];
+              };
+            };
+          };
 
           # set up hyprlock and hypridle manually because upstream is weird
           security.pam.services.hyprlock = { };
