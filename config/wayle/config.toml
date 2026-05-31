@@ -93,6 +93,8 @@ location = "Wroclaw, Poland"
 button-bg-color = "bg-base"
 label-color = "fg-default"
 icon-name = "md-sunny-symbolic"
+time-format = "24h"
+refresh-interval-seconds = 300
 
 [modules.window-title]
 format = "{{ app }}"
@@ -101,7 +103,7 @@ button-bg-color = "bg-base"
 label-color = "fg-default"
 icon-name = "md-window-symbolic"
 
-[modules.notification]
+[modules.notifications]
 popup-position = "bottom-right"
 popup-max-visible = 3
 popup-duration = 4000
