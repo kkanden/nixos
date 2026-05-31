@@ -89,7 +89,8 @@ in
               languageserver
             ];
           })
-          rustup
+          cargo
+          rustc
           typst
 
           # lsp
@@ -103,6 +104,8 @@ in
           tombi
           texlab
           tinymist
+          rust-analyzer
+          clippy
           vscode-langservers-extracted
           yaml-language-server
 
@@ -113,6 +116,7 @@ in
           nixfmt
           shfmt
           stylua
+          rustfmt
           tex-fmt
           typstyle
           stable.nodePackages.prettier
