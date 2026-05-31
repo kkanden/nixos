@@ -119,7 +119,7 @@ in
           rustfmt
           tex-fmt
           typstyle
-          stable.nodePackages.prettier
+          prettier
         ])
         ++ tmux-plugins;
 
