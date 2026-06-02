@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }:
 {
@@ -129,6 +130,24 @@
           }
         });
       '';
+    };
+  };
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age = {
+      keyFile = "/var/lib/sops-nix/key.txt";
+      sshKeyPaths = [
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/home/oliwia/.ssh/id_ed25519"
+      ];
+      generateKey = true;
+    };
+    secrets = {
+      caddy-env = {
+        owner = config.users.users.caddy.name;
+        group = config.users.users.caddy.group;
+        restartUnits = [ "caddy.service" ];
+      };
     };
   };
 

@@ -1,0 +1,7 @@
+keys:
+  - &t450 age1nj58jkpx0lteq8jerak9a9zdmv4wgwyc73383u9439f7dzy0nqzqmzqncf
+creation_rules:
+  - path_regex: secrets.yaml
+    key_groups:
+      - age:
+          - *t450

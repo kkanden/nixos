@@ -72,6 +72,7 @@ in
           bear
           valgrind
           gdb
+          sops
 
           # langs
           jdk
