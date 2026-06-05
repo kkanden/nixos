@@ -146,13 +146,6 @@
       ];
       generateKey = true;
     };
-    secrets = {
-      caddy-env = {
-        owner = config.users.users.caddy.name;
-        group = config.users.users.caddy.group;
-        restartUnits = [ "caddy.service" ];
-      };
-    };
   };
 
   # nix ----

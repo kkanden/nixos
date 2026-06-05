@@ -240,7 +240,7 @@ in
     (lib.mkIf cfg.caddy-proxy.enable {
       services.caddy = {
         enable = true;
-        virtualHosts."http://:8080" = {
+        virtualHosts."http://immich-share.kanden.me" = {
           extraConfig =
             let
               url = "localhost:${toString config.services.immich.port}";

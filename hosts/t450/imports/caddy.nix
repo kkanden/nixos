@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 {
   services.caddy = {
     enable = true;
@@ -8,7 +12,7 @@
       ];
       hash = "sha256-xHmhjCrAaqbnYLAxXCsZ8ah6umgwHWQIXWqeDbghCOo=";
     };
-    environmentFile = "/run/secrets/caddy-env";
+    environmentFile = config.sops.secrets.caddy-env.path;
     globalConfig = ''
       email {env.EMAIL}
     '';
@@ -42,4 +46,11 @@
     80
     443
   ];
+  sops.secrets = {
+    caddy-env = {
+      owner = config.users.users.caddy.name;
+      group = config.users.users.caddy.group;
+      restartUnits = [ "caddy.service" ];
+    };
+  };
 }
