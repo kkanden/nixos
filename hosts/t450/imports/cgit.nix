@@ -1,0 +1,67 @@
+{ pkgs, ... }:
+let
+  user = "git";
+  group = user;
+in
+{
+  environment.etc."cgitrc".text = ''
+    root-title=kanden's git
+    root-desc=personal projects/configurations
+    readme=:README.md
+
+    about-filter=${pkgs.cgit}/lib/cgit/filters/about-formatting.sh
+    max-stats=year
+    default-page=tree
+
+    clone-url=https://git.kanden.me/$CGIT_REPO_URL
+    snapshots=tar.gz zip
+
+    scan-path=/srv/git
+    enable-http-clone=1
+    remove-suffix=1
+    virtual-root=/
+  '';
+
+  users.users.${user} = {
+    isSystemUser = true;
+    group = user;
+    home = "/srv/git";
+    shell = "${pkgs.git}/bin/git-shell";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+HHjsMUyUNJixLglUag0FwhzD27uWLkbnjI5Vb3trJ oliwia@t450"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMkzHXRPuu3kXuvcYYq7y5WcckJTZpjptuGI+2MV00/ oliwia@desktop"
+    ];
+  };
+  users.groups.${group} = { };
+  users.users.caddy.extraGroups = [ group ];
+  systemd.tmpfiles.rules = [
+    "d /srv/git 0755 ${user} ${group} -"
+  ];
+
+  services.caddy = {
+    globalConfig = ''
+      order cgi before respond
+    '';
+    virtualHosts."http://git.kanden.me" = {
+      extraConfig = ''
+        @static path /cgit.css /cgit.js /cgit.png /favicon.ico /robots.txt
+        handle @static {
+          root * ${pkgs.cgit}/cgit
+          file_server
+        }
+        @gitclone path_regexp ^/.*/(info/refs|git-upload-pack)$
+        handle @gitclone {
+          cgi * ${pkgs.git}/libexec/git-core/git-http-backend {
+            env GIT_PROJECT_ROOT=/srv/git GIT_HTTP_EXPORT_ALL=1
+          }
+        }
+        handle {
+          cgi * ${pkgs.cgit}/cgit/cgit.cgi {
+            env CGIT_CONFIG=/etc/cgitrc
+          }
+        }
+      '';
+    };
+  };
+
+}

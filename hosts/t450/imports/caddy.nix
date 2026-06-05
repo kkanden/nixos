@@ -6,12 +6,16 @@
 {
   services.caddy = {
     enable = true;
-    package = pkgs.caddy.withPlugins {
-      plugins = [
-        "github.com/caddy-dns/desec@v1.1.0"
-      ];
-      hash = "sha256-xHmhjCrAaqbnYLAxXCsZ8ah6umgwHWQIXWqeDbghCOo=";
-    };
+    package = (
+      (pkgs.caddy.withPlugins {
+        plugins = [
+          "github.com/caddy-dns/desec@v1.1.0"
+          "github.com/aksdb/caddy-cgi@v2.2.7"
+        ];
+        hash = "sha256-spadbybxXSXkLrcVHvMahGrNHfkAwMv77MNmrea4SSQ=";
+      }).overrideAttrs
+        { doInstallCheck = false; }
+    );
     environmentFile = config.sops.secrets.caddy-env.path;
     globalConfig = ''
       email {env.EMAIL}
