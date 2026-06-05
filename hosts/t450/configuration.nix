@@ -76,6 +76,13 @@
     caddy-proxy.enable = true;
   };
 
+  environment.etc."gitconfig".text = /* gitconfig */ ''
+    [init]
+      defaultBranch = main
+    [core]
+      sharedRepository = group
+  '';
+
   # makes terminal apps work when opened as xdg default (eg neovim)
   xdg.terminal-exec = {
     enable = true;
