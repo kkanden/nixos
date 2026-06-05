@@ -112,6 +112,10 @@
   };
   security.rtkit.enable = true; # for pipewire
   services.playerctld.enable = true;
+  services.resolved.enable = true;
+  services.netbird.enable = true;
+  networking.firewall.trustedInterfaces = [ "wt0" ];
+
   security = {
     polkit = {
       enable = true;
