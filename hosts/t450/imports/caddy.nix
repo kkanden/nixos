@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -32,6 +33,13 @@
         '';
       in
       {
+        # managed through netbird
+        "http://www.kanden.me" = {
+          extraConfig = ''
+            root * ${inputs.kanden-website.packages.${pkgs.stdenv.system}.default}
+            file_server
+          '';
+        };
         "vaultwarden.kanden.me" = {
           extraConfig = ''
             reverse_proxy localhost:${toString config.services.vaultwarden.config.ROCKET_PORT}

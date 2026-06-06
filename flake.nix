@@ -24,6 +24,10 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kanden-website = {
+      url = "git+https://git.kanden.me/website";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
