@@ -76,11 +76,15 @@
     caddy-proxy.enable = true;
   };
 
+  # this is just so caddy+cgit stops complaining about dubious ownership
+  # idk if this is bad practice but it makes it work
   environment.etc."gitconfig".text = /* gitconfig */ ''
     [init]
       defaultBranch = main
     [core]
-      sharedRepository = group
+      sharedRepository = all
+    [safe]
+      directory = *
   '';
 
   # makes terminal apps work when opened as xdg default (eg neovim)
