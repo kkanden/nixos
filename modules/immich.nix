@@ -41,9 +41,6 @@ in
       };
       assets.enable = mkEnableOption "Backup assets";
     };
-    caddy-proxy = {
-      enable = mkEnableOption "Immich caddy proxy for album sharing";
-    };
   };
   config = lib.mkMerge [
 
@@ -233,41 +230,6 @@ in
           OnCalendar = "2:00:00";
           Persistent = true;
           Unit = "immich-backup.service";
-        };
-      };
-    })
-
-    (lib.mkIf cfg.caddy-proxy.enable {
-      services.caddy = {
-        enable = true;
-        virtualHosts."http://immich-share.kanden.me" = {
-          extraConfig =
-            let
-              url = "localhost:${toString config.services.immich.port}";
-            in
-            ''
-              # allow all get requests, they're read-only
-              @get {
-                  method GET
-              }
-              handle @get {
-                  reverse_proxy ${url}
-              }
-
-              # allow upload only if it's a shared album
-              @upload {
-                method POST
-                path /api/assets* /api/download*
-              }
-              handle @upload {
-                reverse_proxy ${url}
-              }
-
-              # otherwise reject
-              handle {
-                respond 403
-              }
-            '';
         };
       };
     })

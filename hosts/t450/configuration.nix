@@ -73,7 +73,6 @@
       db.enable = true;
       assets.enable = true;
     };
-    caddy-proxy.enable = true;
   };
 
   # this is just so caddy+cgit stops complaining about dubious ownership

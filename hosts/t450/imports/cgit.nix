@@ -37,31 +37,4 @@ in
   systemd.tmpfiles.rules = [
     "d /srv/git 0755 ${user} ${group} -"
   ];
-
-  services.caddy = {
-    globalConfig = ''
-      order cgi before respond
-    '';
-    virtualHosts."http://git.kanden.me" = {
-      extraConfig = ''
-        @static path /cgit.css /cgit.js /cgit.png /favicon.ico /robots.txt
-        handle @static {
-          root * ${pkgs.cgit}/cgit
-          file_server
-        }
-        @gitclone path_regexp ^/.*/(info/refs|git-upload-pack)$
-        handle @gitclone {
-          cgi * ${pkgs.git}/libexec/git-core/git-http-backend {
-            env GIT_PROJECT_ROOT=/srv/git GIT_HTTP_EXPORT_ALL=1
-          }
-        }
-        handle {
-          cgi * ${pkgs.cgit}/cgit/cgit.cgi {
-            env CGIT_CONFIG=/etc/cgitrc
-          }
-        }
-      '';
-    };
-  };
-
 }
