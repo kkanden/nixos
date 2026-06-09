@@ -65,7 +65,7 @@ in
         };
         "http://immich-share.kanden.me" = {
           extraConfig = ''
-            reverse_proxy localhost:${toAnubisPort anubisPorts.git}
+            reverse_proxy localhost:${toAnubisPort anubisPorts.immich-share}
           '';
         };
 
@@ -90,7 +90,7 @@ in
             }
           '';
         };
-        "http://localhost:${anubisPorts.immich-share}" = {
+        "http://:${anubisPorts.immich-share}" = {
           extraConfig =
             let
               url = "localhost:${toString config.services.immich.port}";
