@@ -8,7 +8,11 @@ in
     root-title=kanden's git
     root-desc=personal projects/configurations
     readme=:README.md
+    enable-git-config=1
+    enable-log-filecount=1
+    enable-log-linecount=1
 
+    css=/cgit-static/cgit.css
     about-filter=${pkgs.cgit}/lib/cgit/filters/about-formatting.sh
     max-stats=year
     default-page=tree
@@ -21,6 +25,8 @@ in
     remove-suffix=1
     virtual-root=/
   '';
+
+  environment.etc."cgit-static/cgit.css".source = ../config/cgit/cgit.css;
 
   users.users.${user} = {
     isSystemUser = true;

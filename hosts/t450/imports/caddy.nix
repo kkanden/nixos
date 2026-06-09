@@ -78,7 +78,11 @@ in
         };
         "http://:${anubisPorts.git}" = {
           extraConfig = ''
-            @static path /cgit.css /cgit.js /cgit.png /favicon.ico /robots.txt
+            handle /cgit-static/* {
+              root * /etc
+              file_server
+            }
+            @static path /cgit.js /cgit.png /favicon.ico /robots.txt
             handle @static {
               root * ${pkgs.cgit}/cgit
               file_server
