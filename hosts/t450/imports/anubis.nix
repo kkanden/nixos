@@ -14,12 +14,6 @@ let
 in
 {
   services.anubis = {
-    defaultOptions.settings = {
-      BIND_NETWORK = "tcp";
-      METRICS_BIND_NETWORK = "tcp";
-      DIFFICULTY = 5;
-      SERVE_ROBOTS_TXT = true;
-    };
     instances =
       [
         {
@@ -36,6 +30,50 @@ in
         }
       ]
       |> map mkAnubis
-      |> lib.mergeAttrsList;
+      |> lib.mkMerge;
+    defaultOptions = {
+      settings = {
+        BIND_NETWORK = "tcp";
+        METRICS_BIND_NETWORK = "tcp";
+        SERVE_ROBOTS_TXT = true;
+      };
+      policy.settings.thresholds = [
+        {
+          name = "no-suspicion"; # eg. curl agents
+          expression = "weight <= 0";
+          action = "ALLOW";
+        }
+        {
+          name = "mild-suspicion";
+          expression = "weight < 20";
+          action = "CHALLENGE";
+          challenge = {
+            algorithm = "fast";
+            difficulty = 4;
+          };
+        }
+        {
+          name = "moderate-suspicion";
+          expression.all = [
+            "weight >= 20"
+            "weight < 30"
+          ];
+          action = "CHALLENGE";
+          challenge = {
+            algorithm = "fast";
+            difficulty = 6;
+          };
+        }
+        {
+          name = "high-suspicion";
+          expression = "weight >= 30";
+          action = "CHALLENGE";
+          challenge = {
+            algorithm = "fast";
+            difficulty = 8;
+          };
+        }
+      ];
+    };
   };
 }
