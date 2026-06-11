@@ -21,7 +21,7 @@ in
           "github.com/caddy-dns/desec@v1.1.0"
           "github.com/aksdb/caddy-cgi@v2.2.7"
         ];
-        hash = "sha256-spadbybxXSXkLrcVHvMahGrNHfkAwMv77MNmrea4SSQ=";
+        hash = "sha256-pSdwPS9MySWbLE3Tg/Kpr7LxzNqxC9faNFGZBskd448=";
       }).overrideAttrs
         { doInstallCheck = false; }
     );
@@ -29,6 +29,10 @@ in
     globalConfig = ''
       email {env.EMAIL}
       order cgi before respond
+      servers {
+        trusted_proxies static 100.113.0.0/16
+        trusted_proxies_strict
+      }
     '';
     virtualHosts =
       let
