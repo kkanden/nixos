@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   user = "git";
   group = user;
@@ -42,5 +47,29 @@ in
   users.users.caddy.extraGroups = [ group ];
   systemd.tmpfiles.rules = [
     "d /srv/git 0755 ${user} ${group} -"
-  ];
+  ]
+  ++ (lib.optional config.systemd.services.cgit-backup.enable "d /var/backups/cgit 0755 ${user} ${group} -");
+
+  systemd.services.cgit-backup = {
+    description = "Backup cgit";
+    path = [
+      pkgs.gnutar
+      pkgs.gzip
+    ];
+    serviceConfig = {
+      User = user;
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "cgit-backup" ''
+        TIMESTAMP=$(date +%Y%m%dT%H%M%S)
+        cd /srv && tar zvcf "/var/backups/cgit/cgit-$TIMESTAMP.tar.gz" git/
+      '';
+    };
+  };
+  systemd.timers.cgit-backup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "1:00:00";
+      Persistent = true;
+    };
+  };
 }
