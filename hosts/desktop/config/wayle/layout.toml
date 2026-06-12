@@ -7,11 +7,7 @@ left = [
   "window-title",
 ]
 center = ["clock"]
-right = [
-  "media",
-  "keyboard-input",
-  "volume",
-]
+right = ["media", "keyboard-input", "volume", "custom-volume-output"]
 
 [[bar.layout]]
 monitor = "*"

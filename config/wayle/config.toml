@@ -120,5 +120,29 @@ icon-bg-color = "bg-base"
 label-color = "fg-default"
 button-bg-color = "bg-base"
 
+# see https://wayle.app/guide/custom-modules#watch-mode-event-driven-volume-control
+[[modules.custom]]
+id = "volume-output"
+mode = "watch"
+restart-policy = "on-exit"
+command = '''
+emit_state() {
+    out=$(pactl get-default-sink)
+    out=$([[ "$out" == *hdmi* ]] && echo "speaker" || echo "headphone")
+    printf '{"alt": "%s"}\n' "$out"
+}
+emit_state
+pactl subscribe | while read -r line; do
+    case "$line" in *sink*) emit_state ;; esac
+done
+'''
+left-click = "switch-audio"
+format = ""
+icon-map = {
+  speaker = "md-speaker-symbolic",
+  headphone = "md-headphones-symbolic"
+}
+button-bg-color = "bg-base"
+
 [osd]
 enabled = false
