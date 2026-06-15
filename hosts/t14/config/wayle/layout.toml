@@ -1,0 +1,14 @@
+[[bar.layout]]
+monitor = "eDP-1"
+show = true
+left = [
+  "weather",
+  "hyprland-workspaces",
+  "window-title",
+]
+center = ["clock"]
+right = ["media", "keyboard-input", "volume", "network", "battery"]
+
+[[bar.layout]]
+monitor = "*"
+show = false
