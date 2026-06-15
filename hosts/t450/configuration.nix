@@ -86,14 +86,6 @@
       directory = *
   '';
 
-  # makes terminal apps work when opened as xdg default (eg neovim)
-  xdg.terminal-exec = {
-    enable = true;
-    settings = {
-      default = [ "Alacritty.desktop" ];
-    };
-  };
-
   # DON'T CHANGE!
   system.stateVersion = "26.05";
 }

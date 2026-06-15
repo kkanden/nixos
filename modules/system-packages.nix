@@ -300,6 +300,14 @@ in
             ]
           );
 
+      # makes terminal apps work when opened as xdg default (eg neovim)
+      xdg.terminal-exec = {
+        enable = true;
+        settings = {
+          default = [ "Alacritty.desktop" ];
+        };
+      };
+
       # my scripts with their dependencies
       oliwia.scripts = {
         scripts = {

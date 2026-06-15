@@ -91,14 +91,6 @@
     ACTION=="add", SUBSYSTEM=="usb", DRIVER=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c539", ATTR{power/wakeup}="disabled"
   '';
 
-  # makes terminal apps work when opened as xdg default (eg neovim)
-  xdg.terminal-exec = {
-    enable = true;
-    settings = {
-      default = [ "Alacritty.desktop" ];
-    };
-  };
-
   # DON'T CHANGE!
   system.stateVersion = "25.05";
 }
