@@ -42,6 +42,7 @@
     theme.enable = true;
   };
 
+  services.fprintd.enable = true;
   services.playerctld.enable = true;
   services.qbittorrent.enable = true;
   services.mullvad-vpn.enable = true;
