@@ -91,7 +91,7 @@ hl.workspace_rule({
 })
 hl.window_rule({
 	name = "discord",
-	workspace = "",
+	workspace = ws_discord,
 	monitor = os.getenv("SECOND_DISPLAY"),
 	float = true,
 	size = "(monitor_w*0.9) (monitor_h*0.85)",
