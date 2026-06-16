@@ -4,10 +4,9 @@
   ...
 }:
 {
-  # imports = [
-  #   ./_hardware-configuration.nix
-  # ]
-  # ++ lib.filesystem.listFilesRecursive ./imports;
+  imports = [
+    ./_hardware-configuration.nix
+  ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -24,7 +23,7 @@
             disable_scale_checks = true
           },
           input = {
-            sensitivity = 0,
+            sensitivity = 0.2,
             touchpad =  {
               natural_scroll = true,
               drag_lock = true,
@@ -36,7 +35,6 @@
       monitors = [
         {
           name = "eDP-1";
-          scaling = "0.85";
           main = true;
         }
       ];
