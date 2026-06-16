@@ -19,15 +19,12 @@
       enable = true;
       extraConfig = /* lua */ ''
         hl.config({
-          debug = {
-            disable_scale_checks = true
-          },
           input = {
             sensitivity = 0.2,
-            touchpad =  {
+            touchpad = {
               natural_scroll = true,
               drag_lock = true,
-              scroll_factor = 0.7,
+              scroll_factor = 0.2,
             }
           }
         })
