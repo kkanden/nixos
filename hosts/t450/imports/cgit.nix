@@ -41,6 +41,7 @@ in
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+HHjsMUyUNJixLglUag0FwhzD27uWLkbnjI5Vb3trJ oliwia@t450"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMkzHXRPuu3kXuvcYYq7y5WcckJTZpjptuGI+2MV00/ oliwia@desktop"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAkacpOqLm45KKWNIpckhGMA+7pCh6FUH8Y5AzqV8fM4 oliwia@t14"
     ];
   };
   users.groups.${group} = { };
