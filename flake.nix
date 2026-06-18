@@ -82,6 +82,12 @@
       nixosConfigurations = builtins.listToAttrs (
         map mkHost (builtins.attrNames (builtins.readDir ./hosts))
       );
+      packages.${system} = builtins.listToAttrs (
+        map (p: {
+          name = nixpkgs.lib.removeSuffix ".nix" p;
+          value = nixpkgs.legacyPackages.${system}.callPackage (./pkgs + "/${p}") { };
+        }) (builtins.attrNames (builtins.readDir ./pkgs))
+      );
       templates = {
         python = {
           path = ./templates/python;
