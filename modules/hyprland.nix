@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
@@ -145,6 +146,7 @@ in
             extraPortals = with pkgs; [
               config.programs.hyprland.portalPackage
               xdg-desktop-portal-gtk
+              inputs.self.packages.${pkgs.stdenv.system}.hypr-kdeconnect-fix
             ];
             config = {
               Hyprland = {
@@ -154,6 +156,7 @@ in
                 ];
                 "org.desktop.impl.portal.OpenURI" = [ "hyprland" ];
                 "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+                "org.freedesktop.impl.portal.RemoteDesktop" = [ "hypr-kdeconnect" ];
 
               };
               common = {
