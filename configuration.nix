@@ -70,6 +70,7 @@
   # networking
   networking.networkmanager = {
     enable = true;
+    wifi.powersave = false;
     dispatcherScripts = [
       {
         # if connected to ethernet, disable wifi
