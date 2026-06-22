@@ -70,6 +70,7 @@ players-ignored = ["*mozilla*", "*firefox*", "*zen*"]
 player-priority = ["*spotify*"]
 icon-color = "accent"
 label-color = "fg-default"
+left-click = "focus-or-launch spotify spotify"
 middle-click = "playerctl next -p spotify"
 right-click = "playerctl play-pause -p spotify"
 scroll-up = "playerctl volume 0.1+ -p spotify"
