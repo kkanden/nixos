@@ -28,15 +28,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1780669761,
-        "narHash": "sha256-Lw+Agi/ZqK74QMIElXE9UB6+DrfFyGsSoee0c/7OR6M=",
-        "ref": "refs/heads/main",
-        "rev": "dcbf337b69f1b7a2ddca17d4b35564dd3e8b29e3",
-        "revCount": 5,
+        "lastModified": 1782248543,
+        "narHash": "sha256-1Sa8yhImj8IA/O6SyQZXsWjx0lG1jRrfPPVn+gdtuNU=",
+        "ref": "v0.2",
+        "rev": "18a9f996380a8b766adc45cbe528aff99064a83a",
+        "revCount": 14,
         "type": "git",
         "url": "https://git.kanden.me/website"
       },
       "original": {
+        "ref": "v0.2",
         "type": "git",
         "url": "https://git.kanden.me/website"
       }
