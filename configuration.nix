@@ -116,6 +116,7 @@
   services.resolved.enable = true;
   services.netbird.enable = true;
   networking.firewall.trustedInterfaces = [ "wt0" ];
+  programs.gnupg.agent.enable = true;
 
   security = {
     polkit = {

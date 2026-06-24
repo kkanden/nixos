@@ -54,3 +54,10 @@
 [user]
 	email = "oliwia@kanden.me"
 	name = "oliwia"
+	signingKey = "11D8BA3824980D0C"
+
+[commit]
+	gpgSign = true
+
+[tag]
+	gpgSign = true
