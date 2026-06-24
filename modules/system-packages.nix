@@ -100,6 +100,7 @@ in
           bash-language-server
           fish-lsp
           emmylua-ls
+          lua-language-server
           marksman
           nixd
           tombi
