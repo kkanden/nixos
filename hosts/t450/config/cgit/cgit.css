@@ -11,16 +11,15 @@
 }
 
 body {
-    background-color: var(--bg);
+    color: var(--fg);
+    background: var(--bg);
 }
 
 div#cgit {
     padding: 0em;
     margin: 0em;
-    font-family: sans-serif;
+    font-family: "JetBrains Mono", monospace;
     font-size: 10pt;
-    color: var(--fg);
-    background: var(--bg);
     padding: 4px;
 }
 
@@ -70,37 +69,38 @@ div#cgit table#header td.form form,
 div#cgit table#header td.form input,
 div#cgit table#header td.form select {
     font-size: 90%;
+    padding: 0.4em
 }
 
 div#cgit table#header td.sub {
     color: var(--muted);
-    border-top: solid 1px var(--surface);
+    border-top: solid 2px var(--surface);
     padding-left: 10px;
 }
 
 
 div#cgit table.tabs {
-    border-bottom: solid 3px var(--surface);
+    background-color: var(--surface);
     border-collapse: collapse;
     margin-top: 2em;
-    margin-bottom: 0px;
     width: 100%;
 }
 
 div#cgit table.tabs td {
-    padding: 0px 1em;
-    vertical-align: bottom;
+    padding: 0.5em;
+    vertical-align: middle;
 }
 
 div#cgit table.tabs td a {
-    padding: 2px 0.75em;
+    padding: 0.3em 0.7em;
+    margin: 0;
     color: var(--muted);
     font-size: 110%;
 }
 
 div#cgit table.tabs td a.active {
-    color: var(--fg);
-    background-color: var(--surface);
+    color: var(--bg);
+    background-color: var(--accent);
 }
 
 div#cgit table.tabs a[href^="http://"]:after, div#cgit table.tabs a[href^="https://"]:after {
@@ -114,7 +114,7 @@ div#cgit table.tabs td.form {
 }
 
 div#cgit table.tabs td.form form {
-    padding-bottom: 2px;
+    padding: 4px;
     font-size: 90%;
     white-space: nowrap;
 }
@@ -197,12 +197,10 @@ div#cgit table.list th {
 
 div#cgit table.list td {
     border: none;
-    padding: 0.1em 0.5em 0.1em 0.5em;
+    padding: 0.5em;
 }
 
-
 div#cgit table.list td.commitgraph {
-    font-family: monospace;
     white-space: pre;
 }
 
@@ -231,12 +229,10 @@ div#cgit table.list td.commitgraph .column6 {
 }
 
 div#cgit table.list td.logsubject {
-    font-family: monospace;
     font-weight: bold;
 }
 
 div#cgit table.list td.logmsg {
-    font-family: monospace;
     white-space: pre;
     padding: 0 0.5em;
 }
@@ -253,7 +249,6 @@ div#cgit table.list td a.ls-dir {
 div#cgit table.list td a:hover {
     color: var(--accent);
 }
-
 
 div#cgit img {
     border: none;
@@ -286,7 +281,7 @@ div#cgit div#summary {
 div#cgit table#downloads {
     float: right;
     border-collapse: collapse;
-    border: solid 1px var(--muted);
+    border: solid 2px var(--muted);
     margin-left: 0.5em;
     margin-bottom: 0.5em;
 }
@@ -296,7 +291,7 @@ div#cgit table#downloads th {
 }
 
 div#cgit div#blob {
-    border: solid 1px var(--surface);
+    border: solid 2px var(--surface);
 }
 
 div#cgit div.error {
@@ -306,18 +301,12 @@ div#cgit div.error {
 }
 
 
-div#cgit a.ls-blob, div#cgit a.ls-dir, div#cgit .ls-mod {
-    font-family: monospace;
-}
-
 div#cgit td.ls-size {
     text-align: right;
-    font-family: monospace;
     width: 10em;
 }
 
 div#cgit td.ls-mode {
-    font-family: monospace;
     width: 10em;
 }
 
@@ -325,7 +314,7 @@ div#cgit td.ls-mode {
 
 div#cgit table.blob {
     margin-top: 0.5em;
-    border-top: solid 1px var(--surface);
+    border-top: solid 2px var(--surface);
 }
 
 div#cgit table.blob td.hashes,
@@ -339,7 +328,7 @@ div#cgit table.blob td.linenumbers {
     margin: 0; padding: 0 0.5em 0 0.5em;
     vertical-align: top;
     text-align: right;
-    border-right: 1px solid var(--surface);
+    border-right: 2px solid var(--surface);
 }
 
 div#cgit table.blob pre {
@@ -397,34 +386,26 @@ div#cgit table.blame td.lines > div > pre {
     top: 0;
 }
 
-div#cgit table.blame .oid {
-    font-size: 100%;
-}
-
-
 div#cgit table.bin-blob {
     margin-top: 0.5em;
-    border: solid 1px var(--surface);
+    border: solid 2px var(--surface);
 }
 
 div#cgit table.bin-blob th {
-    font-family: monospace;
     white-space: pre;
-    border: solid 1px var(--muted);
+    border: solid 2px var(--muted);
     padding: 0.5em 1em;
 }
 
 div#cgit table.bin-blob td {
-    font-family: monospace;
     white-space: pre;
-    border-left: solid 1px var(--muted);
+    border-left: solid 2px var(--muted);
     padding: 0em 1em;
 }
 
 div#cgit table.nowrap td {
     white-space: nowrap;
 }
-
 
 div#cgit table.commit-info {
     border-collapse: collapse;
@@ -438,7 +419,7 @@ div#cgit div.cgit-panel {
 
 div#cgit div.cgit-panel table {
     border-collapse: collapse;
-    border: solid 1px var(--muted);
+    border: solid 2px var(--muted);
     background-color: var(--surface);
 }
 
@@ -479,7 +460,6 @@ div#cgit div.commit-subject {
 
 div#cgit div.commit-msg {
     white-space: pre;
-    font-family: monospace;
 }
 
 /* ── Notes ───────────────────────────────────────────────── */
@@ -491,8 +471,7 @@ div#cgit div.notes-header {
 
 div#cgit div.notes {
     white-space: pre;
-    font-family: monospace;
-    border: solid 1px var(--yellow);
+    border: solid 2px var(--yellow);
     background-color: var(--surface);
     padding: 0.3em 2em 0.3em 1em;
     float: left;
@@ -510,7 +489,7 @@ div#cgit div.diffstat-header {
 
 div#cgit table.diffstat {
     border-collapse: collapse;
-    border: solid 1px var(--muted);
+    border: solid 2px var(--muted);
     background-color: var(--surface);
 }
 
@@ -583,7 +562,6 @@ div#cgit table.diff {
 }
 
 div#cgit table.diff td {
-    font-family: monospace;
     white-space: pre;
 }
 
@@ -605,13 +583,10 @@ div#cgit table.diff td div.del {
     color: var(--accent);
 }
 
-
 div#cgit .oid {
-    font-family: monospace;
     font-size: 90%;
     color: var(--cyan);
 }
-
 
 div#cgit .left {
     text-align: left;
@@ -620,7 +595,6 @@ div#cgit .left {
 div#cgit .right {
     text-align: right;
 }
-
 
 div#cgit table.list td.reposection {
     font-style: italic;
@@ -727,8 +701,7 @@ div#cgit a.branch-deco {
     margin: 0px 0.5em;
     padding: 0px 0.25em;
     background-color: var(--cyan); 
-    border: solid 1px var(--cyan);
-    border-radius: 2px;
+    border: solid 2px var(--cyan);
 }
 
 div#cgit a.tag-deco {
@@ -736,8 +709,7 @@ div#cgit a.tag-deco {
     margin: 0px 0.5em;
     padding: 0px 0.25em;
     background-color: var(--yellow);
-    border: solid 1px var(--yellow);
-    border-radius: 2px;
+    border: solid 2px var(--yellow);
 }
 
 div#cgit a.tag-annotated-deco {
@@ -745,8 +717,7 @@ div#cgit a.tag-annotated-deco {
     margin: 0px 0.5em;
     padding: 0px 0.25em;
     background-color: var(--accent);
-    border: solid 1px var(--accent);
-    border-radius: 2px;
+    border: solid 2px var(--accent);
 }
 
 div#cgit a.remote-deco {
@@ -754,8 +725,7 @@ div#cgit a.remote-deco {
     margin: 0px 0.5em;
     padding: 0px 0.25em;
     background-color: var(--cyan);
-    border: solid 1px var(--cyan);
-    border-radius: 2px;
+    border: solid 2px var(--cyan);
 }
 
 div#cgit a.deco {
@@ -763,8 +733,7 @@ div#cgit a.deco {
     margin: 0px 0.5em;
     padding: 0px 0.25em;
     background-color: var(--accent);
-    border: solid 1px var(--accent);
-    border-radius: 2px;
+    border: solid 2px var(--accent);
 }
 
 div#cgit div.commit-subject a.branch-deco,
@@ -778,21 +747,21 @@ div#cgit div.commit-subject a.deco {
 
 
 div#cgit table.stats {
-    border: solid 1px var(--surface);
+    border: solid 2px var(--surface);
     border-collapse: collapse;
 }
 
 div#cgit table.stats th {
     text-align: left;
-    padding: 1px 0.5em;
+    padding: 2px 0.5em;
     background-color: var(--surface);
     border: solid 1px var(--muted);
 }
 
 div#cgit table.stats td {
     text-align: right;
-    padding: 1px 0.5em;
-    border: solid 1px var(--muted);
+    padding: 2px 0.5em;
+    border: solid 2px var(--muted);
 }
 
 div#cgit table.stats td.total {
@@ -812,15 +781,15 @@ div#cgit table.stats td.left {
 
 div#cgit table.vgraph {
     border-collapse: separate;
-    border: solid 1px var(--surface);
+    border: solid 2px var(--surface);
     height: 200px;
 }
 
 div#cgit table.vgraph th {
     background-color: var(--surface);
     font-weight: bold;
-    border: solid 1px var(--bg);
-    padding: 1px 0.5em;
+    border: solid 2px var(--bg);
+    padding: 2px 0.5em;
 }
 
 div#cgit table.vgraph td {
@@ -833,14 +802,14 @@ div#cgit table.vgraph div.bar {
 }
 
 div#cgit table.hgraph {
-    border: solid 1px var(--surface);
+    border: solid 2px var(--surface);
     width: 800px;
 }
 
 div#cgit table.hgraph th {
     background-color: var(--surface);
     font-weight: bold;
-    border: solid 1px var(--surface);
+    border: solid 2px var(--surface);
     padding: 1px 0.5em;
 }
 
