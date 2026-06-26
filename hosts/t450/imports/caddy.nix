@@ -21,7 +21,7 @@ in
           "github.com/caddy-dns/desec@v1.1.0"
           "github.com/aksdb/caddy-cgi@v2.2.7"
         ];
-        hash = "sha256-pSdwPS9MySWbLE3Tg/Kpr7LxzNqxC9faNFGZBskd448=";
+        hash = "sha256-/7CL3kriC+y3ihFU/wgPHJQoUYw5/Cg8/c4q/T+bw0c=";
       }).overrideAttrs
         { doInstallCheck = false; }
     );
