@@ -4,10 +4,12 @@ set fish_greeting
 function replace-command
     set cmdline $(test -n "$(commandline)" && echo $(commandline) || echo $history[1] )
     set cmdline (string split " " $cmdline)
-    if test "$cmdline[1]" = sudo
-        set -e cmdline[1..2]
-        commandline -r "sudo  "(string join " " -- $cmdline)
-        commandline -C 5 # position after sudo
+    if test (string match --regex "sudo|systemctl" "$cmdline[1]")
+        set -e cmdline[2]
+        set len (string length "$cmdline[1]")
+        set cmdline[1] (string join "" "$cmdline[1]" " ")
+        commandline -r (string join " " -- $cmdline)
+        commandline -C (math $len + 1) # position after first command
     else
         set -e cmdline[1]
         commandline -r " "(string join " " -- $cmdline)
