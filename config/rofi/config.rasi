@@ -28,7 +28,7 @@ configuration {
     matching: "fuzzy";
     monitor: env(MAIN_DISPLAY_ROFI, "primary");
     show-icons: false;
-    terminal: "alacritty";
+    terminal: "foot";
     xoffset: 0;
     yoffset: 0;
 

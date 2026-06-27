@@ -1,6 +1,6 @@
 -- GLOBAL VARIABLES
-terminal = "alacritty"
-terminal_class = "Alacritty"
+terminal = "foot"
+terminal_class = "foot"
 file_manager = "nautilus"
 file_manager_class = "org.gnome.Nautilus"
 browser = "zen-beta"

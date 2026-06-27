@@ -22,6 +22,7 @@
       clangd = "clangd";
       dust = "dust";
       fastfetch = "fastfetch";
+      foot = "foot";
       fzf = "fzf";
       git = "git";
       hypr = "hypr";
@@ -45,7 +46,7 @@
       XDG_STATE_HOME = "$HOME/.local/state";
 
       BROWSER = "zen-beta";
-      TERMINAL = "alacritty";
+      TERMINAL = "foot";
     };
   };
 

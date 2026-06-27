@@ -212,6 +212,7 @@ in
         ++ (with pkgs; [
           # desktop
           alacritty
+          foot
           discord
           firefox
           gimp3-with-plugins
@@ -296,7 +297,7 @@ in
       xdg.terminal-exec = {
         enable = true;
         settings = {
-          default = [ "Alacritty.desktop" ];
+          default = [ "foot.desktop" ];
         };
       };
 
