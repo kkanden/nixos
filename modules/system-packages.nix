@@ -39,7 +39,6 @@ in
           fontconfig
           fzf
           gcc
-          gh
           git
           gnumake
           jq
@@ -76,9 +75,7 @@ in
 
           # langs
           jdk
-          nodejs_24
-          perl
-          php
+          nodejs
           (python313.withPackages (
             p: with p; [
               black
@@ -108,12 +105,12 @@ in
           tinymist
           rust-analyzer
           clippy
-          vscode-langservers-extracted
+          vscode-css-languageserver
+          vscode-json-languageserver
           yaml-language-server
 
           # formatters
           air-formatter
-          alejandra
           clang-tools
           nixfmt
           shfmt
@@ -194,12 +191,10 @@ in
         ++ (with pkgs.stable; [
           # basic tools
           android-tools
-          yarn
           yt-dlp
 
           # desktop
           cliphist
-          groff # plain text to typeset
           inotify-tools
           libnotify
           libqalculate
@@ -213,12 +208,8 @@ in
           wl-clipboard
           wtype
           xdg-utils
-          xdotool
         ])
         ++ (with pkgs; [
-          # cosmetic
-          cava
-
           # desktop
           alacritty
           discord
