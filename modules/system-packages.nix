@@ -214,8 +214,8 @@ in
           alacritty
           foot
           discord
-          firefox
           gimp3-with-plugins
+          librewolf
           wayle
           (rofi.override { plugins = with pkgs; [ rofi-calc ]; })
           rofi-power-menu
