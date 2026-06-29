@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     kanden-website = {
-      url = "git+https://git.kanden.me/website?ref=v0.2";
+      url = "git+https://git.kanden.me/website";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nh = {
