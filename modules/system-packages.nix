@@ -227,6 +227,8 @@ in
           qimgv
           zen
 
+          chafa
+
           # hardware tools
           easyeffects
           hardinfo2
