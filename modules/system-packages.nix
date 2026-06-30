@@ -200,7 +200,7 @@ in
           libqalculate
           libreoffice-fresh
           mpv
-          nautilus
+          thunar
           pinta
           translate-shell
           tesseract
@@ -279,19 +279,6 @@ in
           6001
         ];
       };
-
-      # nautilus plugins
-      environment.sessionVariables.GST_PLUGIN_SYSTEM_PATH_1_0 =
-        lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
-          (
-            with pkgs.gst_all_1;
-            [
-              gst-plugins-good
-              gst-plugins-bad
-              gst-plugins-ugly
-              gst-libav
-            ]
-          );
 
       # makes terminal apps work when opened as xdg default (eg neovim)
       xdg.terminal-exec = {

@@ -1,8 +1,8 @@
 -- GLOBAL VARIABLES
 terminal = "foot"
 terminal_class = "foot"
-file_manager = "nautilus"
-file_manager_class = "org.gnome.Nautilus"
+file_manager = "thunar"
+file_manager_class = "thunar"
 browser = "zen-beta"
 browser_class = "zen-beta"
 discord = "discord"
