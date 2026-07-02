@@ -34,6 +34,7 @@ function fish_prompt
         set -l u_a 0
         set -l u_m 0
         set -l u_d 0
+        set -l untracked 0 # untracked is "?" in both columns
 
         for line in (git status --porcelain 2>/dev/null)
             set -l col1 (string sub -l 1 $line)
@@ -46,6 +47,8 @@ function fish_prompt
                 set s_m (math $s_m + 1)
             else if test "$col1" = D
                 set s_d (math $s_d + 1)
+            else if test "$col1" = "?"
+                set untracked (math $untracked + 1)
             end
 
             # unstaged
@@ -81,6 +84,7 @@ function fish_prompt
             test $u_a -gt 0 && echo -n "+$u_a"
             test $u_m -gt 0 && echo -n "~$u_m"
             test $u_d -gt 0 && echo -n "-$u_d"
+            test $untracked -gt 0 && echo -n "?$untracked"
         end
     end
 
