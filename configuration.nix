@@ -117,7 +117,13 @@
   services.resolved.enable = true;
   services.netbird.enable = true;
   networking.firewall.trustedInterfaces = [ "wt0" ];
-  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    settings = {
+      default-cache-ttl = 86400;
+      max-cache-ttl = 86400;
+    };
+  };
 
   security = {
     polkit = {
