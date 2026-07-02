@@ -1,4 +1,3 @@
-oh-my-posh init fish --config ~/.config/oh-my-posh/config.toml | source
 set fish_greeting
 
 function replace-command
@@ -51,6 +50,7 @@ function nix
 end
 
 source ~/.config/fish/theme.fish
+source ~/.config/fish/prompt.fish
 
 # do a fortune-cowsay only in top level shell (no output in tmux shells)
 if not set -q COWSAY_OUT

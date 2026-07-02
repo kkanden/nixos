@@ -16,7 +16,7 @@
     dotfiles = {
       "fish/config.fish" = "fish/config.fish";
       "fish/theme.fish" = "fish/vague.fish";
-      "oh-my-posh/config.toml" = "oh-my-posh/omp-vague.toml";
+      "fish/prompt.fish" = "fish/prompt.fish";
       alacritty = "alacritty";
       bat = "bat";
       clangd = "clangd";

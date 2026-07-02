@@ -59,7 +59,6 @@ in
           cowsay
           fortune
           lolcat
-          oh-my-posh
 
           # desktop
         ])
