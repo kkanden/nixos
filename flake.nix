@@ -28,10 +28,6 @@
       url = "git+https://git.kanden.me/website";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nh = {
-      url = "github:nix-community/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
