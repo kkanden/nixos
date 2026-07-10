@@ -199,7 +199,6 @@ in
           libqalculate
           libreoffice-fresh
           mpv
-          thunar
           pinta
           translate-shell
           tesseract
@@ -240,6 +239,7 @@ in
           gparted
         ]);
 
+      programs.thunar.enable = true;
       programs.thunderbird.enable = true;
       programs.kdeconnect.enable = true;
       programs.obs-studio = {
