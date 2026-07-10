@@ -15,6 +15,7 @@
       enable = true;
       extraPackages = with pkgs; [ bluetui ];
     };
+    steam.enable = true;
     hyprland = {
       enable = true;
       extraConfig = /* lua */ ''
